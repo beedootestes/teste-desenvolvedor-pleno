@@ -1,0 +1,9 @@
+{
+  "name": "teste-desenvolvedor-pleno",
+  "version": "1.0.0",
+  "description": "\"Projeto com NodeJS + Typescript\"",
+  "main": "index.js",
+  "repository": "https://github.com/LeoReisMelo/teste-desenvolvedor-pleno.git",
+  "author": "Leonardo Reis",
+  "license": "MIT"
+}
