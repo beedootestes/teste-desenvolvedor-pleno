@@ -1,7 +1,9 @@
+//All dependency imports
 import express from 'express';
 import cors from 'cors';
 import routes from '../routes/routes';
 
+//Creating the server
 export default async function createServer(){
 
 const app = express();
