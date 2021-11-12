@@ -17,7 +17,7 @@ execute yarn ou npm install para instalar todas as dependências
 Para executar as migrations, siga estas etapas:
 
 ```
-execute yarn migrate
+execute yarn migrate ou npm run migrate
 ```
 
 ## ☕ Usando backend
