@@ -1,0 +1,33 @@
+//Setting client
+generator client {
+  provider = "prisma-client-js"
+}
+//Setting database
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+//Creating models
+model Questions {
+  id String @id @default(uuid())
+  question String @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+   @@map("questions")
+
+   answers Answers[]
+}
+
+model Answers {
+  id String @id @default(uuid())
+  answer String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  question_id String
+  question Questions @relation(fields: [question_id], references: [id])
+
+   @@map("answers")
+}
