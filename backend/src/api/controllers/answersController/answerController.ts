@@ -28,13 +28,14 @@ export async function createAnswerController(request: Request, response: Respons
 
 //Question List Controller
 export async function listAnswersController(request: Request, response: Response) {
-    const { question_id } = request.params;
+    const { question_id } = request.query;
+    const convertedId = String(question_id);
 
     if (!question_id) {
-        return response.status(400).json({message: "MissingDataException"});
+       return response.status(400).json({message: "MissingDataException"});
     }
 
-    const repositorie = await listAnswers(question_id);
+    const repositorie = await listAnswers(convertedId);
 
     return response.json(repositorie);
 }

@@ -22,14 +22,14 @@ export async function createQuestionController(request: Request, response: Respo
 }
 
 //Question List Controller
-export async function listQuestionsController(response: Response) {
+export async function listQuestionsController(request: Request, response: Response) {
     const repositorie = await listQuestions();
 
     return response.json(repositorie);
 }
 
 //Questions Answers List Controller
-export async function listQuestionsAnswersController(response: Response) {
+export async function listQuestionsAnswersController(request: Request, response: Response) {
     const repositorie = await listQuestionsAnswers();
 
     return response.json(repositorie);
@@ -63,7 +63,11 @@ export async function deleteQuestionController(request: Request, response: Respo
         return response.status(400).json({ message: "MissingDataException" });
     }
 
-    await deleteQuestion(convertedId);
+    const result = await deleteQuestion(convertedId);
+
+    if (result) {
+        return response.status(500).json({message: result})
+    }
 
     return response.json({message: "Question successfully deleted"});
 }

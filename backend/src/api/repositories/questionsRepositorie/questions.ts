@@ -43,16 +43,35 @@ export async function updateQuestion({ convertedId, question }: Data) {
             id
         },
         data: {
-            question
+            question,
+            updated_at: new Date(),
         }
     });
 }
 
 //Question Delete Repository
 export async function deleteQuestion(id: string) {
-    return await prismaClient.questions.delete({
+    const question = await prismaClient.questions.findUnique({
+        where: {
+            id
+        },
+        include: {
+            answers: true
+        }
+    });
+
+    if (!question) {
+        return 'Question not found'
+    }
+
+    if (question?.answers.length > 0) {
+        return 'Question cannot be deleted as it has answers';
+    }
+
+    await prismaClient.questions.delete({
         where: {
             id
         }
     });
+
 }

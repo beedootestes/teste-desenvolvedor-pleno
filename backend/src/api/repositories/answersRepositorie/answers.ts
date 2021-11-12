@@ -1,3 +1,4 @@
+
 //All dependency imports
 import prismaClient from "../../services/prisma";
 
@@ -36,7 +37,8 @@ export async function updateAnswer({ convertedId, answer }: Data) {
             id
         },
         data: {
-            answer
+            answer,
+            updated_at: new Date(),
         }
     });
 }
