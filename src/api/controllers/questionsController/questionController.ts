@@ -5,25 +5,35 @@ import {
     deleteQuestion,
     listQuestions,
     listQuestionsAnswers,
-    updateQuestion } from '../../repositories/questionsRepositorie/questions';
+    updateQuestion
+} from '../../repositories/questionsRepositorie/questions';
 
 //Question Create Controller
 export async function createQuestionController(request: Request, response: Response) {
-    const { question } = request.body;
-    const repositorie = await createQuestion(question);
+    try {
+        const { question } = request.body;
 
-    return response.json(repositorie);
+        if (!question) {
+            return response.status(404).json({message: "MissingDataException"});
+        }
+
+        const repositorie = await createQuestion(question);
+
+        return response.json(repositorie);
+    }catch(err){
+        return response.status(400).json({ message: "CreateQuestionException" });
+    }
 }
 
 //Question List Controller
-export async function listQuestionsController(request: Request, response: Response) {
+export async function listQuestionsController(response: Response) {
     const repositorie = await listQuestions();
 
     return response.json(repositorie);
 }
 
 //Questions Answers List Controller
-export async function listQuestionsAnswersController(request: Request, response: Response) {
+export async function listQuestionsAnswersController(response: Response) {
     const repositorie = await listQuestionsAnswers();
 
     return response.json(repositorie);
@@ -47,6 +57,10 @@ export async function updateQuestionController(request: Request, response: Respo
 export async function deleteQuestionController(request: Request, response: Response) {
     const { id } = request.query;
     const convertedId = String(id);
+
+    if (!id) {
+        return response.status(400).json({ message: "MissingDataException" });
+    }
 
     await deleteQuestion(convertedId);
 
