@@ -11,6 +11,11 @@ import {
 export async function createAnswerController(request: Request, response: Response) {
     const { question_id } = request.query;
     const { answer } = request.body;
+
+    if (!question_id || !answer) {
+        return response.status(400).json({message: "MissingDataException"});
+    }
+
     const convertedId = String(question_id);
     const data = {
         answer,
@@ -24,6 +29,11 @@ export async function createAnswerController(request: Request, response: Respons
 //Question List Controller
 export async function listAnswersController(request: Request, response: Response) {
     const { question_id } = request.params;
+
+    if (!question_id) {
+        return response.status(400).json({message: "MissingDataException"});
+    }
+
     const repositorie = await listAnswers(question_id);
 
     return response.json(repositorie);
@@ -33,6 +43,11 @@ export async function listAnswersController(request: Request, response: Response
 export async function updateAnswerController(request: Request, response: Response) {
     const { id } = request.query;
     const { answer } = request.body;
+
+    if (!id || !answer) {
+        return response.status(400).json({message: "MissingDataException"});
+    }
+
     const convertedId = String(id);
     const data = {
         convertedId,
@@ -46,6 +61,11 @@ export async function updateAnswerController(request: Request, response: Respons
 //Question Delete Controller
 export async function deleteAnswerController(request: Request, response: Response) {
     const { id } = request.query;
+
+    if (!id) {
+        return response.status(400).json({message: "MissingDataException"});
+    }
+
     const convertedId = String(id);
 
     await deleteAnswer(convertedId);

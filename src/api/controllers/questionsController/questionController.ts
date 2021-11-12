@@ -10,19 +10,15 @@ import {
 
 //Question Create Controller
 export async function createQuestionController(request: Request, response: Response) {
-    try {
-        const { question } = request.body;
+    const { question } = request.body;
 
-        if (!question) {
-            return response.status(404).json({message: "MissingDataException"});
-        }
-
-        const repositorie = await createQuestion(question);
-
-        return response.json(repositorie);
-    }catch(err){
-        return response.status(400).json({ message: "CreateQuestionException" });
+    if (!question) {
+        return response.status(400).json({message: "MissingDataException"});
     }
+
+    const repositorie = await createQuestion(question);
+
+    return response.json(repositorie);
 }
 
 //Question List Controller
@@ -43,6 +39,11 @@ export async function listQuestionsAnswersController(response: Response) {
 export async function updateQuestionController(request: Request, response: Response) {
     const { id } = request.query;
     const { question } = request.body;
+
+    if (!id || !question) {
+        return response.status(400).json({message: "MissingDataException"});
+    }
+
     const convertedId = String(id);
     const data = {
         convertedId,
