@@ -21,9 +21,23 @@ export async function listQuestions() {
     return await prismaClient.questions.findMany();
 }
 
+//Question List Repository
+export async function listQuestionsAnswers() {
+    return await prismaClient.questions.findMany({
+        orderBy: {
+            created_at: 'desc'
+        },
+        include: {
+            answers: true
+        }
+    });
+}
+
+
 //Question Update Repository
 export async function updateQuestion({ convertedId, question }: Data) {
     const id = convertedId;
+
     return await prismaClient.questions.update({
         where: {
             id

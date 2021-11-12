@@ -4,6 +4,7 @@ import {
     createQuestion,
     deleteQuestion,
     listQuestions,
+    listQuestionsAnswers,
     updateQuestion } from '../../repositories/questionsRepositorie/questions';
 
 //Question Create Controller
@@ -17,6 +18,13 @@ export async function createQuestionController(request: Request, response: Respo
 //Question List Controller
 export async function listQuestionsController(request: Request, response: Response) {
     const repositorie = await listQuestions();
+
+    return response.json(repositorie);
+}
+
+//Questions Answers List Controller
+export async function listQuestionsAnswersController(request: Request, response: Response) {
+    const repositorie = await listQuestionsAnswers();
 
     return response.json(repositorie);
 }
