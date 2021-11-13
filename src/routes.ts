@@ -1,4 +1,5 @@
 import { Router } from "express";
+import questionRoutes from "./routes/question.routes";
 
 const router = Router();
 
@@ -12,5 +13,7 @@ router.get("/", (request, response) => {
     Author: "Luís Afonso Caputo from Angola",
   });
 });
+
+router.use(questionRoutes);
 
 export default router;
