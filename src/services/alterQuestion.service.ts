@@ -20,7 +20,7 @@ export default class AlterQuestionService {
         return "This Question Not Exists.";
       }
       if (!question) {
-        const alterQuestionDescription = await questionRepository
+        await questionRepository
           .createQueryBuilder()
           .update(Questions)
           .set({ description: "" + description })
@@ -29,7 +29,7 @@ export default class AlterQuestionService {
         return "Description Altered.";
       } else {
         if (!description) {
-          const alterQuestion = await questionRepository
+          await questionRepository
             .createQueryBuilder()
             .update(Questions)
             .set({ question })
@@ -37,7 +37,7 @@ export default class AlterQuestionService {
             .execute();
           return "Question altered.";
         } else {
-          const alterQuestionDatas = await questionRepository
+          await questionRepository
             .createQueryBuilder()
             .update(Questions)
             .set({ question, description })
