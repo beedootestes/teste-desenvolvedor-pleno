@@ -1,12 +1,9 @@
-import { Account } from "../models/Account";
+import { Questions } from "@models/Questions";
 
-export interface IAccount {
-  id?: Account;
-  nome?: Account;
-  cpf?: Account;
-  phone?: Account;
-  adress?: Account;
-  status?: Account;
-  created_at?: Account;
-  disabled_at?: Account;
+export interface IQuestion {
+  id?: Questions;
+  question?: Questions;
+  description?: Questions;
+  created_at?: Questions;
+  disabled_at?: Questions;
 }
