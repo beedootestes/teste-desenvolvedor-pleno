@@ -1,0 +1,9 @@
+{
+  "name": "teste-desenvolvedor-pleno",
+  "version": "1.0.0",
+  "description": "Challenge Beedoo for Dev BackEnd Pleno",
+  "main": "index.js",
+  "repository": "git@github.com:beedootestes/teste-desenvolvedor-pleno.git",
+  "author": "<luiscaputo15@gmail.com>",
+  "license": "MIT"
+}
