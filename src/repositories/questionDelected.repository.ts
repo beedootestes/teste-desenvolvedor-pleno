@@ -1,4 +1,4 @@
-import { QuestionsDelected } from "@models/QuestionsDelected";
+import { QuestionsDelected } from "../models/QuestionsDelected";
 import { Repository, EntityRepository } from "typeorm";
 
 @EntityRepository(QuestionsDelected)

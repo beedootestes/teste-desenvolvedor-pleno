@@ -18,20 +18,23 @@ export default class CreateQuestionService {
         where: { question },
       });
       if (alreadyExistsQuestion) {
-        return "This Question Already Exists in this Database!";
-      }
-      const createQuestion = await questionRepository
-        .createQueryBuilder()
-        .insert()
-        .into(Questions)
-        .values({
-          question,
-          description: "" + description,
-          status: "Active",
-        })
-        .execute();
-      if (createQuestion) {
-        return "Question Created With Sucess!";
+        const { status } = alreadyExistsQuestion;
+        if (status != "delected") {
+          return "This Question Already Exists in this Database!";
+        }
+        const createQuestion = await questionRepository
+          .createQueryBuilder()
+          .insert()
+          .into(Questions)
+          .values({
+            question,
+            description: "" + description,
+            status: "Active",
+          })
+          .execute();
+        if (createQuestion) {
+          return "Question Created With Sucess!";
+        }
       }
     } catch (err) {
       return err.message;
