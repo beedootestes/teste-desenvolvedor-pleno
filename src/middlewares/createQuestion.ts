@@ -3,7 +3,7 @@ import { showError } from ".";
 import { AppResponse } from "../@types";
 import { Questions } from "@models/Questions";
 import { NextFunction, Request, Response } from "express";
-import { ICreateQuestion } from "@services/createQuestion.service";
+import { ICreateQuestion } from "@services/questionsServices/createQuestion.service";
 
 export const createQuestion = async (
   req: Request<ICreateQuestion>,

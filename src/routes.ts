@@ -1,5 +1,6 @@
 import { Router } from "express";
 import questionRoutes from "./routes/question.routes";
+import answersRoutes from "./routes/answers.routes";
 
 const router = Router();
 
@@ -15,5 +16,6 @@ router.get("/", (request, response) => {
 });
 
 router.use(questionRoutes);
+router.use(answersRoutes);
 
 export default router;
