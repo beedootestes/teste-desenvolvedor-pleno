@@ -1,5 +1,5 @@
-import { Questions } from "../models/Questions";
-import QuestionsRepository from "../repositories/question.repository";
+import { Questions } from "../../models/Questions";
+import QuestionsRepository from "../../repositories/question.repository";
 import { getCustomRepository } from "typeorm";
 
 export interface IAlterQuestion {

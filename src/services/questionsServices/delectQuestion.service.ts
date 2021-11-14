@@ -1,8 +1,6 @@
-import QuestionsRepository from "../repositories/question.repository";
+import QuestionsRepository from "../../repositories/question.repository";
 import { getCustomRepository } from "typeorm";
-import { QuestionsDelected } from "../models/QuestionsDelected";
-import QuestionsDelectedRepository from "../repositories/questionDelected.repository";
-import { Questions } from "../models/Questions";
+import QuestionsDelectedRepository from "../../repositories/questionDelected.repository";
 
 export interface IDelectQuestion {
   idQuestion: number;

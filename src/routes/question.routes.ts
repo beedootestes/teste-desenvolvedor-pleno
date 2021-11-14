@@ -1,10 +1,10 @@
-import CreateQuestionController from "../controllers/createQuestion.controller";
+import CreateQuestionController from "../controllers/questionsControllers/createQuestion.controller";
 import { createQuestion } from "../middlewares/createQuestion";
 import { Router } from "express";
-import ListQuestionsController from "../controllers/listQuestions.controller";
-import AlterQuestionController from "../controllers/alterQuestion.controller";
-import DelectQuestionController from "../controllers/delectQuestion.controller";
-import ListQuestionsDelectedController from "../controllers/questionsDelected.controller";
+import ListQuestionsController from "../controllers/questionsControllers/listQuestions.controller";
+import AlterQuestionController from "../controllers/questionsControllers/alterQuestion.controller";
+import DelectQuestionController from "../controllers/questionsControllers/delectQuestion.controller";
+import ListQuestionsDelectedController from "../controllers/questionsControllers/questionsDelected.controller";
 
 const routes = Router();
 

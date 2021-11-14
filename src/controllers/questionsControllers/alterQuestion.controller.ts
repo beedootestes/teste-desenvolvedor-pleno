@@ -1,9 +1,9 @@
-import { AppResponse } from "../@types";
+import { AppResponse } from "../../@types";
 import { Request, Response } from "express";
-import { Questions } from "../models/Questions";
+import { Questions } from "../../models/Questions";
 import AlterQuestionService, {
   IAlterQuestion,
-} from "../services/alterQuestion.service";
+} from "../../services/questionsServices/alterQuestion.service";
 
 export default class AlterQuestionController {
   async handle(

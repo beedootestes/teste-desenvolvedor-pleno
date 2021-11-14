@@ -1,8 +1,8 @@
-import { AppResponse } from "../@types";
+import { AppResponse } from "../../@types";
 import { Request, Response } from "express";
 import DelectQuestionService, {
   IDelectQuestion,
-} from "../services/delectQuestion.service";
+} from "../../services/questionsServices/delectQuestion.service";
 
 export default class DelectQuestionController {
   async handle(

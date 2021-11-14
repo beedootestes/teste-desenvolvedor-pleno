@@ -1,8 +1,8 @@
-import { AppResponse } from "../@types";
+import { AppResponse } from "../../@types";
 import { Request, Response } from "express";
-import { Questions } from "../models/Questions";
-import { ICreateQuestion } from "../services/createQuestion.service";
-import CreateQuestionService from "../services/createQuestion.service";
+import { Questions } from "../../models/Questions";
+import { ICreateQuestion } from "../../services/questionsServices/createQuestion.service";
+import CreateQuestionService from "../../services/questionsServices/createQuestion.service";
 
 export default class CreateQuestionController {
   async handle(
