@@ -5,6 +5,7 @@ import CreateAnswersController from "../controllers/answersControllers/createAns
 import ListAnswersToQuestionController from "../controllers/answersControllers/listAnswersToQuestion.controller";
 import AlterAnswerOptionToQuestionController from "../controllers/answersControllers/alterAnswerOptionToQuestion.controller";
 import DelectAnswerToQuestionController from "../controllers/answersControllers/delectAnswerQuestion.controller";
+import ListAllQuestionsWithAnswerOptionController from "../controllers/answersControllers/listAllQuestionsWithAnswerOption.controller";
 
 const routes = Router();
 
@@ -13,6 +14,8 @@ const listAnswersToQuestionController = new ListAnswersToQuestionController();
 const alterAnswerToQuestionController =
   new AlterAnswerOptionToQuestionController();
 const delectAnswerToQuestionController = new DelectAnswerToQuestionController();
+const listAllQuestionWithAnswersController =
+  new ListAllQuestionsWithAnswerOptionController();
 
 routes.post("/answers/create", createAnswers, createAnswersControllers.handle);
 routes.get(
@@ -25,5 +28,6 @@ routes.delete(
   delectAnswerOption,
   delectAnswerToQuestionController.hanle
 );
+routes.get("/answers/listAll", listAllQuestionWithAnswersController.handle);
 
 export default routes;
