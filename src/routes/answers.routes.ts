@@ -3,6 +3,7 @@ import { createAnswers } from "../middlewares/createAnswers";
 import CreateAnswersController from "../controllers/answersControllers/createAnswers.controller";
 import ListAnswersToQuestionController from "../controllers/answersControllers/listAnswersToQuestion.controller";
 import AlterAnswerOptionToQuestionController from "../controllers/answersControllers/alterAnswerOptionToQuestion.controller";
+import DelectAnswerToQuestionController from "../controllers/answersControllers/delectAnswerQuestion.controller";
 
 const routes = Router();
 
@@ -10,6 +11,7 @@ const createAnswersControllers = new CreateAnswersController();
 const listAnswersToQuestionController = new ListAnswersToQuestionController();
 const alterAnswerToQuestionController =
   new AlterAnswerOptionToQuestionController();
+const delectAnswerToQuestionController = new DelectAnswerToQuestionController();
 
 routes.post("/answers/create", createAnswers, createAnswersControllers.handle);
 routes.get(
@@ -17,5 +19,9 @@ routes.get(
   listAnswersToQuestionController.handle
 );
 routes.put("/answers/alter", alterAnswerToQuestionController.handle);
+routes.delete(
+  "/answers/delectOptionAnswerToQestion",
+  delectAnswerToQuestionController.hanle
+);
 
 export default routes;
