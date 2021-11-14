@@ -1,52 +1,36 @@
-## Sobre o Beedoo
+# BeedooChallenge
 
-Construímos uma plataforma para tornar a comunicação e a capacitação de equipes de atendimento mais ágil, produtiva e eficiente. Acreditamos que quando você combina um propósito poderoso com grandes pessoas que são as melhores no que fazem, você obtém uma cultura diferente de qualquer outra. Para um novo mundo de trabalho, o Beedoo oferece uma nova maneira de aprender com conceitos de Social e Micro Learning, Gamification , Gestão analítica, base de conhecimento cognitiva e inteligência artificial.
+### **Documentação da API**:
 
-## Sobre um Abeedoozido
+_base url_ : `http://localhost:8080/`
 
-Espera-se que como parte de nosso time, você siga as melhores práticas de tecnologia, 
-tais como documentação, organização e versionamento de código e análises.
-Estamos à procura de alguém motivado para ter suas idéias e criações nas mãos dos usuários, que compartilhe nossa empolgação para evoluir positivamente o propósito do Beedoo.
+1. npm install ou yarn para instalar todas depêndencias
+2. Crie um banco de dados beedoo_chalenge em MySQL
+3. Importe e exececute dentro desse Banco de dados O fichiero localizado em `src/dump/beedoo_challenge.sql`
+4. Dentro do directorio `src/insomnia/insomnia.json`
+   Importe esse ficheiro lá no insominia do seu computador
+5. No terminal rode: `yarn dev` ou `npm run dev`
+6. Testar as rotas no insomnia
 
-## Responsabilidade da função
-Você atuará na criação de novas features e manutenção do sistema,
-além de elaborar e manter consultas grandes e complexas para geração de relatórios,
-criar serviços e integrações com APIs, lidar com diferentes padrões de arquitetura para organização de código em linguagens de script e funcional.
-Também vai ajudar na construção do projeto, de fazer bom planejamento do projeto e delegar responsabilidades e conhecimentos para outros membros do time.
+### **Rodando no Docker**
 
-## Local
+Basta abrir o terminal no diretorio do projecto e rodar o seguinte:
 
-Possuimos duas naves onde você pode estar quando quiser. Uma Nave fica localizada na **zona norte de São Paulo**, e outra na cidade de **São José dos Campos**, interior do estado de São Paulo. Porém não se preocupe, nosso time de desenvolvimento atua **100% remotamente**, e **você** pode estar **em qualquer lugar do Brasil**, até mesmo em **outros países**, ou na **beira da praia**.
+1.  `docker-compose build/sudo docker-compose build` - no windows/Linux
+2.  `docker-compose up -d/sudo docker-compose up -d` - Para rodar o container em backGround
+3.  Rode um `docker ps/sudo docker ps` - Para verificar se os containers estão rodando
+4.  sudo docker run **nome da imagem**
+5.  Teste os EndPoints
 
-## Contratação e Benefícios
+## **Tecnologias/Ferramentas usadas**
 
-- Contratação PJ
-- Cartão de benefícios flexíveis.
-- 30 dias de recesso remunerado.
-- Feriados remurenados.
-- Licença maternidade/paternidade extendida.
-- Ciclo de reconhecimento e desenvolvimento.
-
-## Diferênciais
-
-- Cultura de feedback
-- Equipe 100% unida, a gente ta junto na mesma nave.
-- O CTO as vezes paga o lanche da sexta feira.
-- Emendas em feriados nacionais.
-
-## Requisitos
-- Autogestão
-- GIT
-- NodeJS
-- Testes Funcionais automatizados
+- NodeJs
+- TypeScript
 - MySQL
-- Modelagem de dados relacionais
-- Rest APIs
-- Scrum/Kanban
-- Code Review
+- typeorm
+- docker
+- Lint
+- Prettier
+- Insomnia
 
-
-## Como se candidatar
-
-Para se candidatar, basta acessar a url e realizar o teste para a vaga:
-[https://github.com/beedootestes/teste-desenvolvedor-pleno](teste.md)
+_By: luiscaputo_

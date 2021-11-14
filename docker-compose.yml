@@ -15,7 +15,4 @@ services:
     restart: always
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_HOST: localhost
-      MYSQL_DATABASE: beedoo_challenge
-      MYSQL_USER: root
-      MYSQL_PASSWORD:
+      - .env
