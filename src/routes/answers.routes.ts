@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createAnswers } from "../middlewares/createAnswers";
+import { delectAnswerOption } from "../middlewares/delectAnswerOption";
 import CreateAnswersController from "../controllers/answersControllers/createAnswers.controller";
 import ListAnswersToQuestionController from "../controllers/answersControllers/listAnswersToQuestion.controller";
 import AlterAnswerOptionToQuestionController from "../controllers/answersControllers/alterAnswerOptionToQuestion.controller";
@@ -21,6 +22,7 @@ routes.get(
 routes.put("/answers/alter", alterAnswerToQuestionController.handle);
 routes.delete(
   "/answers/delectOptionAnswerToQestion",
+  delectAnswerOption,
   delectAnswerToQuestionController.hanle
 );
 
