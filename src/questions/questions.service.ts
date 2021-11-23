@@ -30,10 +30,10 @@ export class QuestionsService {
   }
 
   async update(id: string, updateQuestionDto: UpdateQuestionDto) {
-    const todo = await this.findOneOrFail(id);
+    const question = await this.findOneOrFail(id);
 
-    this.questionRepository.merge(todo, updateQuestionDto);
-    return await this.questionRepository.save(todo);
+    this.questionRepository.merge(question, updateQuestionDto);
+    return await this.questionRepository.save(question);
   }
 
   async remove(id: string) {

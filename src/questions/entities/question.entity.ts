@@ -27,4 +27,10 @@ export class Question {
 
     this.id = uuidv4();
   }
+
+  constructor(todo?: Partial<Question>) {
+    this.id = todo?.id;
+    this.question = todo?.question;
+    this.created_at = todo?.created_at;
+  }
 }
