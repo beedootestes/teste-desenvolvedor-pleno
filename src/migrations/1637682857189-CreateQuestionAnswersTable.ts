@@ -14,11 +14,6 @@ export class CreateQuestionAnswersTable1637682857189
             isPrimary: true,
           },
           {
-            name: 'order',
-            type: 'integer',
-            isNullable: true,
-          },
-          {
             name: 'answer',
             type: 'text',
           },
