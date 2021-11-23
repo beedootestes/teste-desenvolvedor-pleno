@@ -1,52 +1,73 @@
-## Sobre o Beedoo
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
 
-Construímos uma plataforma para tornar a comunicação e a capacitação de equipes de atendimento mais ágil, produtiva e eficiente. Acreditamos que quando você combina um propósito poderoso com grandes pessoas que são as melhores no que fazem, você obtém uma cultura diferente de qualquer outra. Para um novo mundo de trabalho, o Beedoo oferece uma nova maneira de aprender com conceitos de Social e Micro Learning, Gamification , Gestão analítica, base de conhecimento cognitiva e inteligência artificial.
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-## Sobre um Abeedoozido
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-Espera-se que como parte de nosso time, você siga as melhores práticas de tecnologia, 
-tais como documentação, organização e versionamento de código e análises.
-Estamos à procura de alguém motivado para ter suas idéias e criações nas mãos dos usuários, que compartilhe nossa empolgação para evoluir positivamente o propósito do Beedoo.
+## Description
 
-## Responsabilidade da função
-Você atuará na criação de novas features e manutenção do sistema,
-além de elaborar e manter consultas grandes e complexas para geração de relatórios,
-criar serviços e integrações com APIs, lidar com diferentes padrões de arquitetura para organização de código em linguagens de script e funcional.
-Também vai ajudar na construção do projeto, de fazer bom planejamento do projeto e delegar responsabilidades e conhecimentos para outros membros do time.
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Local
+## Installation
 
-Possuimos duas naves onde você pode estar quando quiser. Uma Nave fica localizada na **zona norte de São Paulo**, e outra na cidade de **São José dos Campos**, interior do estado de São Paulo. Porém não se preocupe, nosso time de desenvolvimento atua **100% remotamente**, e **você** pode estar **em qualquer lugar do Brasil**, até mesmo em **outros países**, ou na **beira da praia**.
+```bash
+$ npm install
+```
 
-## Contratação e Benefícios
+## Running the app
 
-- Contratação PJ
-- Cartão de benefícios flexíveis.
-- 30 dias de recesso remunerado.
-- Feriados remurenados.
-- Licença maternidade/paternidade extendida.
-- Ciclo de reconhecimento e desenvolvimento.
+```bash
+# development
+$ npm run start
 
-## Diferênciais
+# watch mode
+$ npm run start:dev
 
-- Cultura de feedback
-- Equipe 100% unida, a gente ta junto na mesma nave.
-- O CTO as vezes paga o lanche da sexta feira.
-- Emendas em feriados nacionais.
+# production mode
+$ npm run start:prod
+```
 
-## Requisitos
-- Autogestão
-- GIT
-- NodeJS
-- Testes Funcionais automatizados
-- MySQL
-- Modelagem de dados relacionais
-- Rest APIs
-- Scrum/Kanban
-- Code Review
+## Test
 
+```bash
+# unit tests
+$ npm run test
 
-## Como se candidatar
+# e2e tests
+$ npm run test:e2e
 
-Para se candidatar, basta acessar a url e realizar o teste para a vaga:
-[https://github.com/beedootestes/teste-desenvolvedor-pleno](teste.md)
+# test coverage
+$ npm run test:cov
+```
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+Nest is [MIT licensed](LICENSE).
