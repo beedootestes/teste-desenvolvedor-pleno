@@ -21,6 +21,12 @@ export class QuestionsService {
     return this.questionRepository.find();
   }
 
+  findWithAnswers() {
+    return this.questionRepository.find({
+      relations: ['answers'],
+    });
+  }
+
   async findOneOrFail(id: string) {
     try {
       return await this.questionRepository.findOneOrFail(id);

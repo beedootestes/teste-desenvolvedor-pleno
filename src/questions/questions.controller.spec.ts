@@ -4,11 +4,23 @@ import { QuestionsService } from './questions.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { Question } from './entities/question.entity';
+import { QuestionAnswer } from './entities/question-answer.entity';
 
 const questionList: Question[] = [
   new Question({ id: '1', question: 'question-1' }),
   new Question({ id: '2', question: 'question-2' }),
   new Question({ id: '3', question: 'question-3' }),
+];
+const questionWithAnswersList: Question[] = [
+  new Question({
+    id: '1',
+    question: 'question-1',
+    answers: [
+      new QuestionAnswer({ id: '1', answer: 'answer-1', question_id: '1' }),
+      new QuestionAnswer({ id: '2', answer: 'answer-2', question_id: '1' }),
+      new QuestionAnswer({ id: '3', answer: 'answer-3', question_id: '1' }),
+    ],
+  }),
 ];
 
 const newQuestion = new Question({ question: 'new-question' });
@@ -27,6 +39,9 @@ describe('QuestionsController', () => {
           provide: QuestionsService,
           useValue: {
             findAll: jest.fn().mockResolvedValue(questionList),
+            findWithAnswers: jest
+              .fn()
+              .mockResolvedValue(questionWithAnswersList),
             create: jest.fn().mockResolvedValue(newQuestion),
             findOneOrFail: jest.fn().mockResolvedValue(questionList[0]),
             update: jest.fn().mockResolvedValue(updatedQuestion),
@@ -47,7 +62,7 @@ describe('QuestionsController', () => {
 
   describe('index', () => {
     it('should return a questions list successfully', async () => {
-      const result = await questionsController.findAll();
+      const result = await questionsController.index();
 
       expect(result).toEqual(questionList);
       expect(typeof result).toEqual('object');
@@ -57,6 +72,23 @@ describe('QuestionsController', () => {
     it('should throw an exception', () => {
       jest
         .spyOn(questionsService, 'findAll')
+        .mockRejectedValueOnce(new Error());
+      expect(questionsController.index()).rejects.toThrowError();
+    });
+  });
+
+  describe('findAll', () => {
+    it('should return a questions list qith answers successfully', async () => {
+      const result = await questionsController.findAll();
+
+      expect(result).toEqual(questionWithAnswersList);
+      expect(typeof result).toEqual('object');
+      expect(questionsService.findWithAnswers).toHaveBeenCalledTimes(1);
+    });
+
+    it('should throw an exception', () => {
+      jest
+        .spyOn(questionsService, 'findWithAnswers')
         .mockRejectedValueOnce(new Error());
       expect(questionsController.findAll()).rejects.toThrowError();
     });

@@ -6,7 +6,7 @@ module.exports = {
   password: 'docker',
   database: 'teste_beedoo',
   logging: true,
-  // entities: ['dist/**/*.entity.js'],
+  entities: ['dist/**/*.entity.js'],
   migrations: ['dist/migrations/*.js'],
   cli: {
     migrationsDir: 'src/migrations',

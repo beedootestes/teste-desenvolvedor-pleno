@@ -18,14 +18,19 @@ import { UpdateQuestionDto } from './dto/update-question.dto';
 export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
 
+  @Get()
+  index() {
+    return this.questionsService.findAll();
+  }
+  
   @Post()
   create(@Body() createQuestionDto: CreateQuestionDto) {
     return this.questionsService.create(createQuestionDto);
   }
-
-  @Get()
+  
+  @Get('/answers')
   findAll() {
-    return this.questionsService.findAll();
+    return this.questionsService.findWithAnswers();
   }
 
   @Get(':id')
