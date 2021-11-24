@@ -4,27 +4,30 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { QuestionAnswer } from './question-answer.entity';
 
 import { v4 as uuidv4 } from 'uuid';
+import { Question } from './question.entity';
 
-@Entity('questions')
-export class Question {
+@Entity('question_answers')
+export class QuestionAnswer {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  question: string;
+  answer: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;
 
-  @OneToMany(() => QuestionAnswer, (answer) => answer.question)
+  @Column()
+  question_id: string;
+
+  @ManyToOne(() => Question, (question) => question.answers)
   @JoinColumn({ name: 'question_id' })
-  answers: QuestionAnswer[];
+  question: Question;
 
   @BeforeInsert()
   generatedId() {
@@ -35,9 +38,10 @@ export class Question {
     this.id = uuidv4();
   }
 
-  constructor(todo?: Partial<Question>) {
+  constructor(todo?: Partial<QuestionAnswer>) {
     this.id = todo?.id;
-    this.question = todo?.question;
+    this.answer = todo?.answer;
+    this.question_id = todo?.question_id;
     this.created_at = todo?.created_at;
   }
 }
