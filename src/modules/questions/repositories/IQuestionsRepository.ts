@@ -8,6 +8,8 @@ interface IQuestionsRepository{
     findByTitle(title: string): Promise<Question | undefined >;
     findById(id: string): Promise<Question | undefined>;
     find(): Promise<Question[] | undefined>;
+    save(question: Question): Promise<Question>;
+
 
 }
 

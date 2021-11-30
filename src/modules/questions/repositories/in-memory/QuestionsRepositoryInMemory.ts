@@ -33,9 +33,9 @@ class QuestionsRepositoryInMemory implements IQuestionsRepository {
         
     };
 
-    async findById(title: string): Promise<Question | undefined> {
+    async findById(id: string): Promise<Question | undefined> {
         
-        const question = this.questions.find((question) => question.title === title);
+        const question = this.questions.find((question) => question.id === id);
         
         return question;
         
