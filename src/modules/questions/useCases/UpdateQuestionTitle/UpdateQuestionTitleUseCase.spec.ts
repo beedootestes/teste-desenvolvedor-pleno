@@ -31,7 +31,7 @@ describe('Update Question', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('should not be able to update question whith a email from another', async () => {
+  it('should not be able to update question whith a title from another', async () => {
     
     const question = await questionsRepositoryInMemory.create({ title: 'Question Test' });
 
