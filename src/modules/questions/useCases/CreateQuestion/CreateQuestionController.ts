@@ -10,7 +10,7 @@ class CreateQuestionController {
 
         const createQuestionUseCase = container.resolve(CreateQuestionUseCase);
         
-        const user = await createQuestionUseCase.execute({ title });
+        await createQuestionUseCase.execute({ title });
 
         return response.status(201).json();
     }

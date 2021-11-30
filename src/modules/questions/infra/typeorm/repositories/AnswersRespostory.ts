@@ -26,8 +26,8 @@ class AnswersRepository implements IAnswersRepository {
         return answer;
     }
 
-    public async findResgistredAnswerByQuestionId(title: string, user_id: string): Promise<Answer | undefined> {
-        const answer = await this.ormRepository.findOne({ where: { title, user_id } });
+    public async findResgistredAnswerByQuestionId(title: string, question_id: string): Promise<Answer | undefined> {
+        const answer = await this.ormRepository.findOne({ where: { title, question_id } });
 
         return answer;
     }
