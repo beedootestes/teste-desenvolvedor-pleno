@@ -9,6 +9,7 @@ interface IQuestionsRepository{
     findById(id: string): Promise<Question | undefined>;
     find(): Promise<Question[] | undefined>;
     save(question: Question): Promise<Question>;
+    delete(id: string): Promise<void>;
 
 
 }

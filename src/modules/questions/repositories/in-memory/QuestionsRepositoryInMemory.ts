@@ -41,6 +41,12 @@ class QuestionsRepositoryInMemory implements IQuestionsRepository {
         
     };
     
+    public async delete(id: string): Promise<any> {
+        this.questions = this.questions.filter(question => question.id !== id);
+    
+        return this.questions;
+      }
+    
     public async save(question: Question): Promise<Question> {
         const findIndex = this.questions.findIndex(findQuestion => findQuestion.id === question.id);
     
@@ -49,6 +55,9 @@ class QuestionsRepositoryInMemory implements IQuestionsRepository {
         return question;
       }
     };
+
+    
+    
     
     export { QuestionsRepositoryInMemory };
     
