@@ -1,4 +1,5 @@
 import { QuestionsRepositoryInMemory } from "@modules/questions/repositories/in-memory/QuestionsRepositoryInMemory";
+import { AppError } from "@shared/infra/http/errors/AppError";
 import { DeleteQuestionUseCase } from "./DeleteQuestionUseCase";
 
 
@@ -26,6 +27,15 @@ describe('DeleteQuestions', () => {
     expect(questionsList).toEqual([questionTest2]);
     expect(questionsList).toHaveLength(1);
 
+  });
+
+  it('should not be able to delete a inexistent question', async () => {
+    expect(async () => {
+        await deleteQuestion.execute({
+            id: 'dasdasdsadas'
+
+        });
+    }).rejects.toBeInstanceOf(AppError);
 
   });
 

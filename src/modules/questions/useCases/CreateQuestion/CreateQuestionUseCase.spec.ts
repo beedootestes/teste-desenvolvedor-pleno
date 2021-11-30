@@ -25,8 +25,6 @@ describe("Create Question ", () => {
             question.title
            );
 
-        console.log(question);
-
         expect(questionCreated).toHaveProperty("id");
 
     });
