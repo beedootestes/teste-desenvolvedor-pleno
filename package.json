@@ -6,11 +6,17 @@
   "author": "KevenJunco <49709096+KevenJunco@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect  --transpile-only --ignore-watch node_modules --respawn --poll src/server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect  --transpile-only --ignore-watch node_modules --respawn --poll src/shared/infra/http/server.ts",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli"
   },
   "dependencies": {
     "eslint": "7.26.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "pg": "^8.7.1",
+    "tsyringe": "^4.6.0",
+    "typeorm": "^0.2.41",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
