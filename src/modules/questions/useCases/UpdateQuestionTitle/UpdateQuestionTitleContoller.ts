@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 import UpdateQuestionTitleUseCase from "./UpdateQuestionTitleUseCase";
 
 
-class ListAvailableCarsController {
+class UpdateQuestionTitleController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { id } = request.params;
         const { title } = request.body;
@@ -20,4 +20,4 @@ class ListAvailableCarsController {
     }
 }
 
-export { ListAvailableCarsController };
+export { UpdateQuestionTitleController };
