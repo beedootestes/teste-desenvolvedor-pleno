@@ -3,40 +3,41 @@ import { IAnswersRepository } from "@modules/questions/repositories/IAnswersRepo
 import { IQuestionsRepository } from "@modules/questions/repositories/IQuestionsRepository";
 import { inject, injectable } from "tsyringe";
 
-
-
 @injectable()
 class ListQuestionsUseCase {
-  constructor(
-    @inject("QuestionsRepository")
-    private questionsRepository: IQuestionsRepository,
+    constructor(
+        @inject("QuestionsRepository")
+        private questionsRepository: IQuestionsRepository,
 
-    @inject("AnswersRepository")
-    private answersRepository: IAnswersRepository
-  ) {}
+        @inject("AnswersRepository")
+        private answersRepository: IAnswersRepository
+    ) { }
 
-  async execute(): Promise<Question[] | any> {
-      
-      const listQuestions = await this.questionsRepository.find();
-    
-    const questions = listQuestions.map(async questionList => {
+    async execute(): Promise<Question[] | any> {
+        const questions = [];
 
-        const {id} = questionList;
+        const listQuestions = await this.questionsRepository.find();
 
-        const answers = await this.answersRepository.findByQuestionId(id)
+        console.clear();
 
-        const questionListWithAnswers = {
-            question, 
-            answers
+        for (const questionList of listQuestions) {
+            const { id } = questionList;
+
+            const answers = await this.answersRepository.findByQuestionId(id)
+
+            const questionListWithAnswers = {
+                ...questionList,
+                answers
+            }
+
+
+            questions.push(questionListWithAnswers);
         }
 
-        return questionWithAnswers;
- 
-    });
 
 
-    return questions;
-  }
+        return questions;
+    }
 }
 
 export { ListQuestionsUseCase };

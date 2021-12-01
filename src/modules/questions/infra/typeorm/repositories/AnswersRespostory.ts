@@ -41,6 +41,7 @@ class AnswersRepository implements IAnswersRepository {
     public async findByQuestionId(question_id: string): Promise<Answer[] | undefined> {
         const answer = await this.ormRepository.find({ where: { question_id } });
 
+
         return answer;
     }
 

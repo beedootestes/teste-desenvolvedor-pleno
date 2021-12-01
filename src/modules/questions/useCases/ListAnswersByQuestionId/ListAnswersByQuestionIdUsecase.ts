@@ -4,7 +4,6 @@ import { AppError } from "@shared/infra/http/errors/AppError";
 import { inject, injectable } from "tsyringe";
 
 
-
 @injectable()
 class ListAnswersByQuestionIdUseCase {
   constructor(
@@ -13,7 +12,9 @@ class ListAnswersByQuestionIdUseCase {
   ) {}
 
   async execute(question_id: string): Promise<Question[]> {
+    
     const questions = await this.answersRepository.findByQuestionId(question_id);
+
 
     if (!questions) {
         throw new AppError('Question does not exist')

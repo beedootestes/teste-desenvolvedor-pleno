@@ -25,7 +25,6 @@ class QuestionsRepositoryInMemory implements IQuestionsRepository {
         
         const questions = this.questions.map(async fakeQuestion => {
             const answers = await answersRepositoryInMemory.findByQuestionId(fakeQuestion.id)
-            console.log(answers)
 
             const question = {
                 ...fakeQuestion, 

@@ -31,10 +31,8 @@ describe("List Questions", () => {
 
     const answer = await answersRepositoryInMemory.create({ title: 'Answer Test', question_id });
 
-    console.log(answer);
     const findQuestions = await listQuestionsUseCase.execute();
 
-    console.log(findQuestions);
 
     expect(findQuestions).toHaveLength(2);
   });

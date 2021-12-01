@@ -12,7 +12,6 @@ class ListAnswersByQuestionIdController {
       ListAnswersByQuestionIdUseCase
     );
 
-
     const questions = await listAnswersByQuestionIdUseCase.execute(question_id);
 
     return response.json(questions);
