@@ -25,7 +25,7 @@ describe('Update Question', () => {
     expect(updateQuestion).toHaveProperty('id');
   });
 
-  it('should not be able to update a non existant question', async () => {
+  it('should not be able to update a non existent question', async () => {
     expect(
         updateQuestionTitleUseCase.execute({ title: 'Non existent question', id: 'dasd' })
     ).rejects.toBeInstanceOf(AppError);
