@@ -117,25 +117,12 @@
                 ],
                 "summary": "Delete question",
                 "description": "This route delete question",
-                "requestBody": {
-                    "content": {
-                        "application/multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "file": "string",
-                                    "format": "binary"
-                                }
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "201": {
-                        "description": "Created"
+                        "description": "Deleted"
                     },
-                    "500": {
-                        "description": "Question Already exists"
+                    "400": {
+                        "description": "Question not exists"
                     }
                 }
             }
@@ -178,7 +165,7 @@
                     "Answer"
                 ],
                 "summary": "List all questions",
-                "description": "This route list all questions whit their answers options",
+                "description": "This route list all answers by question_id",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -218,14 +205,6 @@
                 ],
                 "summary": "Update Answer Title",
                 "description": "This route update Answer Title",
-                "parameters":
-                { "in": "path",
-                  "name": "question_id",
-                  "schema": {
-                  "type": "integer",
-                  "required": "true",
-                  "description": "UUID of the user to get"}
-                },
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -247,7 +226,7 @@
                     "201": {
                         "description": "Updated"
                     },
-                    "500": {
+                    "400": {
                         "description": "Answer Already exists"
                     }
                 }
@@ -258,43 +237,36 @@
                 ],
                 "summary": "Delete Answer",
                 "description": "This route delete answer",
-                "requestBody": {
-                    "content": {
-                        "application/multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "file": "string",
-                                    "format": "binary"
-                                }
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "201": {
-                        "description": "Created"
+                        "description": "Deleted"
                     },
-                    "500": {
+                    "400": {
                         "description": "Question Already exists"
                     }
                 }
+                
             }
         }
        
     },
-
     "definitions": {
         "Question": {
             "type": "object",
             "properties": {
-                "name": {
+                "title": {
                     "type": "string"
-                },
-                "description": {
+                }
+            }
+        },
+        "Answer": {
+            "type": "object",
+            "properties": {
+                "title": {
                     "type": "string"
                 }
             }
         }
+     
     }
 }
