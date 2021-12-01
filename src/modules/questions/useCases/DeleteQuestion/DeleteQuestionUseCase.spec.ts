@@ -12,7 +12,7 @@ describe('DeleteQuestions', () => {
     deleteQuestion = new DeleteQuestionUseCase(questionsRepositoryInMemory);
   });
 
-  it('should be able to delete question', async () => {
+  it('should be able to delete question', async () => {  
 
     const questionTest = await questionsRepositoryInMemory.create({ title: 'Question Test' });
 
@@ -24,7 +24,7 @@ describe('DeleteQuestions', () => {
 
     const questionsList = await questionsRepositoryInMemory.find();
 
-    expect(questionsList).toEqual([questionTest2]);
+    expect(questionsList).toEqual([{...questionTest2, answers: []}]);
     expect(questionsList).toHaveLength(1);
 
   });

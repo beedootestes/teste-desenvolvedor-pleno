@@ -22,21 +22,24 @@ class QuestionsRepositoryInMemory implements IQuestionsRepository {
       }
 
     async find(): Promise<Question[] | any>{
-        
-        const questions = this.questions.map(async fakeQuestion => {
-            const answers = await answersRepositoryInMemory.findByQuestionId(fakeQuestion.id)
+
+        const newQuestions = [];
+
+        for (const questionList of this.questions) {
+            const answers = await answersRepositoryInMemory.findByQuestionId(questionList.id)
 
             const question = {
-                ...fakeQuestion, 
+                ...questionList, 
                 answers
             }
 
-            return question;
-        
-           
-        });
 
-        return questions;
+            newQuestions.push(question);
+        }
+        
+      
+
+        return newQuestions;
 
     }
     
