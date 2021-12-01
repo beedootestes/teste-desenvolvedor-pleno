@@ -16,7 +16,7 @@ class ListAnswersByQuestionIdUseCase {
     const questions = await this.answersRepository.findByQuestionId(question_id);
 
 
-    if (!questions) {
+    if (questions.length === 0) {
         throw new AppError('Question does not exist')
     }
 
