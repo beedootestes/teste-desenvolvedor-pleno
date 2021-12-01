@@ -29,7 +29,7 @@ describe("List Questions", () => {
     const question_id = question.id;
 
 
-    const answer = await answersRepositoryInMemory.create({ title: 'Answer Test', question_id });
+    await answersRepositoryInMemory.create({ title: 'Answer Test', question_id });
 
     const findQuestions = await listQuestionsUseCase.execute();
 
