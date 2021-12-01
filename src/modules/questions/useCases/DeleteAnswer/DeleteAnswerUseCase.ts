@@ -13,12 +13,13 @@ class DeleteAnswerUseCase {
     private answersRepository: IAnswersRepository
   ) {}
 
-  public async execute({ id }: IRequest): Promise<void | AppError> {
+  public async execute({ id }: IRequest): Promise<void> {
 
     const answerExists = await this.answersRepository.findById(id);
 
+    
     if(!answerExists) {
-        return new AppError("Answer does not exists!");
+        throw new AppError("Answer does not exists!", 400);
     }
     
     await this.answersRepository.delete(id);
