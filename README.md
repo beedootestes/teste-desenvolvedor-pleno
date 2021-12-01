@@ -1,52 +1,67 @@
-## Sobre o Beedoo
+🚀 Technologies:
+This back-end project was developed using the following technologies:
 
-Construímos uma plataforma para tornar a comunicação e a capacitação de equipes de atendimento mais ágil, produtiva e eficiente. Acreditamos que quando você combina um propósito poderoso com grandes pessoas que são as melhores no que fazem, você obtém uma cultura diferente de qualquer outra. Para um novo mundo de trabalho, o Beedoo oferece uma nova maneira de aprender com conceitos de Social e Micro Learning, Gamification , Gestão analítica, base de conhecimento cognitiva e inteligência artificial.
+Typescript
+Node.js
+TypeORM
+Docker
+PostgreSQL
+JEST
+Supertest
 
-## Sobre um Abeedoozido
+👷 How to use: 
+To clone and run this API you will need the following software installed on your computer:
 
-Espera-se que como parte de nosso time, você siga as melhores práticas de tecnologia, 
-tais como documentação, organização e versionamento de código e análises.
-Estamos à procura de alguém motivado para ter suas idéias e criações nas mãos dos usuários, que compartilhe nossa empolgação para evoluir positivamente o propósito do Beedoo.
+Git
+Node
+Yarn
+Docker
 
-## Responsabilidade da função
-Você atuará na criação de novas features e manutenção do sistema,
-além de elaborar e manter consultas grandes e complexas para geração de relatórios,
-criar serviços e integrações com APIs, lidar com diferentes padrões de arquitetura para organização de código em linguagens de script e funcional.
-Também vai ajudar na construção do projeto, de fazer bom planejamento do projeto e delegar responsabilidades e conhecimentos para outros membros do time.
+🔌 Install dependencies and run the application:
+# Clone this repository:
+$ git clone https://github.com/KevenJunco/teste-desenvolvedor-pleno.git
 
-## Local
+# Enter the repository:
+$ cd teste-desenvolvedor-pleno
 
-Possuimos duas naves onde você pode estar quando quiser. Uma Nave fica localizada na **zona norte de São Paulo**, e outra na cidade de **São José dos Campos**, interior do estado de São Paulo. Porém não se preocupe, nosso time de desenvolvimento atua **100% remotamente**, e **você** pode estar **em qualquer lugar do Brasil**, até mesmo em **outros países**, ou na **beira da praia**.
+# Install the dependencies:
+$ yarn
 
-## Contratação e Benefícios
+# Create the app containers:
+$ docker-compose up -d --build
 
-- Contratação PJ
-- Cartão de benefícios flexíveis.
-- 30 dias de recesso remunerado.
-- Feriados remurenados.
-- Licença maternidade/paternidade extendida.
-- Ciclo de reconhecimento e desenvolvimento.
+# Make a copy of the file "ormconfig.example.json" with the name "ormconfig.json":
+# Fill in the correct data to be able to connect to the database
+$ cp ormconfig.example.json ormconfig.json
 
-## Diferênciais
+# Make a copy of the ".env.example" file with the name ".env":
+$ cp .env.example .env
 
-- Cultura de feedback
-- Equipe 100% unida, a gente ta junto na mesma nave.
-- O CTO as vezes paga o lanche da sexta feira.
-- Emendas em feriados nacionais.
+# Run the migrations:
+$ yarn typeorm migration:run
 
-## Requisitos
-- Autogestão
-- GIT
-- NodeJS
-- Testes Funcionais automatizados
-- MySQL
-- Modelagem de dados relacionais
-- Rest APIs
-- Scrum/Kanban
-- Code Review
+# Start the application
+$ yarn dev
+
+# The server is running at port 3333 (http://localhost:3333/)
+
+# To stop the database:
+$ docker-compose stop
+
+🧪 Run the tests:
+# To run all tests:
+$ yarn test
 
 
-## Como se candidatar
+📚 Documentation:
+All API endpoints have been documented using Swagger. To view just access the URL below or click on this link.
+Remember to start the server first
 
-Para se candidatar, basta acessar a url e realizar o teste para a vaga:
-[https://github.com/beedootestes/teste-desenvolvedor-pleno](teste.md)
+Local: http://localhost:3333/api-docs
+
+
+📌 Project requeriments:
+All rules for this API can be found on this link.
+
+
+Made with 💙 by Keven Junco 

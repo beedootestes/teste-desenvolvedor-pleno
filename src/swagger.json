@@ -1,0 +1,300 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Beedoo Documentations",
+            "contact": {
+            "email": "keven@hotmail.com"
+        }
+    },
+    "paths": {
+        "/questions": {
+            "post": {
+                "tags": [
+                    "Question"
+                ],
+                "summary": "Create a question",
+                "description": "This Route create a new question",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "title": "Question name sample"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Category Already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Question"
+                ],
+                "summary": "List all questions",
+                "description": "This route list all questions whit their answers options",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": "uuid",
+                                            "title": "keven",
+                                            "created_at": "date",
+                                            "updated_at": "date",
+                                            "answers": [
+                                                {
+                                                    "id": "uuid",
+                                                    "title": "keven",
+                                                    "question_id": "uuid",
+                                                    "created_at": "date",
+                                                    "updated_at": "date"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/questions/{id}": {
+            "patch": {
+                "tags": [
+                    "Question"
+                ],
+                "summary": "Update Question title",
+                "description": "This route update the question title",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "title": "Question name sample"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated"
+                    },
+                    "400": {
+                        "description": "Question title Already exists"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Question"
+                ],
+                "summary": "Upload new category",
+                "description": "Upload new category",
+                "requestBody": {
+                    "content": {
+                        "application/multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "Question Already exists"
+                    }
+                }
+            }
+        },
+        "/answers/{id}": {
+            "post": {
+                "tags": [
+                    "Answer"
+                ],
+                "summary": "Create Answer",
+                "description": "This Route create a new answer to existent question",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "title": "Answer name sample"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Answer Already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Answer"
+                ],
+                "summary": "List all questions",
+                "description": "This route list all questions whit their answers options",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": "uuid",
+                                            "title": "keven",
+                                            "created_at": "date",
+                                            "updated_at": "date",
+                                            "answers": [
+                                                {
+                                                    "id": "uuid",
+                                                    "title": "keven",
+                                                    "question_id": "uuid",
+                                                    "created_at": "date",
+                                                    "updated_at": "date"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/answers/{question_id}": {
+            "patch": {
+                "tags": [
+                    "Answer"
+                ],
+                "summary": "Update Answer Title",
+                "description": "This route update Answer Title",
+                "parameters":
+                { "in": "path",
+                  "name": "question_id",
+                  "schema": {
+                  "type": "integer",
+                  "required": "true",
+                  "description": "UUID of the user to get"}
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "title": "Question name sample"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Updated"
+                    },
+                    "500": {
+                        "description": "Answer Already exists"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Answer"
+                ],
+                "summary": "Upload new category",
+                "description": "Upload new category",
+                "requestBody": {
+                    "content": {
+                        "application/multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "Question Already exists"
+                    }
+                }
+            }
+        }
+       
+    },
+
+    "definitions": {
+        "Question": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
