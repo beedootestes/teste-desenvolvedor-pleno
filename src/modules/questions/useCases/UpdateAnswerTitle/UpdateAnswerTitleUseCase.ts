@@ -25,9 +25,9 @@ class UpdateAnswerTitleUseCase {
 
         const {question_id} = answer;
 
-        const questionWithUpdatedTitle = await this.answersRepository.findResgistredAnswerByQuestionId(title, question_id);
+        const answerWithUpdatedTitle = await this.answersRepository.findResgistredAnswerByQuestionId(title, question_id);
 
-        if (questionWithUpdatedTitle && questionWithUpdatedTitle.id !== id) {
+        if (answerWithUpdatedTitle) {
             throw new AppError('Question already in use.');
         }
 

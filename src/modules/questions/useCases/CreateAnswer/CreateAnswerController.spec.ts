@@ -20,7 +20,6 @@ describe("CreateAnswerController", () => {
     });
 
     it("should be able to cerate a answer ", async () => {
-
         await request(app).post("/questions").send({ title: 'KEVEN' });
         const question = await request(app).get("/questions");
 
@@ -28,8 +27,6 @@ describe("CreateAnswerController", () => {
         const question_id = question.body[0].id;
 
         const response = await request(app).post(`/answers/${question_id}`).send({ title: 'KEVEN' });
-
-
 
         expect(response.status).toEqual(201);
 

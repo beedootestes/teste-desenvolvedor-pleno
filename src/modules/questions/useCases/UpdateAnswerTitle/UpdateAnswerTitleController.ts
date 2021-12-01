@@ -12,8 +12,8 @@ class UpdateAnswerTitleController {
         const updateAnswerTitleUseCase = container.resolve(UpdateAnswerTitleUseCase);
 
         const question = await updateAnswerTitleUseCase.execute({
-            title,
-            id
+            id,
+            title
         });
 
         return response.json(question);
