@@ -26,7 +26,8 @@ class UpdateQuestionTitleUseCase {
 
         const questionWithUpdatedTitle = await this.questionsRepository.findByTitle(title);
 
-        if (questionWithUpdatedTitle && questionWithUpdatedTitle.id !== id) {
+
+        if (questionWithUpdatedTitle && questionWithUpdatedTitle.title === title) {
             throw new AppError('Question already in use.');
         }
 

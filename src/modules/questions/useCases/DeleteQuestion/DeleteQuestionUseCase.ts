@@ -18,7 +18,7 @@ class DeleteQuestionUseCase {
     const questionExists = await this.questionsRepository.findById(id);
 
     if(!questionExists) {
-        return new AppError("Question not exists!");
+        return new AppError("Question does not exists!");
     }
 
 

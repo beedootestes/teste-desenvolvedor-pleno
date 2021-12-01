@@ -38,6 +38,12 @@ class AnswersRepository implements IAnswersRepository {
         return answer;
     }
 
+    public async findByQuestionId(question_id: string): Promise<Answer[] | undefined> {
+        const answer = await this.ormRepository.find({ where: { question_id } });
+
+        return answer;
+    }
+
 
     public async delete(id: string): Promise<any> {
         const answer = this.ormRepository.delete(id);

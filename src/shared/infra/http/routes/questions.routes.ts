@@ -13,10 +13,10 @@ const listQuestionsController = new ListQuestionsController();
 const deleteQuestionController = new DeleteQuestionController();
 
 
-questionRoutes.post("/", createQuestionController.handle);
-questionRoutes.get("/", listQuestionsController.handle);
-questionRoutes.put("/:id", updateQuestionTitleController.handle);
-questionRoutes.delete("/:id", deleteQuestionController.handle);
+questionRoutes.post("/", createQuestionController.handle)
+              .get("/", listQuestionsController.handle)
+              .patch("/:id", updateQuestionTitleController.handle)
+              .delete("/:id", deleteQuestionController.handle);
 
 
 

@@ -2,10 +2,12 @@ import { v4 as uuid } from 'uuid';
 import { ICreateQuestionDTO } from "@modules/questions/dtos/ICreateQuestionDTO";
 import { Question } from "@modules/questions/infra/typeorm/entities/Question";
 import { IQuestionsRepository } from "../IQuestionsRepository";
+import { AnswersRepositoryInMemory } from './AnswersRepositoryInMemory';
 
+const answersRepositoryInMemory = new AnswersRepositoryInMemory();
 
 class QuestionsRepositoryInMemory implements IQuestionsRepository {
-    
+
     questions: Question[] = [];
     
     public async create(questionData: ICreateQuestionDTO): Promise<Question> {
@@ -19,10 +21,24 @@ class QuestionsRepositoryInMemory implements IQuestionsRepository {
         return question;
       }
 
-    async find(): Promise<Question[]>{
-        const all = this.questions;
+    async find(): Promise<Question[] | any>{
+        
+        const questions = this.questions.map(async fakeQuestion => {
+            const answers = await answersRepositoryInMemory.findByQuestionId(fakeQuestion.id)
+            console.log(answers)
 
-        return all;
+            const question = {
+                ...fakeQuestion, 
+                answers
+            }
+
+            return question;
+        
+           
+        });
+
+        return questions;
+
     }
     
     async findByTitle(title: string): Promise<Question | undefined> {

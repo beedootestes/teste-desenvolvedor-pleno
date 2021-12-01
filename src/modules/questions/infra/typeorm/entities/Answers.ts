@@ -4,7 +4,10 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     PrimaryGeneratedColumn,
+    ManyToOne,
+    JoinColumn,
   } from 'typeorm';
+import { Question } from './Question';
   
   
   @Entity('answers')
@@ -17,6 +20,11 @@ import {
 
     @Column()
     question_id: string;
+
+    @ManyToOne(() => Question)
+    @JoinColumn({ name: 'question_id' })
+    question: Question;
+
   
     @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     created_at: Date;

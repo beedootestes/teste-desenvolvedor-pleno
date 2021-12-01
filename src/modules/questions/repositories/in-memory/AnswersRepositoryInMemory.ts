@@ -33,7 +33,7 @@ class AnswersRepositoryInMemory implements IAnswersRepository {
         
     };
 
-    async findById(id: string): Promise<Answer | undefined> {
+    public async findById(id: string): Promise<Answer | undefined> {
         
         const answer = this.answers.find((answer) => answer.id === id);
         
@@ -41,6 +41,14 @@ class AnswersRepositoryInMemory implements IAnswersRepository {
         
     };
     
+    public async findByQuestionId(question_id: string): Promise<Answer[] | undefined> {
+        
+        const answer = this.answers.filter((answer) => answer.question_id === question_id);
+        
+        return answer;
+        
+    };
+
     public async delete(id: string): Promise<any> {
         this.answers = this.answers.filter(answer => answer.id !== id);
     

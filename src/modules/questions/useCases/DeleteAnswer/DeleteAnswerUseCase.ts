@@ -18,7 +18,7 @@ class DeleteAnswerUseCase {
     const answerExists = await this.answersRepository.findById(id);
 
     if(!answerExists) {
-        return new AppError("Answer not exists!");
+        return new AppError("Answer does not exists!");
     }
     
     await this.answersRepository.delete(id);

@@ -1,15 +1,21 @@
+import { AnswersRepositoryInMemory } from "@modules/questions/repositories/in-memory/AnswersRepositoryInMemory";
 import { QuestionsRepositoryInMemory } from "@modules/questions/repositories/in-memory/QuestionsRepositoryInMemory";
 import { ListQuestionsUseCase } from "./ListQuestionsUseCase";
 
 
 let listQuestionsUseCase: ListQuestionsUseCase;
 let questionsRepositoryInMemory: QuestionsRepositoryInMemory;
+let answersRepositoryInMemory: AnswersRepositoryInMemory;
+
 
 describe("List Questions", () => {
   beforeEach(() => {
     questionsRepositoryInMemory = new QuestionsRepositoryInMemory();
+    answersRepositoryInMemory = new AnswersRepositoryInMemory();
     listQuestionsUseCase = new ListQuestionsUseCase(
-        questionsRepositoryInMemory
+        questionsRepositoryInMemory,
+        answersRepositoryInMemory
+        
     );
   });
 
@@ -18,10 +24,17 @@ describe("List Questions", () => {
     
     await questionsRepositoryInMemory.create({title: 'Question test'});
 
-    await questionsRepositoryInMemory.create({title: 'Question test 2'});
+    const question = await questionsRepositoryInMemory.create({title: 'Question test 2'});
+
+    const question_id = question.id;
 
 
+    const answer = await answersRepositoryInMemory.create({ title: 'Answer Test', question_id });
+
+    console.log(answer);
     const findQuestions = await listQuestionsUseCase.execute();
+
+    console.log(findQuestions);
 
     expect(findQuestions).toHaveLength(2);
   });

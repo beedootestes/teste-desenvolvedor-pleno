@@ -1,33 +1,21 @@
-import { Answer } from '@modules/questions/infra/typeorm/entities/Answers';
-import { IAnswersRepository } from '@modules/questions/repositories/IAnswersRepository';
-import { injectable, inject } from 'tsyringe';
+import { Request, Response } from "express";
+import { container } from "tsyringe";
+import { CreateAnswerUseCase } from "./CreateAnswerUseCase";
 
 
-interface IRequest {
-  question_id: string;
-  title: string;
+class CreateAnswerController {
+    async handle(request: Request, response: Response): Promise<Response> {
+
+        const { title } = request.body;
+        const {question_id} = request.params;
+
+        const createAnswerUseCase = container.resolve(CreateAnswerUseCase);
+        
+        await createAnswerUseCase.execute({ title, question_id });
+
+        return response.status(201).json();
+    }
+
 }
 
-@injectable()
-class CreateAnswerUseCase {
-  constructor(
-    @inject('AnswersRepository')
-    private answersRepository: IAnswersRepository
- 
-  ) {}
-
-  public async execute({ question_id, title }: IRequest): Promise<Answer> {
-
-    const answer = await this.answersRepository.create({
-      question_id,
-      title,
-    });
-
-
-    await this.answersRepository.save(answer);
-
-    return answer;
-  }
-}
-
-export {CreateAnswerUseCase};
+export {CreateAnswerController};

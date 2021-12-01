@@ -1,7 +1,7 @@
 import { AnswersRepositoryInMemory } from "@modules/questions/repositories/in-memory/AnswersRepositoryInMemory";
 import { QuestionsRepositoryInMemory } from "@modules/questions/repositories/in-memory/QuestionsRepositoryInMemory";
 import { AppError } from "@shared/infra/http/errors/AppError";
-import { CreateAnswerUseCase } from "./CreateAnswerController";
+import { CreateAnswerUseCase } from "./CreateAnswerUseCase";
 
 let createAnswerUseCase: CreateAnswerUseCase;
 let answersRepositoryInMemory: AnswersRepositoryInMemory;
@@ -12,7 +12,7 @@ describe("Create Question ", () => {
     beforeEach(() => {
         answersRepositoryInMemory = new (AnswersRepositoryInMemory);
         questionsRepositoryInMemory = new (QuestionsRepositoryInMemory);
-        createAnswerUseCase = new CreateAnswerUseCase(answersRepositoryInMemory);
+        createAnswerUseCase = new CreateAnswerUseCase(answersRepositoryInMemory, questionsRepositoryInMemory);
     });
 
     it("should be able to create a new answer", async () => {

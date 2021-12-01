@@ -25,7 +25,7 @@ class CreateAnswerUseCase {
         const verifyQuestionId = await this.questionsRepository.findById(question_id)
         
         if (!verifyQuestionId) {
-            throw new AppError("question not exists");
+            throw new AppError("question does not exists");
         }
         
         const findResgistredAnswerByQuestionId =  await this.answersRepository.findResgistredAnswerByQuestionId(title, question_id);
