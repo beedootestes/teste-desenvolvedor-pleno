@@ -36,7 +36,7 @@
                         "description": "Created"
                     },
                     "400": {
-                        "description": "Category Already exists"
+                        "description": "Question Already exists"
                     }
                 }
             },
@@ -115,8 +115,8 @@
                 "tags": [
                     "Question"
                 ],
-                "summary": "Upload new category",
-                "description": "Upload new category",
+                "summary": "Delete question",
+                "description": "This route delete question",
                 "requestBody": {
                     "content": {
                         "application/multipart/form-data": {
@@ -256,8 +256,8 @@
                 "tags": [
                     "Answer"
                 ],
-                "summary": "Upload new category",
-                "description": "Upload new category",
+                "summary": "Delete Answer",
+                "description": "This route delete answer",
                 "requestBody": {
                     "content": {
                         "application/multipart/form-data": {

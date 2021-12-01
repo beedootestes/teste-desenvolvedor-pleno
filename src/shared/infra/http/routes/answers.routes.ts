@@ -1,7 +1,7 @@
-import { CreateAnswerController } from '@modules/questions/useCases/CreateAnswer/CreateAnswerController';
-import { DeleteAnswerController } from '@modules/questions/useCases/DeleteAnswer/DeleteAnswerController';
-import { ListAnswersByQuestionIdController } from '@modules/questions/useCases/ListAnswersByQuestionId/ListAnswersByQuestionIdController';
-import { UpdateAnswerTitleController } from '@modules/questions/useCases/UpdateAnswerTitle/UpdateAnswerTitleController';
+import { CreateAnswerController } from '@modules/useCases/CreateAnswer/CreateAnswerController';
+import { DeleteAnswerController } from '@modules/useCases/DeleteAnswer/DeleteAnswerController';
+import { ListAnswersByQuestionIdController } from '@modules/useCases/ListAnswersByQuestionId/ListAnswersByQuestionIdController';
+import { UpdateAnswerTitleController } from '@modules/useCases/UpdateAnswerTitle/UpdateAnswerTitleController';
 import {  Router } from 'express';
 
 const answersRoutes = Router();

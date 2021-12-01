@@ -1,8 +1,8 @@
 import {container} from 'tsyringe';
-import { QuestionsRepository } from '@modules/questions/infra/typeorm/repositories/QuestionsRepository';
-import { IQuestionsRepository } from '@modules/questions/repositories/IQuestionsRepository';
-import { IAnswersRepository } from '@modules/questions/repositories/IAnswersRepository';
-import { AnswersRepository } from '@modules/questions/infra/typeorm/repositories/AnswersRespostory';
+import { QuestionsRepository } from '@modules/infra/typeorm/repositories/QuestionsRepository';
+import { IQuestionsRepository } from '@modules/repositories/IQuestionsRepository';
+import { IAnswersRepository } from '@modules/repositories/IAnswersRepository';
+import { AnswersRepository } from '@modules/infra/typeorm/repositories/AnswersRespostory';
 
 
 

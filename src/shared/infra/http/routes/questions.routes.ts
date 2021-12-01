@@ -1,7 +1,7 @@
-import { CreateQuestionController } from '@modules/questions/useCases/CreateQuestion/CreateQuestionController';
-import { DeleteQuestionController } from '@modules/questions/useCases/DeleteQuestion/DeleteQuestionController';
-import { ListQuestionsController } from '@modules/questions/useCases/ListQuestions/ListQuestionsController';
-import { UpdateQuestionTitleController } from '@modules/questions/useCases/UpdateQuestionTitle/UpdateQuestionTitleContoller';
+import { CreateQuestionController } from '@modules/useCases/CreateQuestion/CreateQuestionController';
+import { DeleteQuestionController } from '@modules/useCases/DeleteQuestion/DeleteQuestionController';
+import { ListQuestionsController } from '@modules/useCases/ListQuestions/ListQuestionsController';
+import { UpdateQuestionTitleController } from '@modules/useCases/UpdateQuestionTitle/UpdateQuestionTitleContoller';
 import {  Router } from 'express';
 
 
