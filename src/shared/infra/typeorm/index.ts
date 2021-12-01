@@ -6,8 +6,8 @@ export default async (host = "localhost"): Promise<Connection> => {
 
     return createConnection(
         Object.assign(defaultOptions, {
-            host: process.env.NODE_ENV === 'test' ? "localhost": host,
-            database: process.env.NODE_ENV === "test" ? "beedoo_test" : defaultOptions.database,
+            host: host,
+            database: process.env.NODE_ENV === "test" ? "postgres" : defaultOptions.database,
         })
     );
 };
