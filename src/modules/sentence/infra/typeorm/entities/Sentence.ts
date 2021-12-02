@@ -25,7 +25,7 @@ class Sentence {
   text: string;
 
   @Column('character varying', { name: 'type', length: 12 })
-  type: string;
+  type: 'QUESTION' | 'ANSWER';
 
   @Exclude()
   @Column('boolean', { name: 'enabled', nullable: true, default: true })
