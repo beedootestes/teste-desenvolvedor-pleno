@@ -1,0 +1,8 @@
+[{
+  "text": "Que horas são?",
+  "type": "QUESTION"
+}, {
+  "question": 1,
+  "text": "São 6 e ônibus.",
+  "type": "ANSWER"
+}]

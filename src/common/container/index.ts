@@ -12,5 +12,4 @@ const container = new Container();
 container.bind<ISentenceRepository>(Types.SentenceRepository).to(SentenceRepository);
 // providers
 
-
 export default container;
