@@ -1,3 +1,5 @@
+import * as SentenceDocs from '@modules/sentence/infra/docs';
+
 const swaggerDefinition = {
   openapi: '3.0.3',
   info: {
@@ -42,11 +44,15 @@ const options = {
     },
   },
   tags: [{
-    name: 'Sentences',
+    name: 'Sentence',
     description: 'CRUD para Sentences',
   }],
   paths: {
-
+    //* Sentences paths
+    '/sentences': { post: SentenceDocs.CreateSentenceDoc },
+    '/sentences/list': { post: SentenceDocs.ListSentencesDoc },
+    '/sentences/{sentenceId}': { get: SentenceDocs.GetSentenceByIdDoc, patch: SentenceDocs.UpdateSentenceDoc, delete: SentenceDocs.DeleteSentenceDoc },
+    '/sentences/{sentenceId}/reactivate': { patch: SentenceDocs.ReactivateSentenceDoc },
   },
 };
 

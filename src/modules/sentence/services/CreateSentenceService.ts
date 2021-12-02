@@ -24,7 +24,7 @@ class CreateSentenceService {
 
     if (data.question) {
       const sentence = await this.sentenceRepository.find({ id: data.question, enabled: true });
-      if (!sentence) throw new AppError('Sentence does not exist', 404);
+      if (!sentence || sentence.type !== 'QUESTION') throw new AppError('Question does not exist', 404);
     }
 
     return this.sentenceRepository.create({ question: data.question, text: data.text, type: data.type });
