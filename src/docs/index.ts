@@ -51,6 +51,7 @@ const options = {
     //* Sentences paths
     '/sentences': { post: SentenceDocs.CreateSentenceDoc },
     '/sentences/list': { post: SentenceDocs.ListSentencesDoc },
+    '/sentences/list/questions': { get: SentenceDocs.ListQuestionsDoc },
     '/sentences/{sentenceId}': { get: SentenceDocs.GetSentenceByIdDoc, patch: SentenceDocs.UpdateSentenceDoc, delete: SentenceDocs.DeleteSentenceDoc },
     '/sentences/{sentenceId}/reactivate': { patch: SentenceDocs.ReactivateSentenceDoc },
   },

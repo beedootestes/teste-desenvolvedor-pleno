@@ -8,6 +8,7 @@ import AppContainer from '@common/container';
 import CreateSentenceService from '@modules/sentence/services/CreateSentenceService';
 import GetSentenceByIdService from '@modules/sentence/services/GetSentenceByIdService';
 import ListSentencesService from '@modules/sentence/services/ListSentencesService';
+import ListQuestionsService from '@modules/sentence/services/ListQuestionsService';
 import UpdateSentenceService from '@modules/sentence/services/UpdateSentenceService';
 import DeleteSentenceService from '@modules/sentence/services/DeleteSentenceService';
 import ReactivateSentenceService from '@modules/sentence/services/ReactivateSentenceService';
@@ -65,6 +66,14 @@ class SentenceController {
     const sentence = await listSentence.execute({ data });
 
     return res.status(200).json(sentence);
+  }
+
+  public async listQuestions(req: Request, res: Response): Promise<Response> {
+
+    const listQuestions = AppContainer.resolve<ListQuestionsService>(ListQuestionsService);
+    const questions = await listQuestions.execute();
+
+    return res.status(200).json(questions);
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
