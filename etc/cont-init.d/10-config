@@ -26,6 +26,8 @@ cat > /usr/app/ormconfig.json <<EOF
 
 EOF
 
+sleep 3s
+
 # Run base migrations
 yarn migrate
 
