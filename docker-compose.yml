@@ -2,6 +2,26 @@ version: '3'
 volumes:
   dados:
 services:
+  api:
+    container_name: questions_api
+    build: .
+    ports: 
+      - 4202:4202
+    environment:
+      - DB_TYPE=postgres
+      - DB_USER=matheus
+      - DB_PASSWORD=matheus
+      - DB_DATABASE=questions
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_LOGGING=true
+      - API_PORT=4202
+      - SWAGGER_CUSTOM_SERVER_URL=http://test.com
+    depends_on:
+      - db
+    links:
+      - db
+
   db:
     image: postgres:14.1
     volumes:

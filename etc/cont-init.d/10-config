@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "Creating ormconfig.json "
+
+cat > /usr/app/ormconfig.json <<EOF
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "$DB_HOST",
+    "port": $DB_PORT,
+    "username": "$DB_USER",
+    "password": "$DB_PASSWORD",
+    "database": "$DB_DATABASE",
+    "schema": "public",
+    "synchronize": false,
+    "logging": $DB_LOGGING,
+    "migrations": ["./src/config/migrations/production/**/*.ts"],
+    "seeds": ["./src/config/migrations/seeds/**/*.ts"],
+    "entities": ["src/modules/**/infra/typeorm/entities/**.ts"],
+    "cli": {
+      "migrationsDir": ["src/config/migrations/production/"]
+    }
+  }
+]
+
+EOF
+
+# Run base migrations
+yarn migrate
+
+# Run aplication
+yarn prod
