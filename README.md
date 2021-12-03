@@ -1,36 +1,58 @@
-# Backend
+# Questions API
 
-Uma REST API com Banco de Dados PostgreSQL.
+## SUMÁRIO
 
-Toda a aplicação está contida dentro do arquivo `src/common/infra/http/app`
-E seus modulos, rotas, controlles e services, estão contidos debaixo da pasta `src`.
+- [Questions API](#questions-api)
+  - [SUMÁRIO](#sumário)
+  - [INTRODUÇÃO](#introdução)
+  - [DEPLOY](#deploy)
+  - [SETUP_LOCAL](#setup_local)
+    - [Inatalar as dependências](#inatalar-as-dependências)
+    - [Criar modelo de dados](#criar-modelo-de-dados)
+    - [Executar o app](#executar-o-app)
+    - [Executar os testes](#executar-os-testes)
+  - [DATABASE](#database)
+    - [Diagrama ER](#diagrama-er)
+    - [Modelo Lógico](#modelo-lógico)
+  - [Endpoints](#endpoints)
+    - [Disponíneis e documentados em:](#disponíneis-e-documentados-em)
 
-`scripts/postgres-docker.sh` faz uma configuração mínima de uma instância PostgreSQL, o RDBMS utilizado no projeto.
+## INTRODUÇÃO
 
-`scripts/run-docker-psql.sh` cria os dois DBs utilizados.
+    Uma REST API com Banco de Dados PostgreSQL.
 
-Se faz necessário a execução desses scripts ou, apenas ajustar as configurações de conexão com qualquer outra instância Postgres.
+## DEPLOY
+    `docker-compose up -d` cria o ambiente, instala as dependências e inicia a aplicação.
+## SETUP_LOCAL
 
-## Install
+### Inatalar as dependências
 
     yarn install
+### Criar modelo de dados
 
-## Criar modelo de dados
+    yarn migrate
 
-    yarn migrate:run
+### Executar o app
 
-## Executar o app
+    yarn dev
 
-    yarn run:dev
-
-## Executar os testes
+### Executar os testes
 
     yarn test
 
+## DATABASE
+
+### Diagrama ER
+
+![Diagrama](./readme_assets/images/diagrama.png)
+
+### Modelo Lógico
+
+![SCHEMA](./readme_assets/images/schema.png)
 ## Endpoints
 
 ### Disponíneis e documentados em:
 
-http://localhost:5555/api/docs/#/
+http://localhost:4202/api/docs/#/
 
 Documentados com Swagger, podem ser testados prontamente na url acima com o app executando.
