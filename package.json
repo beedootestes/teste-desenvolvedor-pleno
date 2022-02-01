@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/loures90/teste-desenvolvedor-pleno/issues"
   },
-  "homepage": "https://github.com/loures90/teste-desenvolvedor-pleno#readme"
+  "homepage": "https://github.com/loures90/teste-desenvolvedor-pleno#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^4.0.7"
+  }
 }
