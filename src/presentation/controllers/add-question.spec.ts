@@ -2,8 +2,11 @@ import { MissingParamError } from '../errors/missing-param-error'
 import { AddQuestionController } from './add-question'
 
 describe('AddQuestion Controller', () => {
+  const makeSut = (): AddQuestionController => {
+    return new AddQuestionController()
+  }
   test('Should return 400 if no question is provided', () => {
-    const sut = new AddQuestionController()
+    const sut = makeSut()
     const httpRequest = {
       body: {}
     }
