@@ -1,3 +1,4 @@
+import { MissingParamError } from '../errors/missing-param-error'
 import { AddQuestionController } from './add-question'
 
 describe('AddQuestion Controller', () => {
@@ -8,6 +9,6 @@ describe('AddQuestion Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new Error('Missing param: question'))
+    expect(httpResponse.body).toEqual(new MissingParamError('question'))
   })
 })
