@@ -1,6 +1,6 @@
 import { AddQuestion } from '../../domain/usecases/add-question'
 import { MissingParamError } from '../errors/missing-param-error'
-import { badRequest } from '../helpers/http-helpers'
+import { badRequest, ok } from '../helpers/http-helpers'
 import { Controller } from '../protocols/controller'
 import { HttpRequest, HttpResponse } from '../protocols/http'
 
@@ -17,9 +17,6 @@ export class AddQuestionController implements Controller {
     }
     const { question } = httpRequest.body
     this.addQuestion.add(question)
-    return {
-      statusCode: 200,
-      body: 'ok'
-    }
+    return ok()
   }
 }

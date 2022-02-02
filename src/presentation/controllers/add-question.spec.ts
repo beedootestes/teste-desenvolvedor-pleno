@@ -1,3 +1,4 @@
+import { QuestionModel } from '../../domain/models/question'
 import { AddQuestion, AddQuestionModel } from '../../domain/usecases/add-question'
 import { MissingParamError } from '../errors/missing-param-error'
 import { AddQuestionController } from './add-question'
@@ -19,7 +20,7 @@ describe('AddQuestion Controller', () => {
 
   const makeAddQuestion = (): AddQuestion => {
     class AddQuestionStub implements AddQuestion {
-      add (question: AddQuestionModel): any {
+      add (question: AddQuestionModel): QuestionModel {
         const fakeQuestion = {
           id: 'valid_id',
           question: 'valid_question'
