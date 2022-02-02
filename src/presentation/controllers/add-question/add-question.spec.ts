@@ -1,7 +1,6 @@
-import { QuestionModel } from '../../domain/models/question'
-import { AddQuestion, AddQuestionModel } from '../../domain/usecases/add-question'
-import { MissingParamError } from '../errors/missing-param-error'
+import { AddQuestion, AddQuestionModel, QuestionModel } from './add-question-protocols'
 import { AddQuestionController } from './add-question'
+import { MissingParamError } from '../../errors/missing-param-error'
 
 describe('AddQuestion Controller', () => {
   interface Sut {

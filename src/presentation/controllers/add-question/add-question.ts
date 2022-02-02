@@ -1,8 +1,6 @@
-import { AddQuestion } from '../../domain/usecases/add-question'
-import { MissingParamError } from '../errors/missing-param-error'
-import { badRequest, ok } from '../helpers/http-helpers'
-import { Controller } from '../protocols/controller'
-import { HttpRequest, HttpResponse } from '../protocols/http'
+import { AddQuestion, Controller, HttpRequest, HttpResponse } from './add-question-protocols'
+import { MissingParamError } from '../../errors/missing-param-error'
+import { badRequest, ok } from '../../helpers/http-helpers'
 
 export class AddQuestionController implements Controller {
   private readonly addQuestion: AddQuestion
