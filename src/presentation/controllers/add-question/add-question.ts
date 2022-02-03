@@ -15,8 +15,8 @@ export class AddQuestionController implements Controller {
         return badRequest(new MissingParamError('question'))
       }
       const { question } = httpRequest.body
-      this.addQuestion.add(question)
-      return ok()
+      const result = this.addQuestion.add(question)
+      return ok(result)
     } catch (error) {
       return serverError()
     }
