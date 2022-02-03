@@ -9,8 +9,13 @@ describe('Question Mongo repository', () => {
   afterAll(async () => {
     await MongoHelper.disconnect()
   })
+
+  const makeSut = (): QuestionMongoRepository => {
+    return new QuestionMongoRepository()
+  }
+
   test('Should return a question on success', async () => {
-    const sut = new QuestionMongoRepository()
+    const sut = makeSut()
     const question = await sut.add({
       question: 'any_question'
     })
