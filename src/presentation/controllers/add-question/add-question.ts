@@ -5,17 +5,17 @@ import { badRequest, ok, serverError } from '../../helpers/http-helpers'
 export class AddQuestionController implements Controller {
   private readonly addQuestion: AddQuestion
 
-  constructor(addQuestion) {
+  constructor (addQuestion) {
     this.addQuestion = addQuestion
   }
 
-  handle(httpRequest: HttpRequest): HttpResponse {
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       if (!httpRequest.body.question) {
         return badRequest(new MissingParamError('question'))
       }
       const { question } = httpRequest.body
-      const result = this.addQuestion.add(question)
+      const result = await this.addQuestion.add(question)
       return ok(result)
     } catch (error) {
       return serverError()

@@ -5,5 +5,5 @@ export interface AddQuestionModel{
 }
 
 export interface AddQuestion {
-  add (question: AddQuestionModel): QuestionModel
+  async add (question: AddQuestionModel): Promise<QuestionModel>
 }

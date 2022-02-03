@@ -20,28 +20,28 @@ describe('AddQuestion Controller', () => {
 
   const makeAddQuestion = (): AddQuestion => {
     class AddQuestionStub implements AddQuestion {
-      add(question: AddQuestionModel): QuestionModel {
+      async add(question: AddQuestionModel): Promise<QuestionModel> {
         const fakeQuestion = {
           id: 'valid_id',
           question: 'valid_question'
         }
-        return fakeQuestion
+        return await new Promise(resolve => resolve(fakeQuestion))
       }
     }
     return new AddQuestionStub()
   }
 
-  test('Should return 400 if no question is provided', () => {
+  test('Should return 400 if no question is provided', async () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {}
     }
-    const httpResponse = sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new MissingParamError('question'))
   })
 
-  test('Should call addQuestion with correct values', () => {
+  test('Should call addQuestion with correct values', async () => {
     const { sut, addQuestionStub } = makeSut()
     const isValidSpy = jest.spyOn(addQuestionStub, 'add')
     const httpRequest = {
@@ -49,11 +49,11 @@ describe('AddQuestion Controller', () => {
         question: 'valid_question'
       }
     }
-    sut.handle(httpRequest)
+    await sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith('valid_question')
   })
 
-  test('Should return 500 if addQuestion throws', () => {
+  test('Should return 500 if addQuestion throws', async () => {
     const { sut, addQuestionStub } = makeSut()
     jest.spyOn(addQuestionStub, 'add').mockImplementationOnce(() => {
       throw new Error()
@@ -63,18 +63,18 @@ describe('AddQuestion Controller', () => {
         question: 'valid_question'
       }
     }
-    const httpResponse = sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(serverError())
   })
 
-  test('Should return 200 if it valid data is provided', () => {
+  test('Should return 200 if it valid data is provided', async () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
         question: 'valid_question'
       }
     }
-    const httpResponse = sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(ok({
       id: 'valid_id',
       question: 'valid_question'
