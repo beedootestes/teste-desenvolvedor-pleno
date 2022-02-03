@@ -1,7 +1,7 @@
 import { AddQuestion, AddQuestionModel, QuestionModel } from './add-question-protocols'
 import { AddQuestionController } from './add-question'
 import { MissingParamError } from '../../errors/missing-param-error'
-import { serverError } from '../../helpers/http-helpers'
+import { ok, serverError } from '../../helpers/http-helpers'
 
 describe('AddQuestion Controller', () => {
   interface Sut {
@@ -53,7 +53,7 @@ describe('AddQuestion Controller', () => {
     expect(isValidSpy).toHaveBeenCalledWith('valid_question')
   })
 
-  test('Should return 5000 if addQuestion throws', () => {
+  test('Should return 500 if addQuestion throws', () => {
     const { sut, addQuestionStub } = makeSut()
     jest.spyOn(addQuestionStub, 'add').mockImplementationOnce(() => {
       throw new Error()
@@ -65,5 +65,16 @@ describe('AddQuestion Controller', () => {
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse).toEqual(serverError())
+  })
+
+  test('Should return 200 if it valid data is provided', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        question: 'valid_question'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse).toEqual(ok())
   })
 })
