@@ -20,7 +20,7 @@ describe('AddQuestion Controller', () => {
 
   const makeAddQuestion = (): AddQuestion => {
     class AddQuestionStub implements AddQuestion {
-      async add(question: AddQuestionModel): Promise<QuestionModel> {
+      async add (question: AddQuestionModel): Promise<QuestionModel> {
         const fakeQuestion = {
           id: 'valid_id',
           question: 'valid_question'
