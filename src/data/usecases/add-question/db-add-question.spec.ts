@@ -39,4 +39,16 @@ describe('DBAddQuestion', () => {
     await sut.add(question)
     expect(addSpy).toHaveBeenLastCalledWith(question)
   })
+
+  test('Should return a question on success', async () => {
+    const { sut } = makeSut()
+    const question = {
+      question: 'valid_question'
+    }
+    const result = await sut.add(question)
+    expect(result).toEqual({
+      id: 'valid_id',
+      question: 'valid_question'
+    })
+  })
 })
