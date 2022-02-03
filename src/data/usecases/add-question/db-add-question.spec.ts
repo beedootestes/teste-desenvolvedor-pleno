@@ -4,7 +4,20 @@ import { AddQuestionRepository } from '../../protocols/add-account-repository'
 import { DbAddQuestion } from './db-add-question'
 
 describe('DBAddQuestion', () => {
-  test('Should call addQuestionRepository', async () => {
+  interface Sut {
+    sut: DbAddQuestion
+    addQuestionRepositoryStub: AddQuestionRepository
+  }
+  const makeSut = (): Sut => {
+    const addQuestionRepositoryStub = makeAddQuestionRepositoryStub()
+    const sut = new DbAddQuestion(addQuestionRepositoryStub)
+    return {
+      sut,
+      addQuestionRepositoryStub
+    }
+  }
+
+  const makeAddQuestionRepositoryStub = (): AddQuestionRepository => {
     class AddQuestionRepositoryStub implements AddQuestionRepository {
       async add (question: AddQuestionModel): Promise<QuestionModel> {
         const fakeQuestion = {
@@ -14,8 +27,11 @@ describe('DBAddQuestion', () => {
         return await new Promise(resolve => resolve(fakeQuestion))
       }
     }
-    const addQuestionRepositoryStub = new AddQuestionRepositoryStub()
-    const sut = new DbAddQuestion(addQuestionRepositoryStub)
+    return new AddQuestionRepositoryStub()
+  }
+
+  test('Should call addQuestionRepository', async () => {
+    const { sut, addQuestionRepositoryStub } = makeSut()
     const addSpy = jest.spyOn(addQuestionRepositoryStub, 'add')
     const question = {
       question: 'valid_question'
