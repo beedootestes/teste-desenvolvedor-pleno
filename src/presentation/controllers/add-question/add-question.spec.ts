@@ -19,7 +19,7 @@ describe('AddQuestion Controller', () => {
 
   const makeAddQuestion = (): AddQuestion => {
     class AddQuestionStub implements AddQuestion {
-      add (question: AddQuestionModel): QuestionModel {
+      add(question: AddQuestionModel): QuestionModel {
         const fakeQuestion = {
           id: 'valid_id',
           question: 'valid_question'
@@ -50,5 +50,19 @@ describe('AddQuestion Controller', () => {
     }
     sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith('valid_question')
+  })
+
+  test('Should return 5000 if addQuestion throws', () => {
+    const { sut, addQuestionStub } = makeSut()
+    jest.spyOn(addQuestionStub, 'add').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpRequest = {
+      body: {
+        question: 'valid_question'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse).toEqual({ statusCode: 500, body: 'Server Errror' })
   })
 })
