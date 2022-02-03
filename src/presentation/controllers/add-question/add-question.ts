@@ -1,6 +1,6 @@
 import { AddQuestion, Controller, HttpRequest, HttpResponse } from './add-question-protocols'
 import { MissingParamError } from '../../errors/missing-param-error'
-import { badRequest, ok } from '../../helpers/http-helpers'
+import { badRequest, ok, serverError } from '../../helpers/http-helpers'
 
 export class AddQuestionController implements Controller {
   private readonly addQuestion: AddQuestion
@@ -18,9 +18,7 @@ export class AddQuestionController implements Controller {
       this.addQuestion.add(question)
       return ok()
     } catch (error) {
-      return {
-        statusCode: 500, body: 'Server Errror'
-      }
+      return serverError()
     }
   }
 }

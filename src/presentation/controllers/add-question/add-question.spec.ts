@@ -1,6 +1,7 @@
 import { AddQuestion, AddQuestionModel, QuestionModel } from './add-question-protocols'
 import { AddQuestionController } from './add-question'
 import { MissingParamError } from '../../errors/missing-param-error'
+import { serverError } from '../../helpers/http-helpers'
 
 describe('AddQuestion Controller', () => {
   interface Sut {
@@ -63,6 +64,6 @@ describe('AddQuestion Controller', () => {
       }
     }
     const httpResponse = sut.handle(httpRequest)
-    expect(httpResponse).toEqual({ statusCode: 500, body: 'Server Errror' })
+    expect(httpResponse).toEqual(serverError())
   })
 })
