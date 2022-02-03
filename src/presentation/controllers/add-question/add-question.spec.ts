@@ -75,6 +75,9 @@ describe('AddQuestion Controller', () => {
       }
     }
     const httpResponse = sut.handle(httpRequest)
-    expect(httpResponse).toEqual(ok())
+    expect(httpResponse).toEqual(ok({
+      id: 'valid_id',
+      question: 'valid_question'
+    }))
   })
 })
