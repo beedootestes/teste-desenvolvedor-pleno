@@ -1,7 +1,5 @@
 import { AddQuestionRepository } from '../../../../data/protocols/add-account-repository'
-import { QuestionModel } from '../../../../domain/models/question'
-import { AddQuestionModel } from '../../../../domain/usecases/add-question'
-import { MongoHelper } from '../helpers/mongo-helper'
+import { AddQuestionModel, QuestionModel, MongoHelper } from './question-protococols'
 
 export class QuestionMongoRepository implements AddQuestionRepository {
   async add (questionData: AddQuestionModel): Promise<QuestionModel> {

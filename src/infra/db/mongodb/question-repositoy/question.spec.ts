@@ -1,4 +1,4 @@
-import { MongoHelper } from '../helpers/mongo-helper'
+import { MongoHelper } from './question-protococols'
 import { QuestionMongoRepository } from './question'
 
 describe('Question Mongo repository', () => {
