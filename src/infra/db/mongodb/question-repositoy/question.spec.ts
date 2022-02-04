@@ -10,6 +10,11 @@ describe('Question Mongo repository', () => {
     await MongoHelper.disconnect()
   })
 
+  beforeEach(async () => {
+    const questionsCollection = MongoHelper.getCollection('questions')
+    await questionsCollection.deleteMany({})
+  })
+
   const makeSut = (): QuestionMongoRepository => {
     return new QuestionMongoRepository()
   }
