@@ -14,7 +14,7 @@ export class AddQuestionController implements Controller {
       if (!httpRequest.body.question) {
         return badRequest(new MissingParamError('question'))
       }
-      const { question } = httpRequest.body
+      const question = httpRequest.body
       const result = await this.addQuestion.add(question)
       return ok(result)
     } catch (error) {

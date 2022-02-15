@@ -50,7 +50,9 @@ describe('AddQuestion Controller', () => {
       }
     }
     await sut.handle(httpRequest)
-    expect(isValidSpy).toHaveBeenCalledWith('valid_question')
+    expect(isValidSpy).toHaveBeenCalledWith({
+      question: 'valid_question'
+    })
   })
 
   test('Should return 500 if addQuestion throws', async () => {
