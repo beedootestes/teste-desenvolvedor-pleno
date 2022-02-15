@@ -18,7 +18,7 @@ export class AddQuestionController implements Controller {
       const result = await this.addQuestion.add(question)
       return ok(result)
     } catch (error) {
-      return serverError()
+      return serverError(error)
     }
   }
 }

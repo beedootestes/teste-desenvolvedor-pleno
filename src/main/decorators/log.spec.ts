@@ -8,7 +8,7 @@ interface SutTypes {
 
 const makeSut = (): SutTypes => {
   class ControllerStub implements Controller {
-    async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
       const httpResponse: HttpResponse = {
         body: {
           question: 'valid_question'

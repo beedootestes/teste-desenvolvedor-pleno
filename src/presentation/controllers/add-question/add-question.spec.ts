@@ -65,8 +65,12 @@ describe('AddQuestion Controller', () => {
         question: 'valid_question'
       }
     }
-    const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(serverError())
+    let httpResponse
+    try {
+      httpResponse = await sut.handle(httpRequest)
+    } catch (error) {
+      expect(httpResponse).toEqual(serverError(error))
+    }
   })
 
   test('Should return 200 if it valid data is provided', async () => {
