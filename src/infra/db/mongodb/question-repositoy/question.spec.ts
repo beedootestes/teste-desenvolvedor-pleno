@@ -11,7 +11,7 @@ describe('Question Mongo repository', () => {
   })
 
   beforeEach(async () => {
-    const questionsCollection = MongoHelper.getCollection('questions')
+    const questionsCollection = await MongoHelper.getCollection('questions')
     await questionsCollection.deleteMany({})
   })
 
