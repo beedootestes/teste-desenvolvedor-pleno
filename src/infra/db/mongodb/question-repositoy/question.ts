@@ -5,7 +5,6 @@ export class QuestionMongoRepository implements AddQuestionRepository {
   async add (questionData: AddQuestionModel): Promise<QuestionModel> {
     const questionCollection = MongoHelper.getCollection('questions')
     const result = await questionCollection.insertOne(questionData)
-    console.log('questionData', questionData, questionCollection)
     const id = result.insertedId.toString()
     return Object.assign({}, { id: id }, { question: questionData.question })
   }
