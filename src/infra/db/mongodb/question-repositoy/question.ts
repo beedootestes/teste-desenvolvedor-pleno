@@ -3,7 +3,7 @@ import { AddQuestionModel, QuestionModel, MongoHelper } from './question-protoco
 
 export class QuestionMongoRepository implements AddQuestionRepository {
   async add (questionData: AddQuestionModel): Promise<QuestionModel> {
-    const questionCollection = MongoHelper.getCollection('questions')
+    const questionCollection = await MongoHelper.getCollection('questions')
     const result = await questionCollection.insertOne(questionData)
     const id = result.insertedId.toString()
     return Object.assign({}, { id: id }, { question: questionData.question })
