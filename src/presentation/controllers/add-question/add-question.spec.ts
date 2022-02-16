@@ -1,9 +1,15 @@
-import { AddQuestion, AddQuestionModel, QuestionModel } from './add-question-protocols'
+import { AddQuestion, AddQuestionModel, HttpRequest, QuestionModel } from './add-question-protocols'
 import { AddQuestionController } from './add-question'
 import { MissingParamError } from '../../errors/missing-param-error'
 import { ok, serverError } from '../../helpers/http-helpers'
 
 describe('AddQuestion Controller', () => {
+  const makeFakeRequest = (): HttpRequest => ({
+    body: {
+      question: 'valid_question'
+    }
+  })
+
   interface Sut {
     sut: AddQuestionController
     addQuestionStub: AddQuestion
@@ -44,11 +50,7 @@ describe('AddQuestion Controller', () => {
   test('Should call addQuestion with correct values', async () => {
     const { sut, addQuestionStub } = makeSut()
     const isValidSpy = jest.spyOn(addQuestionStub, 'add')
-    const httpRequest = {
-      body: {
-        question: 'valid_question'
-      }
-    }
+    const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith({
       question: 'valid_question'
@@ -60,11 +62,7 @@ describe('AddQuestion Controller', () => {
     jest.spyOn(addQuestionStub, 'add').mockImplementationOnce(async () => {
       return await new Promise((resolve, reject) => reject(new Error()))
     })
-    const httpRequest = {
-      body: {
-        question: 'valid_question'
-      }
-    }
+    const httpRequest = makeFakeRequest()
     let httpResponse
     try {
       httpResponse = await sut.handle(httpRequest)
@@ -75,11 +73,7 @@ describe('AddQuestion Controller', () => {
 
   test('Should return 200 if it valid data is provided', async () => {
     const { sut } = makeSut()
-    const httpRequest = {
-      body: {
-        question: 'valid_question'
-      }
-    }
+    const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(ok({
       id: 'valid_id',
