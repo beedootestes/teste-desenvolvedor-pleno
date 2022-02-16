@@ -10,6 +10,11 @@ describe('AddQuestion Controller', () => {
     }
   })
 
+  const makeFakeQuestion = (): QuestionModel => ({
+    id: 'valid_id',
+    question: 'valid_question'
+  })
+
   interface Sut {
     sut: AddQuestionController
     addQuestionStub: AddQuestion
@@ -27,10 +32,7 @@ describe('AddQuestion Controller', () => {
   const makeAddQuestion = (): AddQuestion => {
     class AddQuestionStub implements AddQuestion {
       async add (question: AddQuestionModel): Promise<QuestionModel> {
-        const fakeQuestion = {
-          id: 'valid_id',
-          question: 'valid_question'
-        }
+        const fakeQuestion = makeFakeQuestion()
         return await new Promise(resolve => resolve(fakeQuestion))
       }
     }
@@ -75,9 +77,6 @@ describe('AddQuestion Controller', () => {
     const { sut } = makeSut()
     const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(ok({
-      id: 'valid_id',
-      question: 'valid_question'
-    }))
+    expect(httpResponse).toEqual(ok(makeFakeQuestion()))
   })
 })
