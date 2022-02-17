@@ -1,5 +1,6 @@
-import { ListQuestions, HttpRequest, QuestionModel } from './list-question-protocols'
+import { ListQuestions, HttpRequest, QuestionModel } from './list-questions-protocols'
 import { ListQuestionsController } from './list-questions'
+import { serverError } from '../../helpers/http-helpers'
 
 describe('ListQuestion Controller', () => {
   const makeFakeListOfQuestions = (): QuestionModel[] => ([{
@@ -40,5 +41,19 @@ describe('ListQuestion Controller', () => {
     const fakeHttpRequest = makeFakeRequest()
     await sut.handle(fakeHttpRequest)
     expect(isValidSpy).toHaveBeenCalledWith()
+  })
+
+  test('Should return 500 if listQuestions throws', async () => {
+    const { sut, listQuestionsStub } = makeSut()
+    jest.spyOn(listQuestionsStub, 'list').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => reject(new Error()))
+    })
+    const fakeHttpRequest = makeFakeRequest()
+    let httpResponse
+    try {
+      httpResponse = await sut.handle(fakeHttpRequest)
+    } catch (error) {
+      expect(httpResponse).toEqual(serverError(error))
+    }
   })
 })

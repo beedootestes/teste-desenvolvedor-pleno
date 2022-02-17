@@ -1,5 +1,5 @@
-import { ok } from '../../helpers/http-helpers'
-import { Controller, HttpRequest, HttpResponse, ListQuestions } from './list-question-protocols'
+import { Controller, HttpRequest, HttpResponse, ListQuestions } from './list-questions-protocols'
+import { ok, serverError } from '../../helpers/http-helpers'
 
 export class ListQuestionsController implements Controller {
   private readonly listQuestions: ListQuestions
@@ -9,7 +9,11 @@ export class ListQuestionsController implements Controller {
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    const result = await this.listQuestions.list()
-    return ok(result)
+    try {
+      const result = await this.listQuestions.list()
+      return ok(result)
+    } catch (error) {
+      return serverError(error)
+    }
   }
 }
