@@ -1,6 +1,6 @@
 import { ListQuestions, HttpRequest, QuestionModel } from './list-questions-protocols'
 import { ListQuestionsController } from './list-questions'
-import { serverError } from '../../helpers/http-helpers'
+import { ok, serverError } from '../../helpers/http-helpers'
 
 describe('ListQuestion Controller', () => {
   const makeFakeListOfQuestions = (): QuestionModel[] => ([{
@@ -55,5 +55,12 @@ describe('ListQuestion Controller', () => {
     } catch (error) {
       expect(httpResponse).toEqual(serverError(error))
     }
+  })
+
+  test('Should return 200 when valid data is provided', async () => {
+    const { sut } = makeSut()
+    const fakeHttpRequest = makeFakeRequest()
+    const httpResponse = await sut.handle(fakeHttpRequest)
+    expect(httpResponse).toEqual(ok(makeFakeListOfQuestions()))
   })
 })
