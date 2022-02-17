@@ -1,7 +1,5 @@
-import { ListQuestions } from '../../../domain/usecases/list-questions'
-import { QuestionModel } from '../../../domain/models/question'
+import { ListQuestions, HttpRequest, QuestionModel } from './list-question-protocols'
 import { ListQuestionsController } from './list-questions'
-import { HttpRequest } from '../../protocols/http'
 
 describe('ListQuestion Controller', () => {
   const makeFakeListOfQuestions = (): QuestionModel[] => ([{

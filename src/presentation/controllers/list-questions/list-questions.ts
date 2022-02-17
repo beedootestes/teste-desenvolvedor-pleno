@@ -1,6 +1,5 @@
-import { ListQuestions } from '../../../domain/usecases/list-questions'
 import { ok } from '../../helpers/http-helpers'
-import { Controller, HttpRequest, HttpResponse } from '../../protocols'
+import { Controller, HttpRequest, HttpResponse, ListQuestions } from './list-question-protocols'
 
 export class ListQuestionsController implements Controller {
   private readonly listQuestions: ListQuestions
