@@ -1,6 +1,6 @@
 import { QuestionModel } from '../../../domain/models/question'
 import { AddQuestion, AddQuestionModel } from '../../../domain/usecases/add-question'
-import { AddQuestionRepository } from '../../protocols/add-account-repository'
+import { AddQuestionRepository } from '../../protocols/add-question-repository'
 
 export class DbAddQuestion implements AddQuestion {
   private readonly addQuestionRepository: AddQuestionRepository

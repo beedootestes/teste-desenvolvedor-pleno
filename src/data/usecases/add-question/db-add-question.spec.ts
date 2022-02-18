@@ -1,6 +1,6 @@
 import { QuestionModel } from '../../../domain/models/question'
 import { AddQuestionModel } from '../../../domain/usecases/add-question'
-import { AddQuestionRepository } from '../../protocols/add-account-repository'
+import { AddQuestionRepository } from '../../protocols/add-question-repository'
 import { DbAddQuestion } from './db-add-question'
 
 describe('DBAddQuestion', () => {
