@@ -10,7 +10,6 @@ export class DbListQuestions implements ListQuestions {
   }
 
   async list (): Promise<QuestionModel[]> {
-    await this.listQuestionsRepository.list()
-    return []
+    return await this.listQuestionsRepository.list()
   }
 }
