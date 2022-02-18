@@ -1,4 +1,4 @@
-import { AddQuestion, AddQuestionModel, HttpRequest, QuestionModel } from './add-question-protocols'
+import { AddQuestion, AddQuestionModel, HttpRequest, QuestionModel, Validation } from './add-question-protocols'
 import { AddQuestionController } from './add-question'
 import { MissingParamError } from '../../errors/missing-param-error'
 import { ok, serverError } from '../../helpers/http-helpers'
@@ -18,15 +18,27 @@ describe('AddQuestion Controller', () => {
   interface Sut {
     sut: AddQuestionController
     addQuestionStub: AddQuestion
+    validationStub: Validation
   }
 
   const makeSut = (): Sut => {
     const addQuestionStub = makeAddQuestion()
-    const sut = new AddQuestionController(addQuestionStub)
+    const validationStub = makeValidationStub()
+    const sut = new AddQuestionController(addQuestionStub, validationStub)
     return {
       sut,
-      addQuestionStub
+      addQuestionStub,
+      validationStub
     }
+  }
+
+  const makeValidationStub = (): Validation => {
+    class ValidationStub implements Validation {
+      validate (input: any): Error | null {
+        return null
+      }
+    }
+    return new ValidationStub()
   }
 
   const makeAddQuestion = (): AddQuestion => {
@@ -78,5 +90,13 @@ describe('AddQuestion Controller', () => {
     const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(ok(makeFakeQuestion()))
+  })
+
+  test('Should call validation with correct value', async () => {
+    const { sut, validationStub } = makeSut()
+    const validateSpy = jest.spyOn(validationStub, 'validate')
+    const httpRequest = makeFakeRequest()
+    await sut.handle(httpRequest)
+    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
   })
 })
