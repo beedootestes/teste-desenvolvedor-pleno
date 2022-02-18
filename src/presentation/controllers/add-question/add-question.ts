@@ -1,5 +1,4 @@
 import { AddQuestion, Controller, HttpRequest, HttpResponse, Validation } from './add-question-protocols'
-import { MissingParamError } from '../../errors/missing-param-error'
 import { badRequest, ok, serverError } from '../../helpers/http-helpers'
 
 export class AddQuestionController implements Controller {
@@ -17,9 +16,7 @@ export class AddQuestionController implements Controller {
       if (error) {
         return badRequest(error)
       }
-      if (!httpRequest.body.question) {
-        return badRequest(new MissingParamError('question'))
-      }
+
       const question = httpRequest.body
       const result = await this.addQuestion.add(question)
       return ok(result)

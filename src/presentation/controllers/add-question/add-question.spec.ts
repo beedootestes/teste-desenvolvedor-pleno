@@ -51,16 +51,6 @@ describe('AddQuestion Controller', () => {
     return new AddQuestionStub()
   }
 
-  test('Should return 400 if no question is provided', async () => {
-    const { sut } = makeSut()
-    const httpRequest = {
-      body: {}
-    }
-    const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new MissingParamError('question'))
-  })
-
   test('Should call addQuestion with correct values', async () => {
     const { sut, addQuestionStub } = makeSut()
     const isValidSpy = jest.spyOn(addQuestionStub, 'add')
