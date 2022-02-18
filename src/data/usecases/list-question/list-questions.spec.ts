@@ -3,10 +3,16 @@ import { ListQuestionsRepository } from '../../protocols/list-question-repositor
 import { DbListQuestions } from './list-questions'
 
 describe('DBAddQuestion', () => {
+  const makeFakeQuestionsList = (): QuestionModel[] => ([{
+    id: 'valid_id',
+    question: 'valid_ question'
+  }])
+
   interface SutType {
     sut: DbListQuestions
     listQuestionsRepositoryStub: ListQuestionsRepository
   }
+
   const makeSut = (): SutType => {
     const listQuestionsRepositoryStub = makeListQuestionsRepositoryStub()
     const sut = new DbListQuestions(listQuestionsRepositoryStub)
@@ -19,10 +25,7 @@ describe('DBAddQuestion', () => {
   const makeListQuestionsRepositoryStub = (): ListQuestionsRepository => {
     class ListQuestionsRepositoryStub implements ListQuestionsRepository {
       async list (): Promise<QuestionModel[]> {
-        const questionsList: QuestionModel[] = [{
-          id: 'valid_id',
-          question: 'valid_ question'
-        }]
+        const questionsList: QuestionModel[] = makeFakeQuestionsList()
         return questionsList
       }
     }
@@ -34,5 +37,11 @@ describe('DBAddQuestion', () => {
     const addSpy = jest.spyOn(listQuestionsRepositoryStub, 'list')
     await sut.list()
     expect(addSpy).toHaveBeenLastCalledWith()
+  })
+
+  test('Should return the list of questions on success', async () => {
+    const { sut } = makeSut()
+    const result = await sut.list()
+    expect(result).toEqual(makeFakeQuestionsList())
   })
 })
