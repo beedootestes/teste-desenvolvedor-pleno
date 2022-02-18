@@ -1,16 +1,19 @@
-import { AddQuestion, Controller, HttpRequest, HttpResponse } from './add-question-protocols'
+import { AddQuestion, Controller, HttpRequest, HttpResponse, Validation } from './add-question-protocols'
 import { MissingParamError } from '../../errors/missing-param-error'
 import { badRequest, ok, serverError } from '../../helpers/http-helpers'
 
 export class AddQuestionController implements Controller {
   private readonly addQuestion: AddQuestion
+  private readonly validation: Validation
 
-  constructor (addQuestion) {
+  constructor (addQuestion, validation) {
     this.addQuestion = addQuestion
+    this.validation = validation
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
+      this.validation.validate(httpRequest.body)
       if (!httpRequest.body.question) {
         return badRequest(new MissingParamError('question'))
       }
