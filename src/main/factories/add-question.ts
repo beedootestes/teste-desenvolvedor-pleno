@@ -4,12 +4,12 @@ import { QuestionMongoRepository } from '../../infra/db/mongodb/question-reposit
 import { LogControllerDecorator } from '../decorators/log'
 import { Controller } from '../../presentation/protocols'
 import { LogMongoRepository } from '../../infra/db/mongodb/log-repository/log'
-import { makeAddValidation } from './add-question-validation'
+import { makeAddQuestionValidation } from './add-question-validation'
 
 export const makeAddQuestionController = (): Controller => {
   const questionMongoRepository = new QuestionMongoRepository()
   const dbAddQuestion = new DbAddQuestion(questionMongoRepository)
-  const addQuestionController = new AddQuestionController(dbAddQuestion, makeAddValidation())
+  const addQuestionController = new AddQuestionController(dbAddQuestion, makeAddQuestionValidation())
   const logMongoRepository = new LogMongoRepository()
   return new LogControllerDecorator(addQuestionController, logMongoRepository)
 }
