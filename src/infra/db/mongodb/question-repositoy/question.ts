@@ -1,4 +1,4 @@
-import { AddQuestionRepository } from '../../../../data/protocols/add-account-repository'
+import { AddQuestionRepository } from '../../../../data/protocols/add-question-repository'
 import { AddQuestionModel, QuestionModel, MongoHelper } from './question-protococols'
 
 export class QuestionMongoRepository implements AddQuestionRepository {
