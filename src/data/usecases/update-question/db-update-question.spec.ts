@@ -1,5 +1,6 @@
 import { QuestionModel } from '../../../domain/models/question'
 import { UpdateQuestionModel } from '../../../domain/usecases/update-question'
+import { GetQuestionRepository } from '../../protocols/get-question-repository'
 import { UpdateQuestionRepository } from '../../protocols/update-question-repository'
 import { DbUpdateQuestion } from './db-update-question'
 
@@ -17,14 +18,17 @@ describe('DBupdateQuestion', () => {
   interface Sut {
     sut: DbUpdateQuestion
     updateQuestionRepositoryStub: UpdateQuestionRepository
+    getQuestionRepositoryStub: GetQuestionRepository
   }
 
   const makeSut = (): Sut => {
     const updateQuestionRepositoryStub = makeupdateQuestionRepositoryStub()
-    const sut = new DbUpdateQuestion(updateQuestionRepositoryStub)
+    const getQuestionRepositoryStub = makeGetQuestionRepositoryStub()
+    const sut = new DbUpdateQuestion(updateQuestionRepositoryStub, getQuestionRepositoryStub)
     return {
       sut,
-      updateQuestionRepositoryStub
+      updateQuestionRepositoryStub,
+      getQuestionRepositoryStub
     }
   }
 
@@ -36,6 +40,16 @@ describe('DBupdateQuestion', () => {
       }
     }
     return new UpdateQuestionRepositoryStub()
+  }
+
+  const makeGetQuestionRepositoryStub = (): GetQuestionRepository => {
+    class GetQuestionRepositoryStub implements GetQuestionRepository {
+      async get (id: string): Promise<QuestionModel> {
+        const fakeQuestion = makeFakeResponse()
+        return await new Promise(resolve => resolve(fakeQuestion))
+      }
+    }
+    return new GetQuestionRepositoryStub()
   }
 
   test('Should call updateQuestionRepository', async () => {
@@ -51,5 +65,13 @@ describe('DBupdateQuestion', () => {
     const question = makeFakeQuestion()
     const result = await sut.update(question)
     expect(result).toEqual(makeFakeResponse())
+  })
+
+  test('Should call getQuestionRepository', async () => {
+    const { sut, getQuestionRepositoryStub } = makeSut()
+    const updateSpy = jest.spyOn(getQuestionRepositoryStub, 'get')
+    const question = makeFakeQuestion()
+    await sut.update(question)
+    expect(updateSpy).toHaveBeenLastCalledWith(question.id)
   })
 })
