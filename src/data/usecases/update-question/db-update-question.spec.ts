@@ -11,7 +11,7 @@ describe('DBupdateQuestion', () => {
 
   const makeFakeResponse = (): QuestionModel => ({
     id: 'any_id',
-    question: 'valid_question'
+    question: 'updated_question'
   })
 
   interface Sut {
@@ -44,5 +44,12 @@ describe('DBupdateQuestion', () => {
     const question = makeFakeQuestion()
     await sut.update(question)
     expect(updateSpy).toHaveBeenLastCalledWith(question)
+  })
+
+  test('Should return the updated question on success', async () => {
+    const { sut } = makeSut()
+    const question = makeFakeQuestion()
+    const result = await sut.update(question)
+    expect(result).toEqual(makeFakeResponse())
   })
 })
