@@ -1,9 +1,9 @@
-import { AddQuestionController } from '../../presentation/controllers/add-question/add-question'
-import { DbAddQuestion } from '../../data/usecases/add-question/db-add-question'
-import { QuestionMongoRepository } from '../../infra/db/mongodb/question-repositoy/question'
-import { LogControllerDecorator } from '../decorators/log'
-import { Controller } from '../../presentation/protocols'
-import { LogMongoRepository } from '../../infra/db/mongodb/log-repository/log'
+import { AddQuestionController } from '../../../presentation/controllers/add-question/add-question'
+import { DbAddQuestion } from '../../../data/usecases/add-question/db-add-question'
+import { QuestionMongoRepository } from '../../../infra/db/mongodb/question-repositoy/question'
+import { LogControllerDecorator } from '../../decorators/log'
+import { Controller } from '../../../presentation/protocols'
+import { LogMongoRepository } from '../../../infra/db/mongodb/log-repository/log'
 import { makeAddQuestionValidation } from './add-question-validation'
 
 export const makeAddQuestionController = (): Controller => {
