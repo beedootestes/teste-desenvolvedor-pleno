@@ -77,4 +77,14 @@ describe('Update Question Controller', () => {
       expect(httpResponse).toEqual(serverError(error))
     }
   })
+
+  test('Should call validation with correct value', async () => {
+    const { sut, validationStub } = makeSut()
+    const validateSpy = jest.spyOn(validationStub, 'validate')
+    const httpRequest = makeFakeRequest()
+    await sut.handle(httpRequest)
+    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
+    expect(validateSpy).toHaveBeenLastCalledWith(httpRequest.params)
+    expect(validateSpy).toHaveBeenCalledTimes(2)
+  })
 })
