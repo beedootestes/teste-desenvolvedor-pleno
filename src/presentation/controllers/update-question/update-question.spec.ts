@@ -1,3 +1,4 @@
+import { serverError } from '../../helpers/http-helpers'
 import { UpdateQuestionController } from './update-question'
 import { HttpRequest, QuestionModel, UpdateQuestion, UpdateQuestionModel, Validation } from './update-question-protocols'
 
@@ -61,5 +62,19 @@ describe('Update Question Controller', () => {
       id: 'valid_id',
       question: 'valid_question'
     })
+  })
+
+  test('Should return 500 if updateQuestion throws', async () => {
+    const { sut, updateQuestionStub } = makeSut()
+    jest.spyOn(updateQuestionStub, 'update').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => reject(new Error()))
+    })
+    const httpRequest = makeFakeRequest()
+    let httpResponse
+    try {
+      httpResponse = await sut.handle(httpRequest)
+    } catch (error) {
+      expect(httpResponse).toEqual(serverError(error))
+    }
   })
 })
