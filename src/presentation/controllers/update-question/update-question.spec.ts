@@ -1,5 +1,5 @@
 import { MissingParamError } from '../../errors/missing-param-error'
-import { badRequest, serverError } from '../../helpers/http-helpers'
+import { badRequest, ok, serverError } from '../../helpers/http-helpers'
 import { UpdateQuestionController } from './update-question'
 import { HttpRequest, QuestionModel, UpdateQuestion, UpdateQuestionModel, Validation } from './update-question-protocols'
 
@@ -104,5 +104,12 @@ describe('Update Question Controller', () => {
     const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')))
+  })
+
+  test('Should return 200 if it valid data is provided', async () => {
+    const { sut } = makeSut()
+    const httpRequest = makeFakeRequest()
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(ok(makeFakeQuestion()))
   })
 })
