@@ -5,19 +5,17 @@ export class UpdateQuestionController implements Controller {
   private readonly updateQuestion: UpdateQuestion
   private readonly validation: Validation
 
-  constructor (updateQuestion, validation) {
+  constructor(updateQuestion, validation) {
     this.updateQuestion = updateQuestion
     this.validation = validation
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const validations = [httpRequest.body, httpRequest.params]
-      for (const validation of validations) {
-        const error = this.validation.validate(validation)
-        if (error) {
-          return badRequest(error)
-        }
+      const validations = { ...httpRequest.body, ...httpRequest.params }
+      const error = this.validation.validate(validations)
+      if (error) {
+        return badRequest(error)
       }
 
       const question = { ...httpRequest.body, ...httpRequest.params }

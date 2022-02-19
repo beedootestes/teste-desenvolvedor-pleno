@@ -84,22 +84,11 @@ describe('Update Question Controller', () => {
     const validateSpy = jest.spyOn(validationStub, 'validate')
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
-    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
-    expect(validateSpy).toHaveBeenLastCalledWith(httpRequest.params)
-    expect(validateSpy).toHaveBeenCalledTimes(2)
+    expect(validateSpy).toHaveBeenCalledWith({ ...httpRequest.body, ...httpRequest.params })
   })
 
   test('Should returns 400 if validators throws', async () => {
     const { sut, validationStub } = makeSut()
-    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'))
-    const httpRequest = makeFakeRequest()
-    const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')))
-  })
-
-  test('Should returns 400 if validators throws at param', async () => {
-    const { sut, validationStub } = makeSut()
-    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(null)
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'))
     const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)
