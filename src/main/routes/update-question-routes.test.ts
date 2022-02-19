@@ -16,6 +16,11 @@ describe('Add Question', () => {
     await questionsCollection.insertOne({ id: 'valid_id', question: 'any_question' })
   })
 
+  afterEach(async () => {
+    const questionsCollection = await MongoHelper.getCollection('questions')
+    await questionsCollection.deleteMany({})
+  })
+
   test('Should return question success', async () => {
     await request(app)
       .post('/api/update-question/valid_id')
