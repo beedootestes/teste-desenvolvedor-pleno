@@ -1,5 +1,6 @@
 import { QuestionModel } from '../../../domain/models/question'
 import { UpdateQuestion, UpdateQuestionModel } from '../../../domain/usecases/update-question'
+import { InvalidParamError } from '../../../presentation/errors/invalid-param-error'
 import { GetQuestionRepository } from '../../protocols/get-question-repository'
 import { UpdateQuestionRepository } from '../../protocols/update-question-repository'
 
@@ -16,7 +17,10 @@ export class DbUpdateQuestion implements UpdateQuestion {
   }
 
   async update (question: UpdateQuestionModel): Promise<QuestionModel> {
-    await this.getQuestionRepository.get(question.id)
+    const questionExist = await this.getQuestionRepository.get(question.id)
+    if (!questionExist) {
+      throw new InvalidParamError('id')
+    }
     return await this.updateQuestionRepository.update(question)
   }
 }

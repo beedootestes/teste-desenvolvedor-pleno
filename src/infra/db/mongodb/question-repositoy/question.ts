@@ -49,7 +49,7 @@ export class QuestionMongoRepository implements
     const questionCollection = await MongoHelper.getCollection('questions')
     const question = await questionCollection.findOne({ _id: new ObjectId(id) })
     const result = question?._id
-      ? Object.assign({}, { id: id }, { question: question?.question })
+      ? Object.assign({}, { id: id }, { question: question.question })
       : question
     return result
   }
