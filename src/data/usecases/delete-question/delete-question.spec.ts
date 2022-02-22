@@ -18,7 +18,7 @@ describe('DbDeleteQuestion', () => {
   const makeSut = (): Sut => {
     const deleteQuestionRepositoryStub = makeDeleteQuestionRepositoryStub()
     const getQuestionRepositoryStub = makeGetQuestionRepositoryStub()
-    const sut = new DbDeleteQuestion(deleteQuestionRepositoryStub)
+    const sut = new DbDeleteQuestion(deleteQuestionRepositoryStub, getQuestionRepositoryStub)
     return {
       sut,
       deleteQuestionRepositoryStub,
@@ -47,6 +47,13 @@ describe('DbDeleteQuestion', () => {
   test('Should call DeleteQuestionRepository correctly', async () => {
     const { sut, deleteQuestionRepositoryStub } = makeSut()
     const updateSpy = jest.spyOn(deleteQuestionRepositoryStub, 'delete')
+    await sut.delete('valid_id')
+    expect(updateSpy).toBeCalledWith('valid_id')
+  })
+
+  test('Should call GetQuestionRepository correctly', async () => {
+    const { sut, getQuestionRepositoryStub } = makeSut()
+    const updateSpy = jest.spyOn(getQuestionRepositoryStub, 'get')
     await sut.delete('valid_id')
     expect(updateSpy).toBeCalledWith('valid_id')
   })
