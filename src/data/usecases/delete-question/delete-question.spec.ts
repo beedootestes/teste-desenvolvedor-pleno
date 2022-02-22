@@ -29,7 +29,7 @@ describe('DbDeleteQuestion', () => {
 
   const makeDeleteQuestionRepositoryStub = (): DeleteQuestionRepository => {
     class DeleteQuestionRepositoryStub implements DeleteQuestionRepository {
-      async delete(id: string): Promise<Boolean> {
+      async delete (id: string): Promise<Boolean> {
         return await new Promise(resolve => resolve(true))
       }
     }
@@ -38,7 +38,7 @@ describe('DbDeleteQuestion', () => {
 
   const makeGetQuestionRepositoryStub = (): GetQuestionRepository => {
     class GetQuestionRepositoryStub implements GetQuestionRepository {
-      async get(id: string): Promise<any> {
+      async get (id: string): Promise<any> {
         return await new Promise(resolve => resolve(makeFakeResponse()))
       }
     }
@@ -70,5 +70,11 @@ describe('DbDeleteQuestion', () => {
     } catch (error) {
       expect(error).toEqual(new InvalidParamError('id'))
     }
+  })
+
+  test('Should return true on success', async () => {
+    const { sut } = makeSut()
+    const response = await sut.delete('valid_id')
+    expect(response).toBe(true)
   })
 })
