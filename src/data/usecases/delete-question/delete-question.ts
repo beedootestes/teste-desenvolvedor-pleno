@@ -17,7 +17,6 @@ export class DbDeleteQuestion implements DeleteQuestion {
     if (!questionExist) {
       throw new InvalidParamError('id')
     }
-    await this.deleteQuestionRepository.delete(id)
-    return true
+    return await this.deleteQuestionRepository.delete(id)
   }
 }
