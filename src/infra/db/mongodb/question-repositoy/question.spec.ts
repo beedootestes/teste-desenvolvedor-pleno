@@ -63,6 +63,13 @@ describe('Question Mongo repository', () => {
     expect(question).toBeTruthy()
   })
 
+  test('Should return null when get does not find question', async () => {
+    const id = '55153a8014829a865bbf700d'
+    const sut = makeSut()
+    const response = await sut.get(id)
+    expect(response).toBe(null)
+  })
+
   test('Should return true when deletion is a success', async () => {
     const questionsCollection = await MongoHelper.getCollection('questions')
     await questionsCollection.insertOne({ question: 'Fake question' })
