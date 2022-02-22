@@ -73,4 +73,11 @@ describe('Question Mongo repository', () => {
     const response = await sut.delete(id)
     expect(response).toBe(true)
   })
+
+  test('Should return false when deletion is a success', async () => {
+    const id = '55153a8014829a865bbf700d'
+    const sut = makeSut()
+    const response = await sut.delete(id)
+    expect(response).toBe(false)
+  })
 })
