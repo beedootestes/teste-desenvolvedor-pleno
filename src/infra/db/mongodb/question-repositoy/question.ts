@@ -1,4 +1,6 @@
+import { ObjectId } from 'mongodb'
 import { AddQuestionRepository } from '../../../../data/protocols/add-question-repository'
+import { GetQuestionRepository } from '../../../../data/protocols/get-question-repository'
 import { ListQuestionsRepository } from '../../../../data/protocols/list-question-repository'
 import { UpdateQuestionRepository } from '../../../../data/protocols/update-question-repository'
 import { AddQuestionModel, QuestionModel, MongoHelper, UpdateQuestionModel } from './question-protococols'
@@ -6,7 +8,8 @@ import { AddQuestionModel, QuestionModel, MongoHelper, UpdateQuestionModel } fro
 export class QuestionMongoRepository implements
   AddQuestionRepository,
   ListQuestionsRepository,
-  UpdateQuestionRepository {
+  UpdateQuestionRepository,
+  GetQuestionRepository {
   async add (questionData: AddQuestionModel): Promise<QuestionModel> {
     const questionCollection = await MongoHelper.getCollection('questions')
     const result = await questionCollection.insertOne(questionData)
@@ -40,5 +43,14 @@ export class QuestionMongoRepository implements
     )
     const id = result.upsertedId.toString()
     return Object.assign({}, { id: id }, { question: questionData.question })
+  }
+
+  async get (id: string): Promise<any> {
+    const questionCollection = await MongoHelper.getCollection('questions')
+    const question = await questionCollection.findOne({ _id: new ObjectId(id) })
+    const result = question?._id
+      ? Object.assign({}, { id: id }, { question: question?.question })
+      : question
+    return result
   }
 }
