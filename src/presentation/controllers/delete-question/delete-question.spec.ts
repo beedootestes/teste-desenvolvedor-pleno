@@ -1,6 +1,6 @@
 import { DeleteQuestion } from '../../../domain/usecases/delete-question'
 import { InvalidParamError } from '../../errors/invalid-param-error'
-import { badRequest, serverError } from '../../helpers/http-helpers'
+import { badRequest, ok, serverError } from '../../helpers/http-helpers'
 import { DeleteQuestionController } from './delete-question'
 import { HttpRequest, Validation } from './delete-question-protocols'
 
@@ -31,7 +31,7 @@ describe('Delete Question Controller', () => {
 
   const makeValidationStub = (): Validation => {
     class ValidationStub implements Validation {
-      validate (input: any): Error | null {
+      validate(input: any): Error | null {
         return null
       }
     }
@@ -40,7 +40,7 @@ describe('Delete Question Controller', () => {
 
   const makeDeleteQuestion = (): DeleteQuestion => {
     class DeleteQuestionStub implements DeleteQuestion {
-      async delete (id: string): Promise<Boolean> {
+      async delete(id: string): Promise<Boolean> {
         return await new Promise(resolve => resolve(true))
       }
     }
@@ -83,5 +83,12 @@ describe('Delete Question Controller', () => {
     } catch (error) {
       expect(response).toEqual(serverError(error))
     }
+  })
+
+  test('Should returns 200 on success', async () => {
+    const { sut } = makeSut()
+    const httpRequest = makeFakeRequest()
+    const response = await sut.handle(httpRequest)
+    expect(response).toEqual(ok(true))
   })
 })
