@@ -1,5 +1,5 @@
 import { DeleteQuestion } from '../../../domain/usecases/delete-question'
-import { badRequest } from '../../helpers/http-helpers'
+import { badRequest, serverError } from '../../helpers/http-helpers'
 import { Controller, HttpRequest, HttpResponse, Validation } from './delete-question-protocols'
 
 export class DeleteQuestionController implements Controller {
@@ -12,12 +12,16 @@ export class DeleteQuestionController implements Controller {
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    const id: string = httpRequest.params.id
-    const error = this.validation.validate(httpRequest.params)
-    if (error) {
-      return badRequest(error)
+    try {
+      const id: string = httpRequest.params.id
+      const error = this.validation.validate(httpRequest.params)
+      if (error) {
+        return badRequest(error)
+      }
+      await this.deleteQuestion.delete(id)
+      return { body: true, statusCode: 200 }
+    } catch (error) {
+      return serverError(error)
     }
-    await this.deleteQuestion.delete(id)
-    return { body: true, statusCode: 200 }
   }
 }
