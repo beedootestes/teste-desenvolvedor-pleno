@@ -8,7 +8,7 @@ import { makeUpdateQuestionValidation } from './update-question-validation'
 
 export const makeUpdateQuestionController = (): Controller => {
   const questionMongoRepository = new QuestionMongoRepository()
-  const dbUpdateQuestion = new DbUpdateQuestion(questionMongoRepository)
+  const dbUpdateQuestion = new DbUpdateQuestion(questionMongoRepository, questionMongoRepository)
   const updateQuestionController = new UpdateQuestionController(dbUpdateQuestion, makeUpdateQuestionValidation())
   const logMongoRepository = new LogMongoRepository()
   return new LogControllerDecorator(updateQuestionController, logMongoRepository)

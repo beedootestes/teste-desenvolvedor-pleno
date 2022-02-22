@@ -22,8 +22,13 @@ describe('Add Question', () => {
   })
 
   test('Should return question success', async () => {
+    const questionsCollection = await MongoHelper.getCollection('questions')
+    await questionsCollection.insertOne({ question: 'Fake question' })
+    const fakeQuestion = await questionsCollection.findOne({ question: 'Fake question' })
+
+    const id = fakeQuestion?._id.toString().valueOf() ?? 'any_id'
     await request(app)
-      .post('/api/update-question/valid_id')
+      .post('/api/update-question/' + id)
       .send({ question: 'valid_question' })
       .expect(200)
   })
