@@ -19,7 +19,7 @@ describe('Delete Question Controller', () => {
   const makeSut = (): Sut => {
     const deleteQuestionStub = makeDeleteQuestion()
     const validationStub = makeValidationStub()
-    const sut = new DeleteQuestionController(deleteQuestionStub)
+    const sut = new DeleteQuestionController(deleteQuestionStub, validationStub)
     return {
       sut,
       deleteQuestionStub,
@@ -51,5 +51,13 @@ describe('Delete Question Controller', () => {
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith('valid_id')
+  })
+
+  test('Should call validation with correct values', async () => {
+    const { sut, validationStub } = makeSut()
+    const isValidSpy = jest.spyOn(validationStub, 'validate')
+    const httpRequest = makeFakeRequest()
+    await sut.handle(httpRequest)
+    expect(isValidSpy).toHaveBeenCalledWith({ id: 'valid_id' })
   })
 })
