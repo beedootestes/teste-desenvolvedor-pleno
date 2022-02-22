@@ -59,7 +59,6 @@ export class QuestionMongoRepository implements
   async delete (id: string): Promise<Boolean> {
     const questionCollection = await MongoHelper.getCollection('questions')
     const result = await questionCollection.deleteOne({ _id: new ObjectId(id) })
-    console.log(result)
     return result.deletedCount === 1 ? result.acknowledged : false
   }
 }
