@@ -1,4 +1,6 @@
 import { DeleteQuestion } from '../../../domain/usecases/delete-question'
+import { InvalidParamError } from '../../errors/invalid-param-error'
+import { badRequest } from '../../helpers/http-helpers'
 import { DeleteQuestionController } from './delete-question'
 import { HttpRequest, Validation } from './delete-question-protocols'
 
@@ -59,5 +61,13 @@ describe('Delete Question Controller', () => {
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith({ id: 'valid_id' })
+  })
+
+  test('Should call validation with correct values', async () => {
+    const { sut, validationStub } = makeSut()
+    jest.spyOn(validationStub, 'validate').mockImplementationOnce(() => new InvalidParamError('id'))
+    const httpRequest = makeFakeRequest()
+    const response = await sut.handle(httpRequest)
+    expect(response).toEqual(badRequest(new InvalidParamError('id')))
   })
 })
