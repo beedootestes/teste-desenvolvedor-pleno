@@ -72,6 +72,19 @@ describe('DbDeleteQuestion', () => {
     }
   })
 
+  test('Should throws if DeleteQuestionRepository returns false', async () => {
+    const { sut, deleteQuestionRepositoryStub } = makeSut()
+    jest.spyOn(deleteQuestionRepositoryStub, 'delete').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => resolve(false))
+    })
+
+    try {
+      await sut.delete('any_id')
+    } catch (error) {
+      expect(error).toEqual(new Error('deletion failed'))
+    }
+  })
+
   test('Should return true on success', async () => {
     const { sut } = makeSut()
     const response = await sut.delete('valid_id')
