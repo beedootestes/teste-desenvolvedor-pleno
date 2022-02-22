@@ -1,5 +1,5 @@
 import { DeleteQuestion } from '../../../domain/usecases/delete-question'
-import { badRequest, serverError } from '../../helpers/http-helpers'
+import { badRequest, ok, serverError } from '../../helpers/http-helpers'
 import { Controller, HttpRequest, HttpResponse, Validation } from './delete-question-protocols'
 
 export class DeleteQuestionController implements Controller {
@@ -18,8 +18,8 @@ export class DeleteQuestionController implements Controller {
       if (error) {
         return badRequest(error)
       }
-      await this.deleteQuestion.delete(id)
-      return { body: true, statusCode: 200 }
+      const result = await this.deleteQuestion.delete(id)
+      return ok(result)
     } catch (error) {
       return serverError(error)
     }
