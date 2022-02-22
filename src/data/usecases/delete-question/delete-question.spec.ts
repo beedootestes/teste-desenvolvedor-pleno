@@ -1,4 +1,5 @@
 import { QuestionModel } from '../../../domain/models/question'
+import { InvalidParamError } from '../../../presentation/errors/invalid-param-error'
 import { DeleteQuestionRepository } from '../../protocols/delete-question-repository'
 import { GetQuestionRepository } from '../../protocols/get-question-repository'
 import { DbDeleteQuestion } from './delete-question'
@@ -28,7 +29,7 @@ describe('DbDeleteQuestion', () => {
 
   const makeDeleteQuestionRepositoryStub = (): DeleteQuestionRepository => {
     class DeleteQuestionRepositoryStub implements DeleteQuestionRepository {
-      async delete (id: string): Promise<Boolean> {
+      async delete(id: string): Promise<Boolean> {
         return await new Promise(resolve => resolve(true))
       }
     }
@@ -37,7 +38,7 @@ describe('DbDeleteQuestion', () => {
 
   const makeGetQuestionRepositoryStub = (): GetQuestionRepository => {
     class GetQuestionRepositoryStub implements GetQuestionRepository {
-      async get (id: string): Promise<any> {
+      async get(id: string): Promise<any> {
         return await new Promise(resolve => resolve(makeFakeResponse()))
       }
     }
@@ -56,5 +57,18 @@ describe('DbDeleteQuestion', () => {
     const updateSpy = jest.spyOn(getQuestionRepositoryStub, 'get')
     await sut.delete('valid_id')
     expect(updateSpy).toBeCalledWith('valid_id')
+  })
+
+  test('Should throws if getQuestionRepository returns null', async () => {
+    const { sut, getQuestionRepositoryStub } = makeSut()
+    jest.spyOn(getQuestionRepositoryStub, 'get').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => resolve(null))
+    })
+
+    try {
+      await sut.delete('any_id')
+    } catch (error) {
+      expect(error).toEqual(new InvalidParamError('id'))
+    }
   })
 })
