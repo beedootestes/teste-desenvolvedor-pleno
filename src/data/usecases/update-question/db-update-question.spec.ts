@@ -1,5 +1,6 @@
 import { QuestionModel } from '../../../domain/models/question'
 import { UpdateQuestionModel } from '../../../domain/usecases/update-question'
+import { InvalidParamError } from '../../../presentation/errors/invalid-param-error'
 import { GetQuestionRepository } from '../../protocols/get-question-repository'
 import { UpdateQuestionRepository } from '../../protocols/update-question-repository'
 import { DbUpdateQuestion } from './db-update-question'
@@ -44,7 +45,7 @@ describe('DBupdateQuestion', () => {
 
   const makeGetQuestionRepositoryStub = (): GetQuestionRepository => {
     class GetQuestionRepositoryStub implements GetQuestionRepository {
-      async get (id: string): Promise<QuestionModel> {
+      async get (id: string): Promise<any> {
         const fakeQuestion = makeFakeResponse()
         return await new Promise(resolve => resolve(fakeQuestion))
       }
@@ -73,5 +74,18 @@ describe('DBupdateQuestion', () => {
     const question = makeFakeQuestion()
     await sut.update(question)
     expect(updateSpy).toHaveBeenLastCalledWith(question.id)
+  })
+
+  test('Should throws if getQuestionRepository returns null', async () => {
+    const { sut, getQuestionRepositoryStub } = makeSut()
+    jest.spyOn(getQuestionRepositoryStub, 'get').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => resolve(null))
+    })
+    const question = makeFakeQuestion()
+    try {
+      await sut.update(question)
+    } catch (error) {
+      expect(error).toEqual(new InvalidParamError('id'))
+    }
   })
 })
