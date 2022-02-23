@@ -1,14 +1,17 @@
 import { ok } from '../../helpers/http-helpers'
-import { AddResponse, Controller, HttpRequest, HttpResponse } from './add-response-protocols'
+import { AddResponse, Controller, HttpRequest, HttpResponse, Validation } from './add-response-protocols'
 
 export class AddResponseController implements Controller {
   private readonly addResponse: AddResponse
+  private readonly validation: Validation
 
-  constructor (addResponse) {
+  constructor (addResponse, validation) {
     this.addResponse = addResponse
+    this.validation = validation
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
+    this.validation.validate({ ...httpRequest.body, ...httpRequest.params })
     const response = httpRequest.body
     const id = httpRequest.params.id
     const result = await this.addResponse.add({ ...response, id: id })
