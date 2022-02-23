@@ -1,4 +1,5 @@
-import { ok } from '../../helpers/http-helpers'
+import { MissingParamError } from '../../errors/missing-param-error'
+import { badRequest, ok } from '../../helpers/http-helpers'
 import { AddResponseController } from './add-response'
 import { AddResponse, AddResponseModel, HttpRequest, ResponseModel, Validation } from './add-response-protocols'
 
@@ -81,5 +82,13 @@ describe('AddResponseController', () => {
       response: 'valid_response',
       id: 'valid_question_id'
     })
+  })
+
+  test('Should returns 400 if validators throws', async () => {
+    const { sut, validationStub } = makeSut()
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'))
+    const httpRequest = makeFakeRequest()
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')))
   })
 })
