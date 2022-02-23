@@ -1,5 +1,6 @@
 import { ResponseModel } from '../../../domain/models/response'
 import { AddResponseModel } from '../../../domain/usecases/add-response'
+import { InvalidParamError } from '../../../presentation/errors/invalid-param-error'
 import { AddResponseRepository } from '../../protocols/add-response-repository'
 import { GetQuestionRepository } from '../../protocols/get-question-repository'
 import { DbAddResponse } from './add-response'
@@ -73,5 +74,20 @@ describe('DBAddResponse', () => {
     const question = makeFakeInputResponse()
     await sut.add(question)
     expect(updateSpy).toBeCalledWith('valid_question_id')
+  })
+
+  test('Should throws if getQuestionRepository returns null', async () => {
+    expect.assertions(1)
+    const { sut, getQuestionRepositoryStub } = makeSut()
+    jest.spyOn(getQuestionRepositoryStub, 'get').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => resolve(null))
+    })
+
+    try {
+      const question = makeFakeInputResponse()
+      await sut.add(question)
+    } catch (error) {
+      expect(error).toEqual(new InvalidParamError('id'))
+    }
   })
 })
