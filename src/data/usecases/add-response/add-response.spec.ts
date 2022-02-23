@@ -1,6 +1,7 @@
 import { ResponseModel } from '../../../domain/models/response'
 import { AddResponseModel } from '../../../domain/usecases/add-response'
 import { AddResponseRepository } from '../../protocols/add-response-repository'
+import { GetQuestionRepository } from '../../protocols/get-question-repository'
 import { DbAddResponse } from './add-response'
 
 describe('DBAddResponse', () => {
@@ -18,13 +19,17 @@ describe('DBAddResponse', () => {
   interface Sut {
     sut: DbAddResponse
     addResponseRepositoryStub: AddResponseRepository
+    getQuestionRepositoryStub: GetQuestionRepository
+
   }
   const makeSut = (): Sut => {
     const addResponseRepositoryStub = makeAddResponseRepositoryStub()
-    const sut = new DbAddResponse(addResponseRepositoryStub)
+    const getQuestionRepositoryStub = makeGetQuestionRepositoryStub()
+    const sut = new DbAddResponse(addResponseRepositoryStub, getQuestionRepositoryStub)
     return {
       sut,
-      addResponseRepositoryStub
+      addResponseRepositoryStub,
+      getQuestionRepositoryStub
     }
   }
 
@@ -36,6 +41,15 @@ describe('DBAddResponse', () => {
       }
     }
     return new AddResponseRepositoryStub()
+  }
+
+  const makeGetQuestionRepositoryStub = (): GetQuestionRepository => {
+    class GetQuestionRepositoryStub implements GetQuestionRepository {
+      async get (id: string): Promise<any> {
+        return await new Promise(resolve => resolve(makeFakeInputResponse()))
+      }
+    }
+    return new GetQuestionRepositoryStub()
   }
 
   test('Should call AddResponseRepository', async () => {
@@ -51,5 +65,13 @@ describe('DBAddResponse', () => {
     const question = makeFakeInputResponse()
     const result = await sut.add(question)
     expect(result).toEqual(makeFakeOutputResponse())
+  })
+
+  test('Should call GetQuestionRepository correctly', async () => {
+    const { sut, getQuestionRepositoryStub } = makeSut()
+    const updateSpy = jest.spyOn(getQuestionRepositoryStub, 'get')
+    const question = makeFakeInputResponse()
+    await sut.add(question)
+    expect(updateSpy).toBeCalledWith('valid_question_id')
   })
 })
