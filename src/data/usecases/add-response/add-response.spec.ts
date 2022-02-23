@@ -45,4 +45,11 @@ describe('DBAddResponse', () => {
     await sut.add(response)
     expect(addSpy).toHaveBeenLastCalledWith(response)
   })
+
+  test('Should return a question on success', async () => {
+    const { sut } = makeSut()
+    const question = makeFakeInputResponse()
+    const result = await sut.add(question)
+    expect(result).toEqual(makeFakeOutputResponse())
+  })
 })
