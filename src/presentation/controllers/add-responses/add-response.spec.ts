@@ -1,5 +1,5 @@
 import { MissingParamError } from '../../errors/missing-param-error'
-import { badRequest, ok } from '../../helpers/http-helpers'
+import { badRequest, ok, serverError } from '../../helpers/http-helpers'
 import { AddResponseController } from './add-response'
 import { AddResponse, AddResponseModel, HttpRequest, ResponseModel, Validation } from './add-response-protocols'
 
@@ -90,5 +90,19 @@ describe('AddResponseController', () => {
     const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')))
+  })
+
+  test('Should return 500 if addResponse throws', async () => {
+    const { sut, addResponseStub } = makeSut()
+    jest.spyOn(addResponseStub, 'add').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => reject(new Error()))
+    })
+    const httpRequest = makeFakeRequest()
+    let httpResponse
+    try {
+      httpResponse = await sut.handle(httpRequest)
+    } catch (error) {
+      expect(httpResponse).toEqual(serverError(error))
+    }
   })
 })
