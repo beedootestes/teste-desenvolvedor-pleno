@@ -1,6 +1,6 @@
 import { ok } from '../../helpers/http-helpers'
 import { AddResponseController } from './add-response'
-import { AddResponse, AddResponseModel, HttpRequest, ResponseModel } from './add-response-protocols'
+import { AddResponse, AddResponseModel, HttpRequest, ResponseModel, Validation } from './add-response-protocols'
 
 describe('AddResponseController', () => {
   const makeFakeResponse = (): ResponseModel => ({
@@ -21,14 +21,17 @@ describe('AddResponseController', () => {
   interface SutType {
     sut: AddResponseController
     addResponseStub: AddResponse
+    validationStub: Validation
   }
 
   const makeSut = (): SutType => {
     const addResponseStub = makeAddResponse()
-    const sut = new AddResponseController(addResponseStub)
+    const validationStub = makeValidation()
+    const sut = new AddResponseController(addResponseStub, validationStub)
     return {
       sut,
-      addResponseStub
+      addResponseStub,
+      validationStub
     }
   }
 
@@ -40,6 +43,15 @@ describe('AddResponseController', () => {
       }
     }
     return new AddResponseStub()
+  }
+
+  const makeValidation = (): Validation => {
+    class ValidationStub implements Validation {
+      validate (input: any): Error | null {
+        return null
+      }
+    }
+    return new ValidationStub()
   }
 
   test('Should call addResponse with correct values', async () => {
@@ -58,5 +70,16 @@ describe('AddResponseController', () => {
     const httpRequest = makeFakeRequest()
     const response = await sut.handle(httpRequest)
     expect(response).toEqual(ok(makeFakeResponse()))
+  })
+
+  test('Should call validation with correct values', async () => {
+    const { sut, validationStub } = makeSut()
+    const isValidSpy = jest.spyOn(validationStub, 'validate')
+    const httpRequest = makeFakeRequest()
+    await sut.handle(httpRequest)
+    expect(isValidSpy).toHaveBeenCalledWith({
+      response: 'valid_response',
+      id: 'valid_question_id'
+    })
   })
 })
