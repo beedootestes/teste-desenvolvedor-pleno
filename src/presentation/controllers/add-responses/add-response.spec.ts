@@ -1,3 +1,4 @@
+import { ok } from '../../helpers/http-helpers'
 import { AddResponseController } from './add-response'
 import { AddResponse, AddResponseModel, HttpRequest, ResponseModel } from './add-response-protocols'
 
@@ -50,5 +51,12 @@ describe('AddResponseController', () => {
       response: 'valid_response',
       id: 'valid_question_id'
     })
+  })
+
+  test('Should return 200 if has valid data', async () => {
+    const { sut } = makeSut()
+    const httpRequest = makeFakeRequest()
+    const response = await sut.handle(httpRequest)
+    expect(response).toEqual(ok(makeFakeResponse()))
   })
 })
