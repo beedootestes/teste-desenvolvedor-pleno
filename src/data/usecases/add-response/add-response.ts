@@ -1,5 +1,6 @@
 import { ResponseModel } from '../../../domain/models/response'
 import { AddResponse, AddResponseModel } from '../../../domain/usecases/add-response'
+import { InvalidParamError } from '../../../presentation/errors/invalid-param-error'
 import { AddResponseRepository } from '../../protocols/add-response-repository'
 import { GetQuestionRepository } from '../../protocols/get-question-repository'
 
@@ -13,7 +14,10 @@ export class DbAddResponse implements AddResponse {
   }
 
   async add (response: AddResponseModel): Promise<ResponseModel> {
-    await this.getQuestionRepository.get(response.id)
+    const questionExist = await this.getQuestionRepository.get(response.id)
+    if (!questionExist) {
+      throw new InvalidParamError('id')
+    }
     return await this.addResponseRepository.add(response)
   }
 }
