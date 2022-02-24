@@ -19,6 +19,6 @@ export class DbListResponses implements ListResponses {
     if (!questionExist) {
       throw new InvalidParamError('id')
     }
-    return await this.listResponsesRepository.list(id)
+    return await this.listResponsesRepository.listResponses(id)
   }
 }

@@ -1,3 +1,3 @@
 export interface ListResponsesRepository {
-  list (id: string): Promise<string[]>
+  listResponses (id: string): Promise<string[]>
 }
