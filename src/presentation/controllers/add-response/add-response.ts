@@ -12,13 +12,16 @@ export class AddResponseController implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const error = this.validation.validate({ ...httpRequest.body, ...httpRequest.params })
+      const response = {
+        response: httpRequest.body.response,
+        question_id: httpRequest.params.question_id
+      }
+
+      const error = this.validation.validate(response)
       if (error) {
         return badRequest(error)
       }
-      const response = httpRequest.body
-      const questionId = httpRequest.params.question_id
-      const result = await this.addResponse.add({ ...response, question_id: questionId })
+      const result = await this.addResponse.add(response)
       return ok(result)
     } catch (error) {
       return serverError(error)
