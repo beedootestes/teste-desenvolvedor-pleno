@@ -2,6 +2,7 @@ import { ResponseModel } from '../../../domain/models/response'
 import { AddResponseModel } from '../../../domain/usecases/add-response'
 import { InvalidParamError } from '../../../presentation/errors/invalid-param-error'
 import { AddResponseRepository } from '../../protocols/add-response-repository'
+import { AddResponseToQuestionModel, AddResponseToQuestionRepository } from '../../protocols/add-response-to-question.repository'
 import { GetQuestionRepository } from '../../protocols/get-question-repository'
 import { DbAddResponse } from './add-response'
 
@@ -20,16 +21,22 @@ describe('DBAddResponse', () => {
     sut: DbAddResponse
     addResponseRepositoryStub: AddResponseRepository
     getQuestionRepositoryStub: GetQuestionRepository
-
+    addResponseToQuestionRepositoryStub: AddResponseToQuestionRepository
   }
   const makeSut = (): Sut => {
+    const addResponseToQuestionRepositoryStub = makeAddResponseToQuestionRepositoryStub()
     const addResponseRepositoryStub = makeAddResponseRepositoryStub()
     const getQuestionRepositoryStub = makeGetQuestionRepositoryStub()
-    const sut = new DbAddResponse(addResponseRepositoryStub, getQuestionRepositoryStub)
+    const sut = new DbAddResponse(
+      addResponseRepositoryStub,
+      getQuestionRepositoryStub,
+      addResponseToQuestionRepositoryStub
+    )
     return {
       sut,
       addResponseRepositoryStub,
-      getQuestionRepositoryStub
+      getQuestionRepositoryStub,
+      addResponseToQuestionRepositoryStub
     }
   }
 
@@ -41,6 +48,15 @@ describe('DBAddResponse', () => {
       }
     }
     return new AddResponseRepositoryStub()
+  }
+
+  const makeAddResponseToQuestionRepositoryStub = (): AddResponseToQuestionRepository => {
+    class AddResponseToQuestionRepositoryStub implements AddResponseToQuestionRepository {
+      async addResponse (response: AddResponseToQuestionModel): Promise<Boolean> {
+        return await new Promise(resolve => resolve(true))
+      }
+    }
+    return new AddResponseToQuestionRepositoryStub()
   }
 
   const makeGetQuestionRepositoryStub = (): GetQuestionRepository => {
@@ -88,5 +104,13 @@ describe('DBAddResponse', () => {
     } catch (error) {
       expect(error).toEqual(new InvalidParamError('question_id'))
     }
+  })
+
+  test('Should call addResponseToQuestionRepository correctly', async () => {
+    const { sut, addResponseToQuestionRepositoryStub } = makeSut()
+    const addSpy = jest.spyOn(addResponseToQuestionRepositoryStub, 'addResponse')
+    const response = makeFakeInputResponse()
+    await sut.add(response)
+    expect(addSpy).toHaveBeenLastCalledWith(response)
   })
 })
