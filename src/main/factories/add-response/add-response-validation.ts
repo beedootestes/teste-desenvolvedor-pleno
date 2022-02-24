@@ -4,7 +4,7 @@ import { ValidationComposite } from '../../../presentation/helpers/validators/va
 
 export const makeAddResponseValidation = (): ValidationComposite => {
   const validations: Validation[] = []
-  for (const field of ['response', 'id']) {
+  for (const field of ['response', 'question_id']) {
     validations.push(new RequiredFieldValidation(field))
   }
   return new ValidationComposite(validations)

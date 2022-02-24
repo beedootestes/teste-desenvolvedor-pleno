@@ -9,7 +9,7 @@ describe('Add Question Validation', () => {
   test('Should call validationComposite with all validations', () => {
     makeAddResponseValidation()
     const validations: Validation[] = []
-    for (const field of ['response', 'id']) {
+    for (const field of ['response', 'question_id']) {
       validations.push(new RequiredFieldValidation(field))
     }
     expect(ValidationComposite).toHaveBeenCalledWith(validations)
