@@ -28,6 +28,5 @@ describe('Response Mongo repository', () => {
     expect(response).toBeTruthy()
     expect(response.id).toBeTruthy()
     expect(response.response).toBe('any_response')
-    expect(response.questions[0]).toBe('valid_question_id')
   })
 })

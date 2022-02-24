@@ -6,8 +6,7 @@ import { AddResponse, AddResponseModel, HttpRequest, ResponseModel, Validation }
 describe('AddResponseController', () => {
   const makeFakeResponse = (): ResponseModel => ({
     id: 'valid_response_id',
-    response: 'valid_response',
-    questions: ['valid_question_id']
+    response: 'valid_response'
   })
 
   const makeFakeRequest = (): HttpRequest => ({
