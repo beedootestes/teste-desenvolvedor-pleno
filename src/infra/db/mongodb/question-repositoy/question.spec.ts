@@ -44,12 +44,14 @@ describe('Question Mongo repository', () => {
     const sut = makeSut()
     const question = await sut.update({
       question: 'any_question',
-      id: 'any_id'
+      id: 'any_id',
+      responses: ['any_response_id']
     })
     expect(question).toBeTruthy()
     expect(question.id).toBeTruthy()
     expect(question.question).toBe('any_question')
     expect(question.id).toBe('any_id')
+    expect(question.responses[0]).toBe('any_response_id')
   })
 
   test('Should return a question when get is a success', async () => {
