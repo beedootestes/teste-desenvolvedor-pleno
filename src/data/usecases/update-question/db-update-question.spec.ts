@@ -8,7 +8,8 @@ import { DbUpdateQuestion } from './db-update-question'
 describe('DBupdateQuestion', () => {
   const makeFakeQuestion = (): UpdateQuestionModel => ({
     id: 'valid_id',
-    question: 'valid_question'
+    question: 'valid_question',
+    responses: []
   })
 
   const makeFakeResponse = (): QuestionModel => ({

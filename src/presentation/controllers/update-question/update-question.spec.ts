@@ -60,10 +60,7 @@ describe('Update Question Controller', () => {
     const isValidSpy = jest.spyOn(updateQuestionStub, 'update')
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
-    expect(isValidSpy).toHaveBeenCalledWith({
-      id: 'valid_id',
-      question: 'valid_question'
-    })
+    expect(isValidSpy).toHaveBeenCalledWith(makeFakeQuestion())
   })
 
   test('Should return 500 if updateQuestion throws', async () => {
@@ -85,7 +82,7 @@ describe('Update Question Controller', () => {
     const validateSpy = jest.spyOn(validationStub, 'validate')
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
-    expect(validateSpy).toHaveBeenCalledWith({ ...httpRequest.body, ...httpRequest.params })
+    expect(validateSpy).toHaveBeenCalledWith(makeFakeQuestion())
   })
 
   test('Should returns 400 if validators throws', async () => {
