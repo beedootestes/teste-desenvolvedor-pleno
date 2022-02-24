@@ -35,9 +35,13 @@ export class QuestionMongoRepository implements
     const result = await questionCollection.updateOne(
       {
         _id: questionData.id
-      }, {
+      },
+      {
         $set: {
           question: questionData.question
+        },
+        $push: {
+          responses: [questionData.responses[0]]
         }
       },
       {
@@ -45,7 +49,7 @@ export class QuestionMongoRepository implements
       }
     )
     const id = result.upsertedId.toString()
-    return Object.assign({}, { id: id }, { question: questionData.question, responses: [] })
+    return Object.assign({}, { id: id }, { question: questionData.question, responses: questionData.responses })
   }
 
   async get (id: string): Promise<any> {
