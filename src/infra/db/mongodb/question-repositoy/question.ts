@@ -4,6 +4,7 @@ import { AddResponseToQuestionModel, AddResponseToQuestionRepository } from '../
 import { DeleteQuestionRepository } from '../../../../data/protocols/delete-question-repository'
 import { GetQuestionRepository } from '../../../../data/protocols/get-question-repository'
 import { ListQuestionsRepository } from '../../../../data/protocols/list-question-repository'
+import { ListResponsesRepository } from '../../../../data/protocols/list-responses-repository'
 import { UpdateQuestionRepository } from '../../../../data/protocols/update-question-repository'
 import { AddQuestionModel, QuestionModel, MongoHelper, UpdateQuestionModel } from './question-protococols'
 
@@ -13,7 +14,8 @@ export class QuestionMongoRepository implements
   UpdateQuestionRepository,
   GetQuestionRepository,
   DeleteQuestionRepository,
-  AddResponseToQuestionRepository {
+  AddResponseToQuestionRepository,
+  ListResponsesRepository {
   async add (questionData: AddQuestionModel): Promise<QuestionModel> {
     const questionCollection = await MongoHelper.getCollection('questions')
     const result = await questionCollection.insertOne(questionData)
@@ -77,5 +79,11 @@ export class QuestionMongoRepository implements
       }
     )
     return true
+  }
+
+  async listResponses (id: string): Promise<string[]> {
+    const questionCollection = await MongoHelper.getCollection('questions')
+    const result = await questionCollection.findOne({ _id: new ObjectId(id) })
+    return result?.responses
   }
 }
