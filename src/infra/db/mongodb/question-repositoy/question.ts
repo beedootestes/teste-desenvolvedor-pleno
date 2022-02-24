@@ -16,7 +16,7 @@ export class QuestionMongoRepository implements
     const questionCollection = await MongoHelper.getCollection('questions')
     const result = await questionCollection.insertOne(questionData)
     const id = result.insertedId.toString()
-    return Object.assign({}, { id: id }, { question: questionData.question })
+    return Object.assign({}, { id: id }, { question: questionData.question, responses: [] })
   }
 
   async list (): Promise<QuestionModel[]> {
@@ -24,7 +24,8 @@ export class QuestionMongoRepository implements
     const result = await questionCollection.find().toArray()
     const questions = result.map(question => ({
       id: question._id.toString(),
-      question: question.question
+      question: question.question,
+      responses: question.responses
     }))
     return questions
   }
@@ -44,7 +45,7 @@ export class QuestionMongoRepository implements
       }
     )
     const id = result.upsertedId.toString()
-    return Object.assign({}, { id: id }, { question: questionData.question })
+    return Object.assign({}, { id: id }, { question: questionData.question, responses: [] })
   }
 
   async get (id: string): Promise<any> {
