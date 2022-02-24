@@ -86,7 +86,7 @@ describe('DBAddResponse', () => {
       const question = makeFakeInputResponse()
       await sut.add(question)
     } catch (error) {
-      expect(error).toEqual(new InvalidParamError('id'))
+      expect(error).toEqual(new InvalidParamError('question_id'))
     }
   })
 })

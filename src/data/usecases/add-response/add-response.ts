@@ -16,7 +16,7 @@ export class DbAddResponse implements AddResponse {
   async add (response: AddResponseModel): Promise<ResponseModel> {
     const questionExist = await this.getQuestionRepository.get(response.question_id)
     if (!questionExist) {
-      throw new InvalidParamError('id')
+      throw new InvalidParamError('question_id')
     }
     return await this.addResponseRepository.add(response)
   }
