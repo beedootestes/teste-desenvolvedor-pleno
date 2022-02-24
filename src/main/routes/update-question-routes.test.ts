@@ -13,6 +13,7 @@ describe('Add Question', () => {
 
   beforeEach(async () => {
     const questionsCollection = await MongoHelper.getCollection('questions')
+    await questionsCollection.deleteMany({})
     await questionsCollection.insertOne({ id: 'valid_id', question: 'any_question' })
   })
 
@@ -23,7 +24,7 @@ describe('Add Question', () => {
 
   test('Should return question success', async () => {
     const questionsCollection = await MongoHelper.getCollection('questions')
-    await questionsCollection.insertOne({ question: 'Fake question' })
+    await questionsCollection.insertOne({ question: 'Fake question', responses: [] })
     const fakeQuestion = await questionsCollection.findOne({ question: 'Fake question' })
 
     const id = fakeQuestion?._id.toString().valueOf() ?? 'any_id'
