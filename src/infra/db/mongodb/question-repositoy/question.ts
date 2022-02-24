@@ -34,24 +34,16 @@ export class QuestionMongoRepository implements
 
   async update (questionData: UpdateQuestionModel): Promise<QuestionModel> {
     const questionCollection = await MongoHelper.getCollection('questions')
-    const result = await questionCollection.updateOne(
+    await questionCollection.updateOne(
       {
-        _id: questionData.id
-      },
-      {
+        _id: new ObjectId(questionData.id)
+      }, {
         $set: {
           question: questionData.question
-        },
-        $push: {
-          responses: [questionData.responses[0]]
         }
-      },
-      {
-        upsert: true
       }
     )
-    const id = result.upsertedId.toString()
-    return Object.assign({}, { id: id }, { question: questionData.question, responses: questionData.responses })
+    return Object.assign({}, { id: questionData.id }, { question: questionData.question, responses: questionData.responses })
   }
 
   async get (id: string): Promise<any> {
@@ -73,7 +65,7 @@ export class QuestionMongoRepository implements
     const questionCollection = await MongoHelper.getCollection('questions')
     await questionCollection.updateOne(
       {
-        _id: responseData.question_id
+        _id: new ObjectId(responseData.question_id)
       },
       {
         $push: {
@@ -81,7 +73,7 @@ export class QuestionMongoRepository implements
         }
       },
       {
-        upsert: true
+        upsert: false
       }
     )
     return true
