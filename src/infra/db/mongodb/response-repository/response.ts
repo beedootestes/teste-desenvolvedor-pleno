@@ -4,8 +4,7 @@ export class ResponseMongoRepository implements AddResponseRepository {
   async add (responseData: AddResponseModel): Promise<ResponseModel> {
     const responseCollection = await MongoHelper.getCollection('responses')
     const response = {
-      response: responseData.response,
-      questions: [responseData.question_id]
+      response: responseData.response
     }
     const result = await responseCollection.insertOne(response)
     const id = result.insertedId.toString()
