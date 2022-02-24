@@ -89,4 +89,15 @@ describe('Question Mongo repository', () => {
     const response = await sut.delete(id)
     expect(response).toBe(false)
   })
+
+  test('Should return true when addResponse is a success', async () => {
+    const questionsCollection = await MongoHelper.getCollection('questions')
+    await questionsCollection.insertOne({ question: 'Fake question' })
+    const fakeQuestion = await questionsCollection.findOne({ question: 'Fake question' })
+
+    const id = fakeQuestion?._id.toString().valueOf() ?? 'any_id'
+    const sut = makeSut()
+    const response = await sut.addResponse({ question_id: id, response: 'new_response' })
+    expect(response).toBe(true)
+  })
 })
