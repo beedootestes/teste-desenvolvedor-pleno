@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { AddQuestionRepository } from '../../../../data/protocols/add-question-repository'
+import { AddResponseToQuestionModel, AddResponseToQuestionRepository } from '../../../../data/protocols/add-response-to-question.repository'
 import { DeleteQuestionRepository } from '../../../../data/protocols/delete-question-repository'
 import { GetQuestionRepository } from '../../../../data/protocols/get-question-repository'
 import { ListQuestionsRepository } from '../../../../data/protocols/list-question-repository'
@@ -11,7 +12,8 @@ export class QuestionMongoRepository implements
   ListQuestionsRepository,
   UpdateQuestionRepository,
   GetQuestionRepository,
-  DeleteQuestionRepository {
+  DeleteQuestionRepository,
+  AddResponseToQuestionRepository {
   async add (questionData: AddQuestionModel): Promise<QuestionModel> {
     const questionCollection = await MongoHelper.getCollection('questions')
     const result = await questionCollection.insertOne(questionData)
@@ -65,5 +67,23 @@ export class QuestionMongoRepository implements
     const questionCollection = await MongoHelper.getCollection('questions')
     const result = await questionCollection.deleteOne({ _id: new ObjectId(id) })
     return result.deletedCount === 1 ? result.acknowledged : false
+  }
+
+  async addResponse (responseData: AddResponseToQuestionModel): Promise<Boolean> {
+    const questionCollection = await MongoHelper.getCollection('questions')
+    await questionCollection.updateOne(
+      {
+        _id: responseData.question_id
+      },
+      {
+        $push: {
+          responses: responseData.response
+        }
+      },
+      {
+        upsert: true
+      }
+    )
+    return true
   }
 }
