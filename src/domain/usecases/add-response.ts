@@ -2,7 +2,7 @@ import { ResponseModel } from '../models/response'
 
 export interface AddResponseModel{
   response: string
-  id: string
+  question_id: string
 }
 
 export interface AddResponse {

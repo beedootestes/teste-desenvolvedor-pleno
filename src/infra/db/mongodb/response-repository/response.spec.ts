@@ -23,7 +23,7 @@ describe('Response Mongo repository', () => {
     const sut = makeSut()
     const response = await sut.add({
       response: 'any_response',
-      id: 'valid_question_id'
+      question_id: 'valid_question_id'
     })
     expect(response).toBeTruthy()
     expect(response.id).toBeTruthy()

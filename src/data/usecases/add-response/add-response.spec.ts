@@ -8,7 +8,7 @@ import { DbAddResponse } from './add-response'
 describe('DBAddResponse', () => {
   const makeFakeInputResponse = (): AddResponseModel => ({
     response: 'valid_response',
-    id: 'valid_question_id'
+    question_id: 'valid_question_id'
   })
 
   const makeFakeOutputResponse = (): ResponseModel => ({

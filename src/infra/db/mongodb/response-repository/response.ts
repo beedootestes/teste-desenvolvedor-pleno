@@ -5,10 +5,10 @@ export class ResponseMongoRepository implements AddResponseRepository {
     const responseCollection = await MongoHelper.getCollection('responses')
     const response = {
       response: responseData.response,
-      questions: [responseData.id]
+      questions: [responseData.question_id]
     }
     const result = await responseCollection.insertOne(response)
     const id = result.insertedId.toString()
-    return Object.assign({}, { id: id }, { response: response.response, questions: response.questions })
+    return Object.assign({}, { id: id }, { response: response.response })
   }
 }

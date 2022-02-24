@@ -17,8 +17,8 @@ export class AddResponseController implements Controller {
         return badRequest(error)
       }
       const response = httpRequest.body
-      const id = httpRequest.params.id
-      const result = await this.addResponse.add({ ...response, id: id })
+      const questionId = httpRequest.params.question_id
+      const result = await this.addResponse.add({ ...response, question_id: questionId })
       return ok(result)
     } catch (error) {
       return serverError(error)

@@ -14,7 +14,7 @@ describe('AddResponseController', () => {
       response: 'valid_response'
     },
     params: {
-      id: 'valid_question_id'
+      question_id: 'valid_question_id'
     }
   })
 
@@ -61,7 +61,7 @@ describe('AddResponseController', () => {
     await sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith({
       response: 'valid_response',
-      id: 'valid_question_id'
+      question_id: 'valid_question_id'
     })
   })
 
@@ -79,7 +79,7 @@ describe('AddResponseController', () => {
     await sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith({
       response: 'valid_response',
-      id: 'valid_question_id'
+      question_id: 'valid_question_id'
     })
   })
 
