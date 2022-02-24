@@ -1,7 +1,6 @@
 import { ResponseModel } from '../../../domain/models/response'
 import { AddResponseModel } from '../../../domain/usecases/add-response'
 import { InvalidParamError } from '../../../presentation/errors/invalid-param-error'
-import { AddResponseRepository } from '../../protocols/add-response-repository'
 import { AddResponseToQuestionModel, AddResponseToQuestionRepository } from '../../protocols/add-response-to-question.repository'
 import { GetQuestionRepository } from '../../protocols/get-question-repository'
 import { DbAddResponse } from './add-response'
@@ -19,35 +18,21 @@ describe('DBAddResponse', () => {
 
   interface Sut {
     sut: DbAddResponse
-    addResponseRepositoryStub: AddResponseRepository
     getQuestionRepositoryStub: GetQuestionRepository
     addResponseToQuestionRepositoryStub: AddResponseToQuestionRepository
   }
   const makeSut = (): Sut => {
     const addResponseToQuestionRepositoryStub = makeAddResponseToQuestionRepositoryStub()
-    const addResponseRepositoryStub = makeAddResponseRepositoryStub()
     const getQuestionRepositoryStub = makeGetQuestionRepositoryStub()
     const sut = new DbAddResponse(
-      addResponseRepositoryStub,
       getQuestionRepositoryStub,
       addResponseToQuestionRepositoryStub
     )
     return {
       sut,
-      addResponseRepositoryStub,
       getQuestionRepositoryStub,
       addResponseToQuestionRepositoryStub
     }
-  }
-
-  const makeAddResponseRepositoryStub = (): AddResponseRepository => {
-    class AddResponseRepositoryStub implements AddResponseRepository {
-      async add (response: AddResponseModel): Promise<ResponseModel> {
-        const fakeResponse = makeFakeOutputResponse()
-        return await new Promise(resolve => resolve(fakeResponse))
-      }
-    }
-    return new AddResponseRepositoryStub()
   }
 
   const makeAddResponseToQuestionRepositoryStub = (): AddResponseToQuestionRepository => {
@@ -67,14 +52,6 @@ describe('DBAddResponse', () => {
     }
     return new GetQuestionRepositoryStub()
   }
-
-  test('Should call AddResponseRepository', async () => {
-    const { sut, addResponseRepositoryStub } = makeSut()
-    const addSpy = jest.spyOn(addResponseRepositoryStub, 'add')
-    const response = makeFakeInputResponse()
-    await sut.add(response)
-    expect(addSpy).toHaveBeenLastCalledWith(response)
-  })
 
   test('Should return a question on success', async () => {
     const { sut } = makeSut()
