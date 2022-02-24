@@ -7,7 +7,8 @@ import { DbDeleteQuestion } from './delete-question'
 describe('DbDeleteQuestion', () => {
   const makeFakeResponse = (): QuestionModel => ({
     id: 'any_id',
-    question: 'updated_question'
+    question: 'updated_question',
+    responses: []
   })
 
   interface Sut {

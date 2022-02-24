@@ -10,7 +10,8 @@ describe('DBAddQuestion', () => {
 
   const makeFakeResponse = (): QuestionModel => ({
     id: 'any_id',
-    question: 'valid_question'
+    question: 'valid_question',
+    responses: []
   })
 
   interface Sut {

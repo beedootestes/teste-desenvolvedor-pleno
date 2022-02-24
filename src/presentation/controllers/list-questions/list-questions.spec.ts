@@ -5,7 +5,8 @@ import { ok, serverError } from '../../helpers/http-helpers'
 describe('ListQuestion Controller', () => {
   const makeFakeListOfQuestions = (): QuestionModel[] => ([{
     id: 'valid_id',
-    question: 'valid_question'
+    question: 'valid_question',
+    responses: []
   }])
 
   const makeFakeRequest = (): HttpRequest => ({

@@ -12,7 +12,8 @@ describe('AddQuestion Controller', () => {
 
   const makeFakeQuestion = (): QuestionModel => ({
     id: 'valid_id',
-    question: 'valid_question'
+    question: 'valid_question',
+    responses: []
   })
 
   interface Sut {

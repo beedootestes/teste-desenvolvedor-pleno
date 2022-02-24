@@ -5,7 +5,8 @@ import { DbListQuestions } from './list-questions'
 describe('DBAddQuestion', () => {
   const makeFakeQuestionsList = (): QuestionModel[] => ([{
     id: 'valid_id',
-    question: 'valid_ question'
+    question: 'valid_ question',
+    responses: []
   }])
 
   interface SutType {
