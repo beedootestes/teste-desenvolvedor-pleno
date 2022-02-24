@@ -10,7 +10,7 @@ import { makeAddResponseValidation } from './add-response-validation'
 export const makeAddResponseController = (): Controller => {
   const responseMongoRepository = new ResponseMongoRepository()
   const questionMongoRepository = new QuestionMongoRepository()
-  const dbAddResponse = new DbAddResponse(responseMongoRepository, questionMongoRepository)
+  const dbAddResponse = new DbAddResponse(responseMongoRepository, questionMongoRepository, questionMongoRepository)
   const addResponseController = new AddResponseController(dbAddResponse, makeAddResponseValidation())
   const logMongoRepository = new LogMongoRepository()
   return new LogControllerDecorator(addResponseController, logMongoRepository)
