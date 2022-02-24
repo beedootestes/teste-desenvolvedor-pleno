@@ -5,7 +5,7 @@ import { ValidationComposite } from '../../../presentation/helpers/validators/va
 
 export const makeUpdateQuestionValidation = (): ValidationComposite => {
   const validations: Validation[] = []
-  for (const field of ['question', 'id']) {
+  for (const field of ['question', 'id', 'responses']) {
     if (field === 'id') {
       validations.push(new RequiredParamsValidation(field))
     }
