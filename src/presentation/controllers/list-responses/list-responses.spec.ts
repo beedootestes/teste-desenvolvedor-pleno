@@ -1,3 +1,4 @@
+import { serverError } from '../../helpers/http-helpers'
 import { ListResponsesController } from './list-responses'
 import { HttpRequest, ListResponses } from './list-responses-protocols'
 
@@ -34,11 +35,25 @@ describe('ListResponses Controller', () => {
     return new ListResponsesStub()
   }
 
-  test('Should call list Questions with no values', async () => {
+  test('Should call list Responses with no values', async () => {
     const { sut, listResponsesStub } = makeSut()
     const isValidSpy = jest.spyOn(listResponsesStub, 'list')
     const fakeHttpRequest = makeFakeRequest()
     await sut.handle(fakeHttpRequest)
     expect(isValidSpy).toHaveBeenCalledWith('valid_question_id')
+  })
+
+  test('Should return 500 if listQuestions throws', async () => {
+    const { sut, listResponsesStub } = makeSut()
+    jest.spyOn(listResponsesStub, 'list').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => reject(new Error()))
+    })
+    const fakeHttpRequest = makeFakeRequest()
+    let httpResponse
+    try {
+      httpResponse = await sut.handle(fakeHttpRequest)
+    } catch (error) {
+      expect(httpResponse).toEqual(serverError(error))
+    }
   })
 })
