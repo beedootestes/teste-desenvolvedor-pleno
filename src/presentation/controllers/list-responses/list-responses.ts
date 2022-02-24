@@ -11,8 +11,8 @@ export class ListResponsesController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const id = httpRequest.params.id
-      await this.listResponses.list(id)
-      return ok(true)
+      const result = await this.listResponses.list(id)
+      return ok(result)
     } catch (error) {
       return serverError(error)
     }
