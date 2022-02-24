@@ -1,4 +1,4 @@
-import { ok } from '../../helpers/http-helpers'
+import { ok, serverError } from '../../helpers/http-helpers'
 import { Controller, HttpRequest, HttpResponse, ListResponses } from './list-responses-protocols'
 
 export class ListResponsesController implements Controller {
@@ -9,8 +9,12 @@ export class ListResponsesController implements Controller {
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    const id = httpRequest.params.id
-    await this.listResponses.list(id)
-    return ok(true)
+    try {
+      const id = httpRequest.params.id
+      await this.listResponses.list(id)
+      return ok(true)
+    } catch (error) {
+      return serverError(error)
+    }
   }
 }
