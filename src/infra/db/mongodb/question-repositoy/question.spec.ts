@@ -103,4 +103,19 @@ describe('Question Mongo repository', () => {
     const response = await sut.addResponse({ question_id: id, response: 'new_response' })
     expect(response).toBe(true)
   })
+
+  test('Should return a list of ids when listResponses is a success', async () => {
+    const questionsCollection = await MongoHelper.getCollection('questions')
+    await questionsCollection.insertOne({
+      question: 'Fake question',
+      responses: ['response 1', 'response 2']
+    })
+    const fakeQuestion = await questionsCollection.findOne({ question: 'Fake question' })
+
+    const id = fakeQuestion?._id.toString().valueOf() ?? 'any_id'
+    const sut = makeSut()
+    const responses = await sut.listResponses(id)
+    expect(responses).toBeTruthy()
+    expect(responses[0]).toBe('response 1')
+  })
 })
