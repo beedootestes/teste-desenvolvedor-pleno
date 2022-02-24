@@ -3,7 +3,7 @@ import { QuestionModel } from '../models/question'
 export interface UpdateQuestionModel {
   question: string
   id: string
-  response: string[]
+  responses: string[]
 }
 
 export interface UpdateQuestion {
