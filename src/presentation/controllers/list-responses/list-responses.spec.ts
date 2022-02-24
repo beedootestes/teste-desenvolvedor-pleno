@@ -1,4 +1,4 @@
-import { serverError } from '../../helpers/http-helpers'
+import { ok, serverError } from '../../helpers/http-helpers'
 import { ListResponsesController } from './list-responses'
 import { HttpRequest, ListResponses } from './list-responses-protocols'
 
@@ -55,5 +55,12 @@ describe('ListResponses Controller', () => {
     } catch (error) {
       expect(httpResponse).toEqual(serverError(error))
     }
+  })
+
+  test('Should return 200 when valid data is provided', async () => {
+    const { sut } = makeSut()
+    const fakeHttpRequest = makeFakeRequest()
+    const httpResponse = await sut.handle(fakeHttpRequest)
+    expect(httpResponse).toEqual(ok(makeFakeListOfResponses()))
   })
 })
