@@ -11,11 +11,6 @@ describe('DBAddResponse', () => {
     question_id: 'valid_question_id'
   })
 
-  const makeFakeOutputResponse = (): ResponseModel => ({
-    id: 'valid_id',
-    response: 'valid_response'
-  })
-
   interface Sut {
     sut: DbAddResponse
     getQuestionRepositoryStub: GetQuestionRepository
@@ -53,11 +48,11 @@ describe('DBAddResponse', () => {
     return new GetQuestionRepositoryStub()
   }
 
-  test('Should return a question on success', async () => {
+  test('Should return true on success', async () => {
     const { sut } = makeSut()
     const question = makeFakeInputResponse()
     const result = await sut.add(question)
-    expect(result).toEqual(makeFakeOutputResponse())
+    expect(result).toEqual(true)
   })
 
   test('Should call GetQuestionRepository correctly', async () => {

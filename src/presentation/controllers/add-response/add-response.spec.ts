@@ -37,9 +37,8 @@ describe('AddResponseController', () => {
 
   const makeAddResponse = (): AddResponse => {
     class AddResponseStub implements AddResponse {
-      async add (response: AddResponseModel): Promise<ResponseModel> {
-        const fakeResponse = makeFakeResponse()
-        return await new Promise(resolve => resolve(fakeResponse))
+      async add (response: AddResponseModel): Promise<Boolean> {
+        return await new Promise(resolve => resolve(true))
       }
     }
     return new AddResponseStub()
@@ -69,7 +68,7 @@ describe('AddResponseController', () => {
     const { sut } = makeSut()
     const httpRequest = makeFakeRequest()
     const response = await sut.handle(httpRequest)
-    expect(response).toEqual(ok(makeFakeResponse()))
+    expect(response).toEqual(ok(true))
   })
 
   test('Should call validation with correct values', async () => {

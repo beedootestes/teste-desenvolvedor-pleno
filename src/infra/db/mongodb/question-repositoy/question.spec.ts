@@ -41,17 +41,20 @@ describe('Question Mongo repository', () => {
   })
 
   test('Should return a question when updates is a success', async () => {
+    const questionsCollection = await MongoHelper.getCollection('questions')
+    await questionsCollection.insertOne({ question: 'Fake question' })
+    const fakeQuestion = await questionsCollection.findOne({ question: 'Fake question' })
+
+    const id = fakeQuestion?._id.toString().valueOf() ?? 'any_id'
     const sut = makeSut()
     const question = await sut.update({
       question: 'any_question',
-      id: 'any_id',
+      id: id,
       responses: ['any_response_id']
     })
     expect(question).toBeTruthy()
     expect(question.id).toBeTruthy()
     expect(question.question).toBe('any_question')
-    expect(question.id).toBe('any_id')
-    expect(question.responses[0]).toBe('any_response_id')
   })
 
   test('Should return a question when get is a success', async () => {
