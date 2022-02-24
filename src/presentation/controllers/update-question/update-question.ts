@@ -12,14 +12,18 @@ export class UpdateQuestionController implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const validations = { ...httpRequest.body, ...httpRequest.params }
+      const question = httpRequest.body.question
+      const responses = httpRequest.body.responses || []
+      const id = httpRequest.params.id
+      const inputValues = { question, responses, id }
+
+      const validations = inputValues
       const error = this.validation.validate(validations)
       if (error) {
         return badRequest(error)
       }
 
-      const question = { ...httpRequest.body, ...httpRequest.params }
-      const result = await this.updateQuestion.update(question)
+      const result = await this.updateQuestion.update(inputValues)
       return ok(result)
     } catch (error) {
       return serverError(error)
