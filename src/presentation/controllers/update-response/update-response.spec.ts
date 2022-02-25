@@ -1,5 +1,5 @@
 import { UpdateResponse, UpdateResponseModel } from '../../../domain/usecases/update-response'
-import { ok } from '../../helpers/http-helpers'
+import { ok, serverError } from '../../helpers/http-helpers'
 import { UpdateResponseController } from './update-resonse'
 import { HttpRequest, Validation } from './update-response-protocols'
 
@@ -32,7 +32,7 @@ describe('UpdateResponseController', () => {
 
   const makeUpdateResponse = (): UpdateResponse => {
     class UpdateResponseStub implements UpdateResponse {
-      async update(response: UpdateResponseModel): Promise<Boolean> {
+      async update (response: UpdateResponseModel): Promise<Boolean> {
         return await new Promise(resolve => resolve(true))
       }
     }
@@ -41,7 +41,7 @@ describe('UpdateResponseController', () => {
 
   const makeValidation = (): Validation => {
     class ValidationStub implements Validation {
-      validate(input: any): Error | null {
+      validate (input: any): Error | null {
         return null
       }
     }
@@ -64,5 +64,19 @@ describe('UpdateResponseController', () => {
     const httpRequest = makeFakeRequest()
     const response = await sut.handle(httpRequest)
     expect(response).toEqual(ok(true))
+  })
+
+  test('Should return serverError if updateResponses throws', async () => {
+    const { sut, updateResponseStub } = makeSut()
+    jest.spyOn(updateResponseStub, 'update').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => reject(new Error()))
+    })
+    const httpRequest = makeFakeRequest()
+    let response
+    try {
+      response = await sut.handle(httpRequest)
+    } catch (error) {
+      expect(response).toEqual(serverError(error))
+    }
   })
 })
