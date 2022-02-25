@@ -87,4 +87,18 @@ describe('DBDeleteResponse', () => {
       expect(error).toEqual(new InvalidParamError('question_id'))
     }
   })
+
+  test('Should throws if deleteResponseRepository returns false', async () => {
+    expect.assertions(1)
+    const { sut, deleteResponseRepositoryStub } = makeSut()
+    jest.spyOn(deleteResponseRepositoryStub, 'deleteResponse').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => resolve(false))
+    })
+    const response = makeFakeResponse()
+    try {
+      await sut.delete(response)
+    } catch (error) {
+      expect(error).toEqual(new Error('deletion failed'))
+    }
+  })
 })
