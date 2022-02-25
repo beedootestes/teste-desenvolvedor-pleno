@@ -57,4 +57,11 @@ describe('DBupdateResponse', () => {
     await sut.update(Response)
     expect(updateSpy).toHaveBeenLastCalledWith(Response)
   })
+
+  test('Should return true on success', async () => {
+    const { sut } = makeSut()
+    const response = makeFakeResponse()
+    const result = await sut.update(response)
+    expect(result).toEqual(true)
+  })
 })
