@@ -114,13 +114,13 @@ export class QuestionMongoRepository implements
 
   async deleteResponse (response: DeleteResponseModel): Promise<Boolean> {
     const questionCollection = await MongoHelper.getCollection('questions')
-    await questionCollection.updateOne(
+    const result = await questionCollection.updateOne(
       {
         _id: new ObjectId(response.question_id)
       }, {
         $pull: { responses: response.response }
       }
     )
-    return true
+    return !!result.modifiedCount
   }
 }
