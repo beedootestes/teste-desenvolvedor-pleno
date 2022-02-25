@@ -31,7 +31,7 @@ describe('Delete Question Controller', () => {
 
   const makeValidationStub = (): Validation => {
     class ValidationStub implements Validation {
-      validate(input: any): Error | null {
+      validate (input: any): Error | null {
         return null
       }
     }
@@ -40,7 +40,7 @@ describe('Delete Question Controller', () => {
 
   const makeDeleteQuestion = (): DeleteQuestion => {
     class DeleteQuestionStub implements DeleteQuestion {
-      async delete(id: string): Promise<Boolean> {
+      async delete (id: string): Promise<Boolean> {
         return await new Promise(resolve => resolve(true))
       }
     }

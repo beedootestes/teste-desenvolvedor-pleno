@@ -1,4 +1,3 @@
-import { ResponseModel } from '../../../domain/models/response'
 import { AddResponseModel } from '../../../domain/usecases/add-response'
 import { InvalidParamError } from '../../../presentation/errors/invalid-param-error'
 import { AddResponseToQuestionModel, AddResponseToQuestionRepository } from '../../protocols/add-response-to-question.repository'

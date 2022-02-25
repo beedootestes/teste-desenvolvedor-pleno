@@ -12,7 +12,7 @@ describe('Mongo Helper', () => {
   test('Should reconnect with mongo when connection downs', async () => {
     const connection = await sut.getCollection('questions')
     expect(connection).toBeTruthy()
-    
+
     await sut.disconnect()
     expect(connection).toBeTruthy()
   })

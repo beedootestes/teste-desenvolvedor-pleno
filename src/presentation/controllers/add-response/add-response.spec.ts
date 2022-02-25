@@ -1,14 +1,9 @@
 import { MissingParamError } from '../../errors/missing-param-error'
 import { badRequest, ok, serverError } from '../../helpers/http-helpers'
 import { AddResponseController } from './add-response'
-import { AddResponse, AddResponseModel, HttpRequest, ResponseModel, Validation } from './add-response-protocols'
+import { AddResponse, AddResponseModel, HttpRequest, Validation } from './add-response-protocols'
 
 describe('AddResponseController', () => {
-  const makeFakeResponse = (): ResponseModel => ({
-    id: 'valid_response_id',
-    response: 'valid_response'
-  })
-
   const makeFakeRequest = (): HttpRequest => ({
     body: {
       response: 'valid_response'

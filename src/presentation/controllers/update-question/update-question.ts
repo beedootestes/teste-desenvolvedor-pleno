@@ -5,7 +5,7 @@ export class UpdateQuestionController implements Controller {
   private readonly updateQuestion: UpdateQuestion
   private readonly validation: Validation
 
-  constructor(updateQuestion, validation) {
+  constructor (updateQuestion, validation) {
     this.updateQuestion = updateQuestion
     this.validation = validation
   }
