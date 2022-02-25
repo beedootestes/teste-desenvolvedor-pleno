@@ -159,4 +159,23 @@ describe('Question Mongo repository', () => {
     const response = await sut.deleteResponse(inputResponse)
     expect(response).toBe(true)
   })
+
+  test('Should return false when deleteResponse is a success', async () => {
+    const questionsCollection = await MongoHelper.getCollection('questions')
+    await questionsCollection.insertOne(
+      {
+        question: 'Fake question',
+        responses: ['any_response']
+      })
+    const fakeQuestion = await questionsCollection.findOne({ question: 'Fake question' })
+
+    const id = fakeQuestion?._id.toString().valueOf() ?? 'any_id'
+    const inputResponse: DeleteResponseModel = {
+      response: 'another_response',
+      question_id: id
+    }
+    const sut = makeSut()
+    const response = await sut.deleteResponse(inputResponse)
+    expect(response).toBe(false)
+  })
 })
