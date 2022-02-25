@@ -2,11 +2,13 @@ import { ObjectId } from 'mongodb'
 import { AddQuestionRepository } from '../../../../data/protocols/add-question-repository'
 import { AddResponseToQuestionModel, AddResponseToQuestionRepository } from '../../../../data/protocols/add-response-to-question.repository'
 import { DeleteQuestionRepository } from '../../../../data/protocols/delete-question-repository'
+import { DeleteResponseRepository } from '../../../../data/protocols/delete-response-repository'
 import { GetQuestionRepository } from '../../../../data/protocols/get-question-repository'
 import { ListQuestionsRepository } from '../../../../data/protocols/list-question-repository'
 import { ListResponsesRepository } from '../../../../data/protocols/list-responses-repository'
 import { UpdateQuestionRepository } from '../../../../data/protocols/update-question-repository'
 import { UpdateResponseRepository } from '../../../../data/protocols/update-response-repository'
+import { DeleteResponseModel } from '../../../../domain/usecases/delete-response'
 import { UpdateResponseModel } from '../../../../domain/usecases/update-response'
 import { AddQuestionModel, QuestionModel, MongoHelper, UpdateQuestionModel } from './question-protococols'
 
@@ -18,7 +20,8 @@ export class QuestionMongoRepository implements
   DeleteQuestionRepository,
   AddResponseToQuestionRepository,
   ListResponsesRepository,
-  UpdateResponseRepository {
+  UpdateResponseRepository,
+  DeleteResponseRepository {
   async add (questionData: AddQuestionModel): Promise<QuestionModel> {
     const questionCollection = await MongoHelper.getCollection('questions')
     const result = await questionCollection.insertOne(questionData)
@@ -104,6 +107,18 @@ export class QuestionMongoRepository implements
         _id: new ObjectId(response.question_id)
       }, {
         $push: { responses: response.new_response }
+      }
+    )
+    return true
+  }
+
+  async deleteResponse (response: DeleteResponseModel): Promise<Boolean> {
+    const questionCollection = await MongoHelper.getCollection('questions')
+    await questionCollection.updateOne(
+      {
+        _id: new ObjectId(response.question_id)
+      }, {
+        $pull: { responses: response.response }
       }
     )
     return true
