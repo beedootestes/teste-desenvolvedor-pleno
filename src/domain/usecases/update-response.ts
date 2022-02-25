@@ -1,5 +1,6 @@
 export interface UpdateResponseModel{
   new_response: string
+  old_response: string
   question_id: string
 }
 

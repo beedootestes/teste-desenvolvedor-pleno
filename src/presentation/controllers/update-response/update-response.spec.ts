@@ -15,7 +15,7 @@ describe('UpdateResponseController', () => {
     }
   })
 
-  const makeFakeQuestion = (): any => ({
+  const makeFakeQuestion = (): UpdateResponseModel => ({
     question_id: 'valid_question_id',
     new_response: 'valid_response',
     old_response: 'old_response'
@@ -61,10 +61,7 @@ describe('UpdateResponseController', () => {
     const isValidSpy = jest.spyOn(updateResponseStub, 'update')
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
-    expect(isValidSpy).toHaveBeenCalledWith({
-      new_response: 'valid_response',
-      question_id: 'valid_question_id'
-    })
+    expect(isValidSpy).toHaveBeenCalledWith(makeFakeQuestion())
   })
 
   test('Should return 200 if it has valid data', async () => {

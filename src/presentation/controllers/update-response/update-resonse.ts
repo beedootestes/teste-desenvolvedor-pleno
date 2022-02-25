@@ -19,6 +19,7 @@ export class UpdateResponseController implements Controller {
       }
 
       const newResponse = {
+        old_response: httpRequest.body.old_response,
         new_response: httpRequest.body.new_response,
         question_id: httpRequest.params.question_id
       }
