@@ -1,5 +1,5 @@
 import { UpdateResponse } from '../../../domain/usecases/update-response'
-import { ok, serverError } from '../../helpers/http-helpers'
+import { badRequest, ok, serverError } from '../../helpers/http-helpers'
 import { Controller, HttpRequest, HttpResponse, Validation } from './update-response-protocols'
 
 export class UpdateResponseController implements Controller {
@@ -13,7 +13,10 @@ export class UpdateResponseController implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      this.validation.validate({ ...httpRequest.params, ...httpRequest.body })
+      const error = this.validation.validate({ ...httpRequest.params, ...httpRequest.body })
+      if (error) {
+        return badRequest(error)
+      }
 
       const newResponse = {
         new_response: httpRequest.body.new_response,
