@@ -20,6 +20,10 @@ export class DbDeleteResponse implements DeleteResponse {
     if (!questionExist) {
       throw new InvalidParamError('question_id')
     }
-    return await this.deleteResponseRepository.deleteResponse(response)
+    const isDeleted = await this.deleteResponseRepository.deleteResponse(response)
+    if (!isDeleted) {
+      throw new Error('deletion failed')
+    }
+    return true
   }
 }
