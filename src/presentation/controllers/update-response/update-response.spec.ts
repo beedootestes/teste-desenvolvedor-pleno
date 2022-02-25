@@ -1,4 +1,5 @@
 import { UpdateResponse, UpdateResponseModel } from '../../../domain/usecases/update-response'
+import { ok } from '../../helpers/http-helpers'
 import { UpdateResponseController } from './update-resonse'
 import { HttpRequest, Validation } from './update-response-protocols'
 
@@ -31,7 +32,7 @@ describe('UpdateResponseController', () => {
 
   const makeUpdateResponse = (): UpdateResponse => {
     class UpdateResponseStub implements UpdateResponse {
-      async update (response: UpdateResponseModel): Promise<Boolean> {
+      async update(response: UpdateResponseModel): Promise<Boolean> {
         return await new Promise(resolve => resolve(true))
       }
     }
@@ -40,7 +41,7 @@ describe('UpdateResponseController', () => {
 
   const makeValidation = (): Validation => {
     class ValidationStub implements Validation {
-      validate (input: any): Error | null {
+      validate(input: any): Error | null {
         return null
       }
     }
@@ -56,5 +57,12 @@ describe('UpdateResponseController', () => {
       new_response: 'valid_response',
       question_id: 'valid_question_id'
     })
+  })
+
+  test('Should return 200 if it has valid data', async () => {
+    const { sut } = makeSut()
+    const httpRequest = makeFakeRequest()
+    const response = await sut.handle(httpRequest)
+    expect(response).toEqual(ok(true))
   })
 })
