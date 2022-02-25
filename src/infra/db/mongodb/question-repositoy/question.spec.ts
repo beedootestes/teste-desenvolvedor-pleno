@@ -178,4 +178,19 @@ describe('Question Mongo repository', () => {
     const response = await sut.deleteResponse(inputResponse)
     expect(response).toBe(false)
   })
+
+  test('Should return a List of only questions on success', async () => {
+    const questionsCollection = await MongoHelper.getCollection('questions')
+    await questionsCollection.insertOne(
+      {
+        question: 'Fake question',
+        responses: ['any_response']
+      })
+
+    const sut = makeSut()
+    const questions = await sut.getQuestions()
+    expect(questions).toBeTruthy()
+    expect(questions[0].id).toBeTruthy()
+    expect(questions[0].question).toBe('Fake question')
+  })
 })

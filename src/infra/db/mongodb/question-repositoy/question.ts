@@ -9,6 +9,7 @@ import { ListResponsesRepository } from '../../../../data/protocols/list-respons
 import { UpdateQuestionRepository } from '../../../../data/protocols/update-question-repository'
 import { UpdateResponseRepository } from '../../../../data/protocols/update-response-repository'
 import { DeleteResponseModel } from '../../../../domain/usecases/delete-response'
+import { GetQuestionsResponseModel } from '../../../../domain/usecases/get-questions'
 import { UpdateResponseModel } from '../../../../domain/usecases/update-response'
 import { AddQuestionModel, QuestionModel, MongoHelper, UpdateQuestionModel } from './question-protococols'
 
@@ -21,7 +22,8 @@ export class QuestionMongoRepository implements
   AddResponseToQuestionRepository,
   ListResponsesRepository,
   UpdateResponseRepository,
-  DeleteResponseRepository {
+  DeleteResponseRepository,
+  GetQuestionRepository {
   async add (questionData: AddQuestionModel): Promise<QuestionModel> {
     const questionCollection = await MongoHelper.getCollection('questions')
     const result = await questionCollection.insertOne(questionData)
@@ -122,5 +124,15 @@ export class QuestionMongoRepository implements
       }
     )
     return !!result.modifiedCount
+  }
+
+  async getQuestions (): Promise<GetQuestionsResponseModel[]> {
+    const questionCollection = await MongoHelper.getCollection('questions')
+    const result = await questionCollection.find().toArray()
+    const questions = result.map(question => ({
+      id: question._id.toString(),
+      question: question.question
+    }))
+    return questions
   }
 }
