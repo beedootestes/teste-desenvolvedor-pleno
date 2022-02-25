@@ -6,6 +6,8 @@ import { GetQuestionRepository } from '../../../../data/protocols/get-question-r
 import { ListQuestionsRepository } from '../../../../data/protocols/list-question-repository'
 import { ListResponsesRepository } from '../../../../data/protocols/list-responses-repository'
 import { UpdateQuestionRepository } from '../../../../data/protocols/update-question-repository'
+import { UpdateResponseRepository } from '../../../../data/protocols/update-response-repository'
+import { UpdateResponseModel } from '../../../../domain/usecases/update-response'
 import { AddQuestionModel, QuestionModel, MongoHelper, UpdateQuestionModel } from './question-protococols'
 
 export class QuestionMongoRepository implements
@@ -15,7 +17,8 @@ export class QuestionMongoRepository implements
   GetQuestionRepository,
   DeleteQuestionRepository,
   AddResponseToQuestionRepository,
-  ListResponsesRepository {
+  ListResponsesRepository,
+  UpdateResponseRepository {
   async add (questionData: AddQuestionModel): Promise<QuestionModel> {
     const questionCollection = await MongoHelper.getCollection('questions')
     const result = await questionCollection.insertOne(questionData)
@@ -85,5 +88,24 @@ export class QuestionMongoRepository implements
     const questionCollection = await MongoHelper.getCollection('questions')
     const result = await questionCollection.findOne({ _id: new ObjectId(id) })
     return result?.responses
+  }
+
+  async updateResponse (response: UpdateResponseModel): Promise<Boolean> {
+    const questionCollection = await MongoHelper.getCollection('questions')
+    await questionCollection.updateOne(
+      {
+        _id: new ObjectId(response.question_id)
+      }, {
+        $pull: { responses: response.old_response }
+      }
+    )
+    await questionCollection.updateOne(
+      {
+        _id: new ObjectId(response.question_id)
+      }, {
+        $push: { responses: response.new_response }
+      }
+    )
+    return true
   }
 }
