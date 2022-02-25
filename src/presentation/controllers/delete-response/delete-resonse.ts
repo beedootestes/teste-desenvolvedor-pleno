@@ -1,21 +1,25 @@
-import { ok } from '../../helpers/http-helpers'
+import { ok, serverError } from '../../helpers/http-helpers'
 import { Controller, DeleteResponse, HttpRequest, HttpResponse, Validation } from './delete-response-protocols'
 
 export class DeleteResponseController implements Controller {
-  private readonly DeleteResponse: DeleteResponse
+  private readonly deleteResponse: DeleteResponse
   private readonly validation: Validation
 
-  constructor (DeleteResponse, validation) {
-    this.DeleteResponse = DeleteResponse
+  constructor (deleteResponse, validation) {
+    this.deleteResponse = deleteResponse
     this.validation = validation
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    const response = {
-      response: httpRequest.body.response,
-      question_id: httpRequest.params.question_id
+    try {
+      const response = {
+        response: httpRequest.body.response,
+        question_id: httpRequest.params.question_id
+      }
+      const result = await this.deleteResponse.delete(response)
+      return ok(result)
+    } catch (error) {
+      return serverError(error)
     }
-    const result = await this.DeleteResponse.delete(response)
-    return ok(result)
   }
 }
