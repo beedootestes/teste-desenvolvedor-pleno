@@ -1,6 +1,7 @@
 import { MongoHelper } from './question-protococols'
 import { QuestionMongoRepository } from './question'
 import { UpdateResponseModel } from '../../../../domain/usecases/update-response'
+import { DeleteResponseModel } from '../../../../domain/usecases/delete-response'
 
 describe('Question Mongo repository', () => {
   beforeAll(async () => {
@@ -137,6 +138,25 @@ describe('Question Mongo repository', () => {
     }
     const sut = makeSut()
     const response = await sut.updateResponse(inputResponses)
+    expect(response).toBe(true)
+  })
+
+  test('Should return true when deleteResponse is a success', async () => {
+    const questionsCollection = await MongoHelper.getCollection('questions')
+    await questionsCollection.insertOne(
+      {
+        question: 'Fake question',
+        responses: ['old_response']
+      })
+    const fakeQuestion = await questionsCollection.findOne({ question: 'Fake question' })
+
+    const id = fakeQuestion?._id.toString().valueOf() ?? 'any_id'
+    const inputResponse: DeleteResponseModel = {
+      response: 'old_response',
+      question_id: id
+    }
+    const sut = makeSut()
+    const response = await sut.deleteResponse(inputResponse)
     expect(response).toBe(true)
   })
 })
