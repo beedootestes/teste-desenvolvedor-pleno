@@ -24,7 +24,7 @@ describe('DbGetQuestions', () => {
 
   const makeGetQuestionsRepositoryStub = (): GetQuestionsRepository => {
     class GetQuestionsRepositoryStub implements GetQuestionsRepository {
-      async list (): Promise<GetQuestionsResponseModel[]> {
+      async getQuestions (): Promise<GetQuestionsResponseModel[]> {
         const questionsList: GetQuestionsResponseModel[] = makeFakeQuestionsList()
         return questionsList
       }
@@ -34,7 +34,7 @@ describe('DbGetQuestions', () => {
 
   test('Should call getQuestionsRepository with no values', async () => {
     const { sut, getQuestionsRepositoryStub } = makeSut()
-    const addSpy = jest.spyOn(getQuestionsRepositoryStub, 'list')
+    const addSpy = jest.spyOn(getQuestionsRepositoryStub, 'getQuestions')
     await sut.list()
     expect(addSpy).toHaveBeenLastCalledWith()
   })

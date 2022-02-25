@@ -9,6 +9,6 @@ export class DbGetQuestions implements GetQuestions {
   }
 
   async list (): Promise<GetQuestionsResponseModel[]> {
-    return await this.getQuestionsRepository.list()
+    return await this.getQuestionsRepository.getQuestions()
   }
 }
