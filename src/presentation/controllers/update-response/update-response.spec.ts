@@ -1,5 +1,6 @@
 import { UpdateResponse, UpdateResponseModel } from '../../../domain/usecases/update-response'
-import { ok, serverError } from '../../helpers/http-helpers'
+import { MissingParamError } from '../../errors/missing-param-error'
+import { badRequest, ok, serverError } from '../../helpers/http-helpers'
 import { UpdateResponseController } from './update-resonse'
 import { HttpRequest, Validation } from './update-response-protocols'
 
@@ -93,5 +94,13 @@ describe('UpdateResponseController', () => {
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith(makeFakeQuestion())
+  })
+
+  test('Should returns 400 if validators throws', async () => {
+    const { sut, validationStub } = makeSut()
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'))
+    const httpRequest = makeFakeRequest()
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')))
   })
 })
