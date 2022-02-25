@@ -1,4 +1,5 @@
 import { DeleteResponseModel } from '../../../domain/usecases/delete-response'
+import { InvalidParamError } from '../../../presentation/errors/invalid-param-error'
 import { DeleteResponseRepository } from '../../protocols/delete-response-repository'
 import { GetQuestionRepository } from '../../protocols/get-question-repository'
 import { DbDeleteResponse } from './db-delete-response'
@@ -62,5 +63,28 @@ describe('DBDeleteResponse', () => {
     const response = makeFakeResponse()
     const result = await sut.delete(response)
     expect(result).toEqual(true)
+  })
+
+  test('Should call getQuestionRepository', async () => {
+    expect.assertions(1)
+    const { sut, getQuestionRepositoryStub } = makeSut()
+    const updateSpy = jest.spyOn(getQuestionRepositoryStub, 'get')
+    const response = makeFakeResponse()
+    await sut.delete(response)
+    expect(updateSpy).toHaveBeenLastCalledWith(response.question_id)
+  })
+
+  test('Should throws if getQuestionRepository returns null', async () => {
+    expect.assertions(1)
+    const { sut, getQuestionRepositoryStub } = makeSut()
+    jest.spyOn(getQuestionRepositoryStub, 'get').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => resolve(null))
+    })
+    const response = makeFakeResponse()
+    try {
+      await sut.delete(response)
+    } catch (error) {
+      expect(error).toEqual(new InvalidParamError('question_id'))
+    }
   })
 })
