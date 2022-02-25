@@ -20,6 +20,6 @@ export class DbUpdateResponse implements UpdateResponse {
     if (!questionExist) {
       throw new InvalidParamError('question_id')
     }
-    return await this.updateResponseRepository.update(response)
+    return await this.updateResponseRepository.updateResponse(response)
   }
 }

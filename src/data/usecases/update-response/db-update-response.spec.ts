@@ -30,7 +30,7 @@ describe('DBupdateResponse', () => {
 
   const makeupdateResponseRepositoryStub = (): UpdateResponseRepository => {
     class UpdateResponseRepositoryStub implements UpdateResponseRepository {
-      async update (Response: UpdateResponseModel): Promise<Boolean> {
+      async updateResponse (Response: UpdateResponseModel): Promise<Boolean> {
         return await new Promise(resolve => resolve(true))
       }
     }
@@ -53,7 +53,7 @@ describe('DBupdateResponse', () => {
 
   test('Should call updateResponseRepository', async () => {
     const { sut, updateResponseRepositoryStub } = makeSut()
-    const updateSpy = jest.spyOn(updateResponseRepositoryStub, 'update')
+    const updateSpy = jest.spyOn(updateResponseRepositoryStub, 'updateResponse')
     const Response = makeFakeResponse()
     await sut.update(Response)
     expect(updateSpy).toHaveBeenLastCalledWith(Response)
