@@ -6,11 +6,18 @@ import { HttpRequest, Validation } from './update-response-protocols'
 describe('UpdateResponseController', () => {
   const makeFakeRequest = (): HttpRequest => ({
     body: {
-      new_response: 'valid_response'
+      new_response: 'valid_response',
+      old_response: 'old_response'
     },
     params: {
       question_id: 'valid_question_id'
     }
+  })
+
+  const makeFakeQuestion = (): any => ({
+    question_id: 'valid_question_id',
+    new_response: 'valid_response',
+    old_response: 'old_response'
   })
 
   interface SutType {
@@ -22,7 +29,7 @@ describe('UpdateResponseController', () => {
   const makeSut = (): SutType => {
     const updateResponseStub = makeUpdateResponse()
     const validationStub = makeValidation()
-    const sut = new UpdateResponseController(updateResponseStub)
+    const sut = new UpdateResponseController(updateResponseStub, validationStub)
     return {
       sut,
       updateResponseStub,
@@ -78,5 +85,13 @@ describe('UpdateResponseController', () => {
     } catch (error) {
       expect(response).toEqual(serverError(error))
     }
+  })
+
+  test('Should call validation with correct values', async () => {
+    const { sut, validationStub } = makeSut()
+    const isValidSpy = jest.spyOn(validationStub, 'validate')
+    const httpRequest = makeFakeRequest()
+    await sut.handle(httpRequest)
+    expect(isValidSpy).toHaveBeenCalledWith(makeFakeQuestion())
   })
 })
