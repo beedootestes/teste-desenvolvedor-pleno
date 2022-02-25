@@ -1,4 +1,4 @@
-import { ok } from '../../helpers/http-helpers'
+import { ok, serverError } from '../../helpers/http-helpers'
 import { DeleteResponseController } from './delete-resonse'
 import { DeleteResponse, DeleteResponseModel, HttpRequest, Validation } from './delete-response-protocols'
 
@@ -65,5 +65,19 @@ describe('DeleteResponseController', () => {
     const httpRequest = makeFakeRequest()
     const response = await sut.handle(httpRequest)
     expect(response).toEqual(ok(true))
+  })
+
+  test('Should return serverError if updateResponses throws', async () => {
+    const { sut, deleteResponseStub } = makeSut()
+    jest.spyOn(deleteResponseStub, 'delete').mockImplementationOnce(async () => {
+      return await new Promise((resolve, reject) => reject(new Error()))
+    })
+    const httpRequest = makeFakeRequest()
+    let response
+    try {
+      response = await sut.handle(httpRequest)
+    } catch (error) {
+      expect(response).toEqual(serverError(error))
+    }
   })
 })
