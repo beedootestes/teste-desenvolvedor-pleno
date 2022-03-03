@@ -4,7 +4,9 @@
   "description": "Construímos uma plataforma para tornar a comunicação e a capacitação de equipes de atendimento mais ágil, produtiva e eficiente. Acreditamos que quando você combina um propósito poderoso com grandes pessoas que são as melhores no que fazem, você obtém uma cultura diferente de qualquer outra. Para um novo mundo de trabalho, o Beedoo oferece uma nova maneira de aprender com conceitos de Social e Micro Learning, Gamification , Gestão analítica, base de conhecimento cognitiva e inteligência artificial.",
   "main": "index.js",
   "scripts": {
-    "start": "sucrase-node src/main/server.ts",
+    "start": "node dist/main/server.js",
+    "build": "rimraf dist && tsc",
+    "dev": "sucrase-node src/main/server.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --no-cache",
     "test:verbose": "jest --passWithNoTests --runInBand --no-cache",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
@@ -40,6 +42,7 @@
     "husky": "^4.3.8",
     "jest": "^27.4.7",
     "lint-staged": "^12.3.1",
+    "rimraf": "^3.0.2",
     "sucrase": "^3.20.3",
     "supertest": "^6.2.2",
     "ts-jest": "^27.1.3",
@@ -47,7 +50,6 @@
   },
   "dependencies": {
     "express": "^4.17.2",
-    "fast-glob": "^3.2.11",
     "mongodb": "^4.3.1"
   }
 }
