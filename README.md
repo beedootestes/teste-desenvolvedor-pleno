@@ -1,52 +1,197 @@
-## Sobre o Beedoo
+# Questions 
 
-Construímos uma plataforma para tornar a comunicação e a capacitação de equipes de atendimento mais ágil, produtiva e eficiente. Acreditamos que quando você combina um propósito poderoso com grandes pessoas que são as melhores no que fazem, você obtém uma cultura diferente de qualquer outra. Para um novo mundo de trabalho, o Beedoo oferece uma nova maneira de aprender com conceitos de Social e Micro Learning, Gamification , Gestão analítica, base de conhecimento cognitiva e inteligência artificial.
+This document describes the API of questions and responses, that was created based at file "./test.md".
 
-## Sobre um Abeedoozido
+---
 
-Espera-se que como parte de nosso time, você siga as melhores práticas de tecnologia, 
-tais como documentação, organização e versionamento de código e análises.
-Estamos à procura de alguém motivado para ter suas idéias e criações nas mãos dos usuários, que compartilhe nossa empolgação para evoluir positivamente o propósito do Beedoo.
+## INSTALLATION
 
-## Responsabilidade da função
-Você atuará na criação de novas features e manutenção do sistema,
-além de elaborar e manter consultas grandes e complexas para geração de relatórios,
-criar serviços e integrações com APIs, lidar com diferentes padrões de arquitetura para organização de código em linguagens de script e funcional.
-Também vai ajudar na construção do projeto, de fazer bom planejamento do projeto e delegar responsabilidades e conhecimentos para outros membros do time.
+After importing the repository from github open the terminal at the root of the project and type:
 
-## Local
+    npm run up
 
-Possuimos duas naves onde você pode estar quando quiser. Uma Nave fica localizada na **zona norte de São Paulo**, e outra na cidade de **São José dos Campos**, interior do estado de São Paulo. Porém não se preocupe, nosso time de desenvolvimento atua **100% remotamente**, e **você** pode estar **em qualquer lugar do Brasil**, até mesmo em **outros países**, ou na **beira da praia**.
+to install and orchestrate the containers of MongoDB and of the Question Application.
 
-## Contratação e Benefícios
+The application is going to run at port 5050. The API's urls are described below.
 
-- Contratação PJ
-- Cartão de benefícios flexíveis.
-- 30 dias de recesso remunerado.
-- Feriados remurenados.
-- Licença maternidade/paternidade extendida.
-- Ciclo de reconhecimento e desenvolvimento.
+---
+## API
 
-## Diferênciais
+The API was created using TDD (Test Driven Development), Clean Architecture to distribute responsabilities in layers, using SOLID fundamentals and Design Pattern whenever possible.
 
-- Cultura de feedback
-- Equipe 100% unida, a gente ta junto na mesma nave.
-- O CTO as vezes paga o lanche da sexta feira.
-- Emendas em feriados nacionais.
+It was based on the course: https://www.udemy.com/course/tdd-com-mango
 
-## Requisitos
-- Autogestão
-- GIT
-- NodeJS
-- Testes Funcionais automatizados
-- MySQL
-- Modelagem de dados relacionais
-- Rest APIs
-- Scrum/Kanban
-- Code Review
+---
 
+### Questions:
+List of API's related with questions:
 
-## Como se candidatar
+---
+#### 1. ADD-QUESTION
 
-Para se candidatar, basta acessar a url e realizar o teste para a vaga:
-[https://github.com/beedootestes/teste-desenvolvedor-pleno](teste.md)
+Create a new Question.
+
+URL: 
+    
+    http://localhost:5050/api/add-question
+
+METHOD: POST
+
+BODY: 
+
+    {
+        "question": "Minha primeira pergunta"
+    }
+
+---
+#### 2. UPDATE-QUESTION
+
+Update a question by id.
+
+URL:
+
+    http://localhost:5050/api/update-question/:question_id
+
+METHOD: POST
+
+BODY: 
+    
+    {
+        "question": "update question"
+    }
+
+PARAMS: 
+
+    question_id = id of a valid question.
+
+---
+#### 3. DELETE-QUESTION
+
+Delete a question by id.
+
+URL: 
+
+    http://localhost:5050/api/delete-question/:question_id
+
+METHOD: DELETE
+
+PARAMS: 
+
+    question_id = id of a valid question.
+
+---
+#### 4. LIST-QUESTIONS
+
+List all questions and their responses.
+
+URL: 
+
+    http://localhost:5050/api/list-questions
+
+METHOD: GET
+
+PARAMS: 
+
+    question_id = id of a valid question.
+
+---
+
+#### 5. GET-QUESTIONS
+
+List only questions, no responses.
+
+URL: 
+
+    http://localhost:5050/api/get-questions
+
+METHOD: GET
+
+PARAMS: 
+
+    question_id = id of a valid question.
+
+---
+### RESPONSES:
+
+List of API's related with responses:
+
+---
+#### 1. ADD-RESPONSE
+
+Create a new response to a related valid question ID.
+
+URL: 
+    
+    http://localhost:5050/api/add-response/:question_id
+
+METHOD: POST
+
+BODY: 
+
+    {
+        "response": "My first response"
+    }
+
+PARAMS: 
+
+    question_id = id of a valid question.
+
+---
+#### 2. UPDATE-RESPONSE
+
+Update a response by question_id and old response value.
+
+URL:
+
+    http://localhost:5050/api/update-response/:question_id
+
+METHOD: POST
+
+BODY: 
+    
+    {
+      "old_response": "response to be updated",
+      "new_response": "New value of response"
+    }
+
+PARAMS: 
+
+    question_id = id of a valid question.
+
+---
+
+#### 3. DELETE-RESPONSE
+
+Update a response by question_id and old response value.
+
+URL: 
+
+    http://localhost:5050/api/delete-question/:question_id
+
+METHOD: DELETE
+
+BODY: 
+
+    {
+      "response": "response value to be deleted"
+    }
+
+PARAMS: 
+
+    response_id = id of a valid response.
+
+---
+
+#### 4. LIST-RESPONSES
+
+List responses of a question.
+
+URL: 
+
+    http://localhost:5050/api/list-responses/:question_id
+
+METHOD: GET
+
+PARAMS: 
+
+    question_id = id of a valid question.
