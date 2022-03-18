@@ -1,52 +1,38 @@
-## Sobre o Beedoo
+// Configuração do ambiente - início
+1 - Clonar repositório;
+//O comando abaixo devem ser executados na raiz do projeto clonado
+2 - Executar docker build -f node.dockerfile -t eduardomdev/node .
+3 - Executar docker network create --driver bridge minha-rede
+4 - Executar docker run -d --name mysql --network minha-rede -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=questions_and_answers -e MYSQL_PASSWORD= mysql
+5 - Executar docker run -d -p 80:3000 --name node --network minha-rede eduardomdev/node
 
-Construímos uma plataforma para tornar a comunicação e a capacitação de equipes de atendimento mais ágil, produtiva e eficiente. Acreditamos que quando você combina um propósito poderoso com grandes pessoas que são as melhores no que fazem, você obtém uma cultura diferente de qualquer outra. Para um novo mundo de trabalho, o Beedoo oferece uma nova maneira de aprender com conceitos de Social e Micro Learning, Gamification , Gestão analítica, base de conhecimento cognitiva e inteligência artificial.
+// Configuração do ambiente - fim
 
-## Sobre um Abeedoozido
+//Modo de usar
+Para acessar as funcionalidades da aplicação, basta fazer requisição http para uma das rotas:
+1 - Rota para criar uma nova pergunta:
+/question usando o método post, é obrigatório passar no corpo da requisição um json com a chave description (texto equivalente a pergunta) e o valor da chave. Ex.: {"description": "Qual o seu curso?"}
 
-Espera-se que como parte de nosso time, você siga as melhores práticas de tecnologia, 
-tais como documentação, organização e versionamento de código e análises.
-Estamos à procura de alguém motivado para ter suas idéias e criações nas mãos dos usuários, que compartilhe nossa empolgação para evoluir positivamente o propósito do Beedoo.
+2 - Para buscar todas as perguntas:
+/question usando o método get
 
-## Responsabilidade da função
-Você atuará na criação de novas features e manutenção do sistema,
-além de elaborar e manter consultas grandes e complexas para geração de relatórios,
-criar serviços e integrações com APIs, lidar com diferentes padrões de arquitetura para organização de código em linguagens de script e funcional.
-Também vai ajudar na construção do projeto, de fazer bom planejamento do projeto e delegar responsabilidades e conhecimentos para outros membros do time.
+3 - Para editar uma pergunta:
+/question/:id usando o método put, onde o id é o referente a chave primária da questão, e é obrigatório passar no corpo da requisição um json com a chave description (texto equivalente a nova pergunta) e o valor da chave. Ex.: {"description": "Qual o seu nome?"}
 
-## Local
+4 - Para deletar uma pergunta:
+/question/:id usando o método delete, onde o id é o referente a chave primária da questão
 
-Possuimos duas naves onde você pode estar quando quiser. Uma Nave fica localizada na **zona norte de São Paulo**, e outra na cidade de **São José dos Campos**, interior do estado de São Paulo. Porém não se preocupe, nosso time de desenvolvimento atua **100% remotamente**, e **você** pode estar **em qualquer lugar do Brasil**, até mesmo em **outros países**, ou na **beira da praia**.
+5 - Para criar uma resposta para uma determinada pergunta
+/question/:questionId/answer usando o método post, onde o questionId é a chave primária da questão, e é obrigatório passar no corpo da requisição um json com a chave description (texto equivalente a resposta da pergunta) e o valor da chave. Ex.: {"description": "Engenharia da Computação"}
 
-## Contratação e Benefícios
+6 - Para buscar todas as respostas de uma pergunta
+/question/:id/answer usando o método get, onde o id é o referente a chave primária da questão
 
-- Contratação PJ
-- Cartão de benefícios flexíveis.
-- 30 dias de recesso remunerado.
-- Feriados remurenados.
-- Licença maternidade/paternidade extendida.
-- Ciclo de reconhecimento e desenvolvimento.
+7 - Para editar uma resposta
+/question/:questionId/answer/:answerId usando o método put, onde o questionId é a chave primária da questão e answerId é a chave primária da resposta, e é obrigatório passar no corpo da requisição um json com a chave description (texto equivalente a nova resposta) e o valor da chave. Ex.: {"description": "Eduardo"}
 
-## Diferênciais
+8 - Para deletar uma resposta
+/question/:questionId/answer/:answerId usando o método delete, onde o questionId é a chave primária da questão e answerId é a chave primária da resposta
 
-- Cultura de feedback
-- Equipe 100% unida, a gente ta junto na mesma nave.
-- O CTO as vezes paga o lanche da sexta feira.
-- Emendas em feriados nacionais.
-
-## Requisitos
-- Autogestão
-- GIT
-- NodeJS
-- Testes Funcionais automatizados
-- MySQL
-- Modelagem de dados relacionais
-- Rest APIs
-- Scrum/Kanban
-- Code Review
-
-
-## Como se candidatar
-
-Para se candidatar, basta acessar a url e realizar o teste para a vaga:
-[https://github.com/beedootestes/teste-desenvolvedor-pleno](teste.md)
+9 - Para buscar todas as perguntas com suas respectivas opções de respostas
+/question/answer usando o método get
