@@ -11,4 +11,4 @@ app.use(cors());
 
 app.use('/question', questionController);
 
-app.listen(port, ()=>console.log(`Ambiente de producão rodando na porta ${port}`));
+app.listen(port, ()=>console.log(`Ambiente rodando na porta ${port}`));
