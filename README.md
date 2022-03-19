@@ -5,6 +5,7 @@
 3 - Executar docker network create --driver bridge minha-rede
 4 - Executar docker run -d --name mysql --network minha-rede -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=questions_and_answers -e MYSQL_PASSWORD= mysql
 5 - Executar docker run -d -p 80:3000 --name node --network minha-rede eduardomdev/node
+Obs.: caso dê erro connect econnrefused ao acessar alguma rota, isso acontece porque o serviço do mysql ainda não foi iniciado. Espere alguns minutos, execute os comandos docker stop node, docker rm node, e execute novamente o comando da linha 5
 
 // Configuração do ambiente - fim
 
