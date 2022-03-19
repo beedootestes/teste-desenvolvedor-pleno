@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/jobserver/teste-desenvolvedor-pleno/issues"
   },
-  "homepage": "https://github.com/jobserver/teste-desenvolvedor-pleno#readme"
+  "homepage": "https://github.com/jobserver/teste-desenvolvedor-pleno#readme",
+  "devDependencies": {
+    "eslint": "^8.11.0"
+  }
 }
