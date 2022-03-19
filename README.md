@@ -8,7 +8,7 @@
 
 // Configuração do ambiente - fim
 
-//Modo de usar
+// Modo de usar - início
 Para acessar as funcionalidades da aplicação, basta fazer requisição http para uma das rotas:
 1 - Rota para criar uma nova pergunta:
 /question usando o método post, é obrigatório passar no corpo da requisição um json com a chave description (texto equivalente a pergunta) e o valor da chave. Ex.: {"description": "Qual o seu curso?"}
@@ -36,3 +36,13 @@ Para acessar as funcionalidades da aplicação, basta fazer requisição http pa
 
 9 - Para buscar todas as perguntas com suas respectivas opções de respostas
 /question/answer usando o método get
+
+// Modo de usar - Fim
+
+// Automação de teste - início
+
+1 - Iniciar aplicação
+2 - Executar, na raiz da aplicação, o comando npm test. Após executar esse comando, será exibida no console os status dos testes (se foram aprovados ou se teve falha)
+Obs.: caso o ambiente de desenvolvimento não esteja no localhost, mudar url base da aplicação na constante urlBase que está no arquivo index.test.js
+
+// Automação de teste - Fim
