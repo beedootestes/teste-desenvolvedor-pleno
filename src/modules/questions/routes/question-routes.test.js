@@ -29,4 +29,22 @@ describe ('Question Router', () => {
   });
 
 
+  test ('should return a question filtered by its id', async () => {
+    // create question
+    const reqPost = await request (app).post ('/api/question').send ({
+      question: 'Teste api,  ?',
+    });
+
+    // get id
+    const id = reqPost.body.data.id
+    
+    //get question
+    const req = await request (app).get (`/api/question/${id}`);
+    
+    expect(req.status).toBe(200)    
+    expect(req.body.data).toBeTruthy()    
+
+  });
+
+
 });
