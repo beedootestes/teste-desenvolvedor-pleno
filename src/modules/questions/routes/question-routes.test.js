@@ -46,5 +46,21 @@ describe ('Question Router', () => {
 
   });
 
+  test ('should be able to remove a question', async () => {
+    // create question
+    const reqPost = await request (app).post ('/api/question').send ({
+      question: 'Poderei_ser_removido_?',
+    });
+
+    // get id
+    const id = reqPost.body.data.id
+    
+    //get question
+    const req = await request (app).delete (`/api/question/${id}`);
+    
+    expect(req.status).toBe(200)    
+    expect(req.body.data).toBeTruthy()    
+
+  });
 
 });
