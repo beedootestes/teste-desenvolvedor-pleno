@@ -1,6 +1,6 @@
-import { Question } from '../models/question'
+import { Question } from '../../models/question'
 
-export default class getAllQuestionController {
+export default class GetAllQuestionController {
   static async handle(req, res) {
     
     try {

@@ -1,9 +1,11 @@
-import { Question } from '../models/question'
+import { Question } from '../../models/question'
 
-export default class AddQuestionController {
+export default class UpdateQuestionController {
   
   static async handle(req, res) {
 
+    const id = req.params.id
+    
     const {question} = req.body
 
     if (!question || question.length === 0) {
@@ -11,18 +13,18 @@ export default class AddQuestionController {
       return
     }
     
-    const questionObj  = new Question({
+    const questionObj  = {
       question
-    })
+    }
 
     try {
-      const newQuestion =  await questionObj.save()
+      await Question.findByIdAndUpdate(id, questionObj)
       
-      res.status(201).json(
+      res.status(200).json(
         {
-          message: 'Question registered successfully',
+          message: 'Question updated successfully',
           data:{
-            id: newQuestion.id
+            
           }
         })
     }

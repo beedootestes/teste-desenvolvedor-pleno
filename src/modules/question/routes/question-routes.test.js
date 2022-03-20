@@ -10,7 +10,7 @@ describe ('Question Router', () => {
 
   });
 
-  test ('should fail if the question is null or length < 1', async () => {
+  test ('Add question should fail if question is null or length < 1', async () => {
     
     const req = await request (app).post ('/api/question').send ({
       question: '',

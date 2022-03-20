@@ -1,4 +1,4 @@
-import { Question } from '../models/question'
+import { Question } from '../../models/question'
 
 export default class DeleteQuestionController {
   static async handle(req, res) {

@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import questionRouter from '../../modules/questions/routes/question-routes'
-import answerRouter from '../../modules/questions/routes/answer-routes'
+import questionRouter from '../../modules/question/routes/question-routes'
+import answerRouter from '../../modules/question/routes/answer-routes'
 
 export default (app) => {
   const router = Router()
