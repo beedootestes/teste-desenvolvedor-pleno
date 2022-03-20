@@ -4,6 +4,8 @@ import GetAllQuestionController from '../controllers/get-all-question-controller
 import AddQuestionController from '../controllers/add-question-controller'
 import GetByQuestionController from '../controllers/get-by-question-controller'
 import DeleteQuestionController from '../controllers/delete-question-controller'
+import UpdateQuestionController from '../controllers/update-question-controller'
+
 
 const router = Router()
 
@@ -14,5 +16,7 @@ router.get('/:id', GetByQuestionController.handle)
 router.post('/', AddQuestionController.handle)
 
 router.delete('/:id', DeleteQuestionController.handle)
+
+router.patch('/:id', UpdateQuestionController.handle)
 
 export default router
