@@ -21,11 +21,17 @@ describe ('Question Router', () => {
 
   test ('Should be able to enter a question', async () => {
     
-    const req = await request (app).post ('/api/question').send ({
+    const sut = await request (app).post ('/api/question').send ({
       question: 'Qual país ?',
     });
 
-    expect (req.body.message).toBe ('Question registered successfully');
+    // get id
+    const id = sut.body.data.id
+
+    // delete question
+    await request (app).delete (`/api/question/${id}`).expect(200);
+
+    expect (sut.body.message).toBe ('Question registered successfully');
   });
 
 
@@ -38,11 +44,14 @@ describe ('Question Router', () => {
     // get id
     const id = reqPost.body.data.id
     
-    //get question
-    const req = await request (app).get (`/api/question/${id}`);
+    // get question
+    const sut = await request (app).get (`/api/question/${id}`);
+
+    // delete question
+    await request (app).delete (`/api/question/${id}`);
     
-    expect(req.status).toBe(200)    
-    expect(req.body.data).toBeTruthy()    
+    expect(sut.status).toBe(200)    
+    expect(sut.body.data).toBeTruthy()    
 
   });
 
@@ -55,7 +64,7 @@ describe ('Question Router', () => {
     // get id
     const id = reqPost.body.data.id
     
-    //get question
+    // delete question
     const req = await request (app).delete (`/api/question/${id}`);
     
     expect(req.status).toBe(200)    
@@ -67,17 +76,17 @@ describe ('Question Router', () => {
     // create question
     const reqPost = await request (app).post ('/api/question').send ({
       question: 'Poderei_ser_atualizado_?',
-    });
+    })
 
     // get id
     const id = reqPost.body.data.id
     
-    //update question
+    // update question
     const sut = await request (app).patch (`/api/question/${id}`).send({
       question: 'Fui_atualizado_?',
-    });
+    })
     
-    //delete question
+    // delete question
     await request (app).delete (`/api/question/${id}`).expect(200);
     
     expect(sut.status).toBe(200)       
