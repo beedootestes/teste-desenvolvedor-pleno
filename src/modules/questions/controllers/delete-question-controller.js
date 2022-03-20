@@ -6,7 +6,7 @@ export default class DeleteQuestionController {
     const id  =  req.params.id
         
     try {
-      await Question.findOneAndDelete(id)
+      await Question.findByIdAndRemove(id)
       res.status(200).json({
         message:'question deleted successfully',
         data: {}
