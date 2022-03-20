@@ -63,4 +63,25 @@ describe ('Question Router', () => {
 
   });
 
+  test ('should be able to update a question', async () => {
+    // create question
+    const reqPost = await request (app).post ('/api/question').send ({
+      question: 'Poderei_ser_atualizado_?',
+    });
+
+    // get id
+    const id = reqPost.body.data.id
+    
+    //update question
+    const sut = await request (app).patch (`/api/question/${id}`).send({
+      question: 'Fui_atualizado_?',
+    });
+    
+    //delete question
+    await request (app).delete (`/api/question/${id}`).expect(200);
+    
+    expect(sut.status).toBe(200)       
+
+  });
+
 });
