@@ -1,7 +1,8 @@
 import { Question } from '../models/question'
 
 export default class AddQuestionController {
-  static async add(req, res) {
+  
+  static async handle(req, res) {
 
     const {question} = req.body
 
@@ -16,10 +17,16 @@ export default class AddQuestionController {
 
     try {
       const newQuestion =  await questionObj.save()
-
-      res.status(201).json({message: 'Question registered successfully'})
+      
+      res.status(201).json(
+        {
+          message: 'Question registered successfully',
+          data:{
+            id: newQuestion.id
+          }
+        })
     }
-    catch (error) {
+    catch (error) {      
       res.status(500).json({message: error})
     }
 
