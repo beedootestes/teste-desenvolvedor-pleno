@@ -1,44 +1,30 @@
 import { Answer } from '../../models/answer'
+import {isNotValidAnswer,isNotValidQuestionId} from '../../helpers/answer-helper'
+import { badRequest, createdResource, serverError } from '../../../../config/helpers/http-helper'
 
-export default class AddAnswerController {
-  
+export default class AddAnswerController { 
 
   static async handle(req, res) {
 
     const {answers} = req.body
 
     // //check questionId
-    const isNotValidQuestionId = !!(answers.find(row => (row.questionId === undefined || row.questionId === '')))
-   
+    if (isNotValidQuestionId(answers)) {
+      return badRequest(res,'O Código da questão é obrigatória')
+    }
     // //check answer
-    const isNotValidAnswer = !!(answers.find(row => (row.answer === undefined || row.answer === '')))
+    if (isNotValidAnswer(answers)) {
+      return badRequest(res,'A resposta é obrigatória')          
+    }
     
-
-    if (isNotValidQuestionId) {
-      res.status(422).json({message: 'O Código da questão é obrigatória'})  
-      return
-    }
-   
-    if (isNotValidAnswer) {
-      res.status(422).json({message: 'O Código da questão é obrigatória'})  
-      return
-    }
-   
     try {
       // insert inside db
       const newAnswers =  await Answer.insertMany(answers)
       
-      res.status(201).json(
-        {
-          message: 'Answer registered successfully',
-          data:{
-            newAnswers
-          }
-        })
+      return createdResource(res,'Answer registered successfully',newAnswers)      
     }
     catch (error) {      
-      res.status(500).json({message: error})
-    }
-
+      return serverError(res, error)
+    }      
   }
 }
