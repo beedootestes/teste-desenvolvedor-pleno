@@ -4,7 +4,7 @@ export default class GetAllQuestionController {
   static async handle(req, res) {
     
     try {
-      const questionsData =  await Question.find().select({__v:0})
+      const questionsData =  await GetAllQuestionController.getAll()
       res.status(200).json({
         message:'list of questions',
         data: questionsData
@@ -15,4 +15,9 @@ export default class GetAllQuestionController {
     }
 
   }
+
+  static async getAll() {
+    return await Question.find().select({__v:0});
+  }
+
 }
