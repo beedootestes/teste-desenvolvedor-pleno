@@ -9,6 +9,6 @@ export const Question = mongoose.model(
       required: true
     }
   },
-  {timeseries: true}
+  {timestamps: { currentTime: () => new Date().toISOString() } }
   )
 )
