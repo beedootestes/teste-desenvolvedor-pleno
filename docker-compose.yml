@@ -11,3 +11,16 @@ services:
           - MONGO_INITDB_ROOT_PASSWORD=beedoo
         ports:
             - "27017:27017"
+
+    api:
+        container_name: question-container-api
+        build: .
+        restart: always
+        image: question-node-api
+        command: npm start
+        volumes:
+            - ./dist:/usr/src/question-node-api/dist
+        ports:
+            - "5050:5050"
+        links:
+            - mongo
