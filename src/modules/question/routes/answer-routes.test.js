@@ -143,7 +143,7 @@ describe ('## PATCH ## Answer', () => {
 
   });
 
-  test ('should return error when ID does not valid', async () => {
+  test ('should return 404 error when ID does not valid', async () => {
 
     const sut = await request (app).patch ('/api/answer/')
 
@@ -152,5 +152,48 @@ describe ('## PATCH ## Answer', () => {
 
   });
 
+
+});
+
+
+describe('## DELETE ## Answer', () => {
+  
+  test ('should be able to remove a answer', async () => {
+    const newQuestionId = await makeQuestion()
+    //send answer
+    
+    const newAnswers = await request (app).post ('/api/answer').send ({
+      answers: [         
+        { answer: 'POSSO_SER_DELETADO', questionId: newQuestionId },
+      ]
+    });
+
+    
+    //get id answer to update
+    const sutId = newAnswers.body.data[0]._id;
+    
+    // delete question
+    const req = await request (app).delete (`/api/answer/${sutId}`);
+    
+    expect(req.status).toBe(200)       
+  });
+  
+  test ('should return 404 error when ID does not valid', async () => {
+    const newQuestionId = await makeQuestion()
+    //send answer
+    
+    const newAnswers = await request (app).post ('/api/answer').send ({
+      answers: [         
+        { answer: 'POSSO_SER_DELETADO', questionId: newQuestionId },
+      ]
+    });
+
+
+    // delete question
+    const sut = await request (app).delete ('/api/answer/');
+    
+    expect (sut.status).toBe (404);
+    expect (sut.body.message).toBe ('Não encontrado');     
+  });
 
 });
