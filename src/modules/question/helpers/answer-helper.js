@@ -1,6 +1,6 @@
 const isNotValidAnswer = (answers) => {
-  if (answers.length !== undefined) return !!(answers.find(row => (row.answer === undefined || row.answer === '')))
-  else return (!answers.answer || answers.length === 0)
+  if (Array.isArray(answers)) return !!(answers.find(row => (row.answer === undefined || row.answer === '')))
+  else return (!answers)
 }
   
 const isNotValidQuestionId = (answers) => {
