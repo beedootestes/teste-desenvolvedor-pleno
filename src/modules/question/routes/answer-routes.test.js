@@ -2,10 +2,10 @@ import request from 'supertest';
 import app from '../../../config/http/app';
 
 
-async function  makeQuestion() {
+async function  makeQuestion(question = 'Qual sua comida favorita?') {
   // create question to relation
   const newQuestion = await request(app).post('/api/question').send({
-    question: 'Qual sua comida favorita?',
+    question
   });
   
   // get id question
@@ -155,7 +155,6 @@ describe ('## PATCH ## Answer', () => {
 
 });
 
-
 describe('## DELETE ## Answer', () => {
   
   test ('should be able to remove a answer', async () => {
@@ -195,5 +194,51 @@ describe('## DELETE ## Answer', () => {
     expect (sut.status).toBe (404);
     expect (sut.body.message).toBe ('Não encontrado');     
   });
+
+});
+
+
+describe('## GET ## Answer', () => {
+  
+  test ('should be able to remove a answer', async () => {
+    const newQuestionId = await makeQuestion('Qual sua linguagem de programação favorita?')
+    //send answer
+    
+    const newAnswers = await request (app).post ('/api/answer').send ({
+      answers: [         
+        { answer: 'NodeJs', questionId: newQuestionId },
+        { answer: 'PHP', questionId: newQuestionId },
+        { answer: 'Elix', questionId: newQuestionId },
+        { answer: 'Python', questionId: newQuestionId },
+        { answer: 'C', questionId: newQuestionId },
+        { answer: 'C#', questionId: newQuestionId },
+        { answer: 'Ruby', questionId: newQuestionId }        
+      ]
+    });
+    
+    // list answers by questionId
+    const req = await request (app).get (`/api/answer/question/${newQuestionId}`);
+    
+    expect(req.status).toBe(200)       
+    expect(req.body.data.message).toBe('lista de respostas')       
+  });
+  
+  // test ('should return 404 error when ID does not valid', async () => {
+  //   const newQuestionId = await makeQuestion()
+  //   //send answer
+    
+  //   const newAnswers = await request (app).post ('/api/answer').send ({
+  //     answers: [         
+  //       { answer: 'POSSO_SER_DELETADO', questionId: newQuestionId },
+  //     ]
+  //   });
+
+
+  //   // delete question
+  //   const sut = await request (app).delete ('/api/answer/');
+    
+  //   expect (sut.status).toBe (404);
+  //   expect (sut.body.message).toBe ('Não encontrado');     
+  // });
 
 });
