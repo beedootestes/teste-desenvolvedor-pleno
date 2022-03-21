@@ -10,7 +10,6 @@ export default class UpdateAnswerController {
 
     const {answer} = req.body
 
-
     if (!id) {
       return notFound(res)
     }
@@ -20,15 +19,15 @@ export default class UpdateAnswerController {
 
       return badRequest(res, 'A resposta é obrigatória')
     }
-    
+
     const answerObj  = {
-      answer:answer.answer
+      answer
     }
 
     try {
-      await Answer.findByIdAndUpdate(id, answerObj)
+      const data = await Answer.findByIdAndUpdate(id, answerObj,{new: true})
      
-      return createdResource(res,'Resposta atualizada com sucesso')
+      return createdResource(res,'Resposta atualizada com sucesso',data)
     }
     catch (error) { 
 
