@@ -11,11 +11,15 @@ export default class GetAnswerByQuestionController {
     }
         
     try {
-      const answerData =  await Answer.find({questionId}).select({__v:0})
+      const answerData = await GetAnswerByQuestionController.getAllById(questionId)
       return ok(res,'lista de respostas',answerData)
     }
     catch (error) {
       serverError(res,'Não foi possível localizar.')
     }
+  }
+
+  static async getAllById(questionId) {
+    return await Answer.find({questionId}).select({__v:0})
   }
 }
