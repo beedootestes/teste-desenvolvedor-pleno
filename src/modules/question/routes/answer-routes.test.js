@@ -87,7 +87,7 @@ describe ('## PATCH ## Answer', () => {
     const sutId = newAnswers.body.data[0]._id;
     
     const sut = await request (app).patch (`/api/answer/${sutId}`).send ({
-      answer: {answer: 'Sopa', questionId: newQuestionId }
+      answer: 'Sopa', questionId: newQuestionId 
     });
 
     expect (sut.body.message).toBe ('Resposta atualizada com sucesso');
@@ -110,7 +110,7 @@ describe ('## PATCH ## Answer', () => {
     const sutId = newAnswers.body.data[0]._id;
 
     const sut = await request (app).patch (`/api/answer/${sutId}`).send ({
-      answer: { }
+      answer: ''
     });
 
     expect (sut.status).toBe (400);
@@ -135,7 +135,7 @@ describe ('## PATCH ## Answer', () => {
     const sutId = newAnswers.body.data[0]._id;
 
     const sut = await request (app).patch (`/api/answer/${sutId}`).send ({
-      answer: { }
+      answer:''
     });
 
     expect (sut.status).toBe (400);
@@ -200,7 +200,7 @@ describe('## DELETE ## Answer', () => {
 
 describe('## GET ## Answer', () => {
   
-  test ('should be able to remove a answer', async () => {
+  test ('should list all the answer options for a question', async () => {
     const newQuestionId = await makeQuestion('Qual sua linguagem de programação favorita?')
     //send answer
     
@@ -220,25 +220,18 @@ describe('## GET ## Answer', () => {
     const req = await request (app).get (`/api/answer/question/${newQuestionId}`);
     
     expect(req.status).toBe(200)       
-    expect(req.body.data.message).toBe('lista de respostas')       
+    expect(req.body.message).toBe('lista de respostas')       
   });
-  
-  // test ('should return 404 error when ID does not valid', async () => {
-  //   const newQuestionId = await makeQuestion()
-  //   //send answer
+ 
+ 
+  test ('must list all questions with their respective answer options', async () => {
     
-  //   const newAnswers = await request (app).post ('/api/answer').send ({
-  //     answers: [         
-  //       { answer: 'POSSO_SER_DELETADO', questionId: newQuestionId },
-  //     ]
-  //   });
-
-
-  //   // delete question
-  //   const sut = await request (app).delete ('/api/answer/');
+    // list answers 
+    const req = await request (app).get ('/api/answer/question/');
     
-  //   expect (sut.status).toBe (404);
-  //   expect (sut.body.message).toBe ('Não encontrado');     
-  // });
+    expect(req.status).toBe(200)       
+    expect(req.body.message).toBe('lista de perguntas e respostas')       
+         
+  });
 
 });
