@@ -44,12 +44,12 @@ describe ('## POST ## Answer', () => {
       ]
     });
 
-    expect (sut.status).toBe (422);
+    expect (sut.status).toBe (400);
     expect (sut.body.message).toBe ('O Código da questão é obrigatória');
 
   });
 
-  test.only ('should return error when answer does not valid', async () => {
+  test ('should return error when answer does not valid', async () => {
    
     // create question to relation
     const newQuestion = await request (app).post ('/api/question').send ({
@@ -67,8 +67,8 @@ describe ('## POST ## Answer', () => {
       ]
     });
 
-    expect (sut.status).toBe (422);
-    expect (sut.body.message).toBe ('O Código da questão é obrigatória');
+    expect (sut.status).toBe (400);
+    expect (sut.body.message).toBe ('A resposta é obrigatória');
 
   });
 
