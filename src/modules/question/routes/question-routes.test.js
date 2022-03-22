@@ -16,7 +16,7 @@ describe ('Question Router', () => {
       question: '',
     });
 
-    expect (req.status).toBe(422);
+    expect (req.status).toBe(400);
   });
 
   test ('Should be able to enter a question', async () => {
