@@ -1,3 +1,5 @@
+import { badRequest, ok, serverError } from '../../../../config/helpers/http-helper'
+import { isNotValidQuestion } from '../../helpers/question-helper'
 import { Question } from '../../models/question'
 
 export default class UpdateQuestionController {
@@ -8,9 +10,8 @@ export default class UpdateQuestionController {
     
     const {question} = req.body
 
-    if (!question || question.length === 0) {
-      res.status(422).json({message: 'A questão é obrigatória'})
-      return
+    if (isNotValidQuestion(question)) {
+      return badRequest(res,'A questão é obrigatória')      
     }
     
     const questionObj  = {
@@ -20,16 +21,10 @@ export default class UpdateQuestionController {
     try {
       await Question.findByIdAndUpdate(id, questionObj)
       
-      res.status(200).json(
-        {
-          message: 'Question updated successfully',
-          data:{
-            
-          }
-        })
+      return ok(res,'Question updated successfully',{})     
     }
     catch (error) {      
-      res.status(500).json({message: error})
+      return serverError(res,error)
     }
 
   }
