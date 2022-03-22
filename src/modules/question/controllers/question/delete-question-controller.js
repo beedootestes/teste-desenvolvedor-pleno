@@ -1,3 +1,4 @@
+import { ok, serverError } from '../../../../config/helpers/http-helper'
 import { Question } from '../../models/question'
 
 export default class DeleteQuestionController {
@@ -7,13 +8,11 @@ export default class DeleteQuestionController {
         
     try {
       await Question.findByIdAndRemove(id)
-      res.status(200).json({
-        message:'question deleted successfully',
-        data: {}
-      })
+      
+      return ok(res,'question deleted successfully',{})      
     }
     catch (error) {
-      res.status(500).json({message: error})
+      return serverError(error)      
     }
 
   }
