@@ -1,10 +1,5 @@
 import { Router } from 'express'
-
-import GetAllQuestionController from '../controllers/question/get-all-question-controller'
-import GetByQuestionController from '../controllers/question/get-by-question-controller'
-import AddQuestionController from '../controllers/question/add-question-controler'
-import DeleteQuestionController from '../controllers/question/delete-question-controller'
-import UpdateQuestionController from '../controllers/question/update-question-controller'
+import { AddQuestionController, DeleteQuestionController, GetAllQuestionController, GetByQuestionController, UpdateQuestionController,  } from '../controllers/question'
 
 const router = Router()
 
