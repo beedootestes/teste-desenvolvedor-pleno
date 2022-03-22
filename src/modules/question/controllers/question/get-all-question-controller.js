@@ -1,3 +1,4 @@
+import { ok, serverError } from '../../../../config/helpers/http-helper';
 import { Question } from '../../models/question'
 
 export default class GetAllQuestionController {
@@ -5,13 +6,11 @@ export default class GetAllQuestionController {
     
     try {
       const questionsData =  await GetAllQuestionController.getAll()
-      res.status(200).json({
-        message:'list of questions',
-        data: questionsData
-      })
+      
+      return ok(res,'list of questions',questionsData)      
     }
     catch (error) {
-      res.status(500).json({message: error})
+      return serverError(error)
     }
 
   }
