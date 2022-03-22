@@ -38,7 +38,7 @@ describe ('Question Router', () => {
   test ('should return a question filtered by its id', async () => {
     // create question
     const reqPost = await request (app).post ('/api/question').send ({
-      question: 'Teste api,  ?',
+      question: 'O que deseja construir ?',
     });
 
     // get id
@@ -46,13 +46,9 @@ describe ('Question Router', () => {
     
     // get question
     const sut = await request (app).get (`/api/question/${id}`);
-
-    // delete question
-    await request (app).delete (`/api/question/${id}`);
-    
+        
     expect(sut.status).toBe(200)    
     expect(sut.body.data).toBeTruthy()    
-
   });
 
   test ('should be able to remove a question', async () => {
