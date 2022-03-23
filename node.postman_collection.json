@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "991ce844-3b36-44ea-8490-5df52704e62d",
+		"name": "node",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "question",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "description",
+							"value": "Teste 6",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/question",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"question"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "question",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "description",
+							"value": "teste",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/question",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"question"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "question",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "teste",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/question",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"question"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "question",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:3000/question/3",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"question",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "answer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "description",
+							"value": "Teste 6",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "question_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/answer",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"answer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "answer",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:3000/answer",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"answer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listByQuestion",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:3000/answer/listByQuestion/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"answer",
+						"listByQuestion",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "answer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "teste",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/question",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"question"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "answer",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:3000/answer/3",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"answer",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
