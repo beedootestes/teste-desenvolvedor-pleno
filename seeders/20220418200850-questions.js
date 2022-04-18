@@ -9,5 +9,5 @@ module.exports = {
       { question: "What is the opposite of matter?" } 
     ], {}),
 
-  down: async (queryInterface, Sequelize) => queryInterface.bulkDelete('Questions', null, {}),
+  down: async (queryInterface, _Sequelize) => queryInterface.bulkDelete('Questions', null, {}),
 };
