@@ -1,8 +1,14 @@
 const Answer = (sequelize, DataTypes) => {
   const Answer = sequelize.define("Answer", {
-    id: DataTypes.INTEGER,
-    answer: DataTypes.STRING,
-  });
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    answer: { type: DataTypes.STRING },
+  },
+    { timestamps: false });
 
   return Answer;
 };
