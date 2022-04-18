@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/maridgarcia/teste-desenvolvedor-pleno/issues"
   },
-  "homepage": "https://github.com/maridgarcia/teste-desenvolvedor-pleno#readme"
+  "homepage": "https://github.com/maridgarcia/teste-desenvolvedor-pleno#readme",
+  "dependencies": {
+    "sequelize": "^6.19.0"
+  }
 }
