@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "database_development",
+    "password": "3790",
+    "database": "trivia_database",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
