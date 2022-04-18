@@ -1,19 +1,19 @@
-// const app = require('../../app');
-// const request = require('supertest');
+const app = require('../../index');
+const request = require('supertest');
 
-// describe('GET /questions', () => {
-//   it('Deve retornar todas as perguntas com o Status HTTP 200 ', async () => {
+describe('GET /questions', () => {
+  it('Deve retornar todas as perguntas com o Status HTTP 200 ', async () => {
+    const response = await request(app)
+        .get('/questions')
+        .set('Accept', 'application/json')
+    expect(response.statusCode).toEqual(200);
+  });
+});
+
+// describe('POST /questions', () => {
+//   it('Deve retornar com Status HTTP 201', async () => {
 //     const response = await request(app)
-//         .get('/questions')
-//         .set('Accept', 'application/json')
-//     expect(response.headers["Content-Type"]).toMatch(/json/);
-//     expect(response.statusCode).toEqual(200);
-//   });
-//   it('Deve retornar um objeto vazio caso nenhuma pergunta tenha sido cadastrada com Status HTTP 204', async () => {
-//    const response = await request(app)
-//      .get('/questions')
-//      .set('Accept', 'application/json')
-//     expect(response.body).toEqual('No questions registered yet!');
-//     expect(response.statusCode).toEqual(404);
+//       .post('/questions')
+
 //   });
 // });
