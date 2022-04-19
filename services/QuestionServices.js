@@ -18,7 +18,18 @@ const getAll = async () => {
   }
 };
 
+
+const getById = async (id) => {
+  try {
+    const question = await Questions.findByPk(id);
+    return question;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };
