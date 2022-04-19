@@ -20,7 +20,19 @@ const getAll = async (_req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { answer, questionId } = req.body;
+    const answerUpdate = await answerService.update({ id, answer, questionId });
+    return res.status(StatusCodes.CREATED).json(answerUpdate);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
+  update,
 };
