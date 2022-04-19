@@ -20,6 +20,16 @@ const getAll = async (_req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const answer = await answerService.getById(id);
+    return res.status(StatusCodes.OK).json(answer);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const update = async (req, res) => {
   try {
     const { id } = req.params;
@@ -44,6 +54,7 @@ const deleteById = async (req, res) => {
 module.exports = {
   create,
   getAll,
+  getById,
   update,
   deleteById,
 };
