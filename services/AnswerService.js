@@ -24,7 +24,20 @@ const getAll = async () => {
   }
 };
 
+const update = async ({ id, answer, questionId }) => {
+  try {
+    await Answers.update(
+      { answer, questionId },
+      { where: { id } },
+    );
+    return { id, answer, questionId };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
+  update,
 };
