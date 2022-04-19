@@ -1,22 +1,21 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Questions', {
+    await queryInterface.createTable('Answers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      question: {
-        allowNull: false,
+      answer: {
         type: Sequelize.STRING
       },
-      answerId: {
+      questionId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Answers',
+          model: 'Questions',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -25,6 +24,6 @@ module.exports = {
     });
   },
   async down(queryInterface) {
-    await queryInterface.dropTable('Questions');
+    await queryInterface.dropTable('Answers');
   }
 };
