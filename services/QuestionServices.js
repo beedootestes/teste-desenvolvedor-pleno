@@ -30,7 +30,7 @@ const getById = async (id) => {
 
 const update = async (id, question) => {
   try {
-    const questionUpdate = await Questions.update(
+    await Questions.update(
       { question },
       { where: { id },
     });
