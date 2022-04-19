@@ -40,9 +40,18 @@ const update = async (id, question) => {
   }
 };
 
+const deleteById = async (id) => {
+  try {
+    await Questions.destroy({ where: { id } });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  deleteById,
 };
