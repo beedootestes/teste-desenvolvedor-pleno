@@ -9,11 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     question: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    answerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      foreignKey: true,
     }
   }, {
     timestamps: false,

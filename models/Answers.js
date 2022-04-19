@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    questionId: {
+      type: DataTypes.INTEGER,
+      foreignKey: true,
+    },
   }, {
     timestamps: false,
     tableName: 'Answers'
