@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Question = sequelize.define('Question', {
+  const Question = sequelize.define('Questions', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Question.associate = (models) => {
-    Question.hasmany(models.Answers, {
-      foreignKey: 'id', as: 'Answer',
+    Question.hasMany(models.Answers, {
+      foreignKey: 'questionId', as: 'Answer',
     });
   };
 
