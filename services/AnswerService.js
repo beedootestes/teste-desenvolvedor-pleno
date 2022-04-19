@@ -24,6 +24,15 @@ const getAll = async () => {
   }
 };
 
+const getById = async (id) => {
+  try {
+    const answer = await Answers.findByPk(id);
+    return answer;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const update = async ({ id, answer, questionId }) => {
   try {
     await Answers.update(
@@ -47,6 +56,7 @@ const deleteById = async (id) => {
 module.exports = {
   create,
   getAll,
+  getById,
   update,
   deleteById,
 };
