@@ -31,8 +31,19 @@ const update = async (req, res) => {
   }
 };
 
+const deleteById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await answerService.deleteById(id);
+    return res.status(StatusCodes.NO_CONTENT).end();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
   update,
+  deleteById,
 };
