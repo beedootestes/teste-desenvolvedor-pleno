@@ -28,8 +28,21 @@ const getById = async (id) => {
   }
 };
 
+const update = async (id, question) => {
+  try {
+    const questionUpdate = await Questions.update(
+      { question },
+      { where: { id },
+    });
+    return { id, question };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };
