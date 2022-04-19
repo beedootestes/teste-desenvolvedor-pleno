@@ -30,8 +30,20 @@ const getById = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { question } = req.body;
+    const questionUpdate = await questionsService.update(Number(id), question);
+    return res.status(StatusCodes.CREATED).json(questionUpdate);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };
