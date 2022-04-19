@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const { StatusCodes } = require('http-status-codes');
 const questionRouter = require('./routes/QuestionsRouter');
+const answerRouter = require('./routes/answerRouter');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -13,6 +14,7 @@ app.get('/', (_req, res) => {
 });
 
 app.use('/questions', questionRouter);
+app.use('/answers', answerRouter);
 
 app.listen(PORT, () => {
   console.log(`Ouvindo na porta: ${PORT}`);
