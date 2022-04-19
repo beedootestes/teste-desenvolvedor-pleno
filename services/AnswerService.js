@@ -1,4 +1,4 @@
-const { Answers } = require('../models');
+const { Answers, Questions } = require('../models');
 
 const create = async ({ answer, questionId }) => {
   try {
@@ -9,6 +9,22 @@ const create = async ({ answer, questionId }) => {
   }
 };
 
+const getAll = async () => {
+  try {
+    const answers = await Questions.findAll({
+      include: [{
+        model: Answers,
+        as: 'Answer',
+        attributes: ['answer','questionId'],
+      }],
+    });
+    return answers;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 module.exports = {
   create,
+  getAll,
 };
