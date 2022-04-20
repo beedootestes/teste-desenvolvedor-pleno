@@ -88,7 +88,7 @@ describe("Rota 'GET /questions'", () => {
       expect(response).to.have.status(200);
     });
 
-    it('Deveria retornar um objeto', () => {
+    it('Deveria retornar um array', () => {
       expect(response.body).to.be.have.a('array');
     });
 
@@ -99,6 +99,45 @@ describe("Rota 'GET /questions'", () => {
     it("Deveria retornar um array de objetos com as propriedades 'id' e 'question'", () => {
       expect(response.body[0]).to.be.have.a.property('id');
       expect(response.body[0]).to.be.have.a.property('question');
+    });
+  });
+});
+
+describe("Rota 'GET /questions/:id'", () => {
+  const question = {
+      id: 1,
+      question: 'Quem foi a primeira pessoa a viajar no Espaço?',
+    };
+  before(async () => {
+    sinon
+      .stub(Questions, 'findByPk')
+      .resolves(question);
+  });
+
+  after(() => {
+    Questions.findByPk.restore();
+  });
+
+  describe("Quando a requisição é feita com sucesso", () => {
+    let response;
+
+    before(async () => {
+      response = await chai
+        .request(app)
+        .get('/questions/1');
+    });
+
+    it("Deveria retorna http status 200", async () => {
+      expect(response).to.have.status(200);
+    });
+
+    it('Deveria retornar um objeto', () => {
+      expect(response.body).to.be.have.a('object');
+    });
+
+    it("Deveria retornar um objeto com as propriedades 'id' e 'question'", () => {
+      expect(response.body).to.be.have.a.property('id');
+      expect(response.body).to.be.have.a.property('question');
     });
   });
 });
