@@ -14,14 +14,14 @@ const updateQuestion = async ({id, question}) => {
   const updatedQuestion = await questionModel.updateQuestion(id, question);
 
   return updatedQuestion;
-}
+};
 
 const removeQuestion = async (id) => {
-    await questionModel.removeQuestion(id);
+  await questionModel.removeQuestion(id);
   
-    const questionsRemained = await questionModel.getAll();
+  const questionsRemained = await questionModel.getAll();
   
-    return questionsRemained;
-  }
+  return questionsRemained;
+};
 
 module.exports = { getAll, getAllQuestionsWithAnswers, createQuestion, getQuestionById, updateQuestion, removeQuestion };

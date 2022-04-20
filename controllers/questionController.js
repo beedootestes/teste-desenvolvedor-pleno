@@ -42,7 +42,7 @@ Questions.put('/:id', rescue(async (req, res) => {
   return res.status(200).json(updatedQuestion);
 }));
 
-Questions.delete('/:id', async(req, res) => {
+Questions.delete('/:id', rescue(async(req, res) => {
   const { id } = req.params;
 
   const question = await questionService.getQuestionById(id);
@@ -53,7 +53,7 @@ Questions.delete('/:id', async(req, res) => {
   const remainedQuestions = await questionService.getAllQuestionsWithAnswers();
 
   return res.status(200).json(remainedQuestions);
-});
+}));
 
 
 module.exports = Questions;
