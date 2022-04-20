@@ -35,4 +35,19 @@ const createQuestion = async (question) => {
   };
 };
 
-module.exports = { getAll, getAllQuestionsWithAnswers, createQuestion };
+const getQuestionById = async (id) => {
+  const [question] = await connection.execute(`SELECT * FROM ${tableQuestions} WHERE id=?`,[ parseInt(id, 10)]);
+
+  return question[0];
+};
+
+const updateQuestion = async (id, question) => {
+  await connection.execute(`UPDATE ${tableQuestions} SET question=? WHERE id=?`, [question, id]);
+
+  return {
+    id,
+    question,
+  };
+};
+
+module.exports = { getAll, getAllQuestionsWithAnswers, createQuestion, getQuestionById, updateQuestion };

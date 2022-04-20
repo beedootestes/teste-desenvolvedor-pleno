@@ -29,4 +29,18 @@ Questions.post('/', rescue(async (req, res) => {
   return res.status(201).json(newQuestion);
 }));
 
+Questions.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { question } = req.body;
+
+  const questionById = await questionService.getQuestionById(id);
+
+  if(!questionById) return res.status(404).json('Question not found');
+
+  const updatedQuestion = await questionService.updateQuestion({ id, question });
+
+  return res.status(200).json(updatedQuestion);
+});
+
+
 module.exports = Questions;
