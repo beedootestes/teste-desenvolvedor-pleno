@@ -8,7 +8,7 @@ const getAll = async () => {
   return all;
 };
 
-const getAllQuestionWithAnswers = async () => {
+const getAllQuestionsWithAnswers = async () => {
   const [all] = await connection.execute(
     `SELECT q.question AS question,
     a.answerOptions AS answers
@@ -20,4 +20,12 @@ const getAllQuestionWithAnswers = async () => {
   return all;
 };
 
-module.exports = { getAll, getAllQuestionWithAnswers };
+// const createQuestion = async (question) => {
+//   const question = question.map(async ({
+//     answerId, question
+//   }) => {
+//     await connection.execute(`INSERT INTO ${tableQuestions} (question, answerId) VALUES(?, ?)`, [])
+//   });
+// };
+
+module.exports = { getAll, getAllQuestionsWithAnswers };

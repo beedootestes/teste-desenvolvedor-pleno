@@ -14,9 +14,9 @@ Questions.get('/', rescue(async (_req, res) => {
 }));
 
 Questions.get('/QandA', async (_req, res) => {
-  const getQuestionsandAnswers = await questionService.getAllQuestionWithAnswers();
+  const getQuestionsAndAnswers = await questionService.getAllQuestionsWithAnswers();
 
-  res.status(200).json(getQuestionsandAnswers);
+  res.status(200).json(getQuestionsAndAnswers);
 });
 
 module.exports = Questions;

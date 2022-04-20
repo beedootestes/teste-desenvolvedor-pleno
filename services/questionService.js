@@ -2,6 +2,6 @@ const questionModel = require('../models/questionModel');
 
 const getAll = async () => questionModel.getAll();
 
-const getAllQuestionWithAnswers = async () => questionModel.getAllQuestionWithAnswers();
+const getAllQuestionsWithAnswers = async () => questionModel.getAllQuestionsWithAnswers();
 
-module.exports = { getAll, getAllQuestionWithAnswers };
+module.exports = { getAll, getAllQuestionsWithAnswers };
