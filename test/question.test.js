@@ -171,3 +171,29 @@ describe("Rota 'PUT /questions/:id", () => {
     });
   });
 });
+
+describe("Rota 'DELETE /questions/:id", () => {
+  before(() => {
+    sinon
+      .stub(Questions, 'destroy')
+      .callsFake(question.deleteById);
+  });
+
+  after(() => {
+    Questions.destroy.restore();
+  });
+
+  describe("Quando a pergunta é atualizada com sucesso", () => {
+    let response;
+
+    before(async () => {
+      response = await chai
+        .request(app)
+        .delete('/questions/4');
+    });
+
+    it("Deveria retorna http status 204", () => {
+      expect(response).to.be.status(204);
+    });
+  });
+});

@@ -39,9 +39,16 @@ const update = () => {
   return questionUpdate;
 }
 
+const deleteById = () => {
+  const id = 4;
+  const newQuestions = questions.filter((value) => value.id !== id);
+  return newQuestions;
+};
+
 module.exports = {
   update,
   getAll,
   getById,
   create,
+  deleteById,
 };
