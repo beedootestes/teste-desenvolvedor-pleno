@@ -179,21 +179,48 @@ describe("Rota 'DELETE /questions/:id", () => {
       .callsFake(question.deleteById);
   });
 
+  before(() => {
+    sinon
+      .stub(Questions, 'findAll')
+      .callsFake(question.getAll);
+  });
+
   after(() => {
     Questions.destroy.restore();
   });
 
+  after(() => {
+    Questions.findAll.restore();
+  });
+
   describe("Quando a pergunta é atualizada com sucesso", () => {
-    let response;
+    let responseDel;
+    let responseFind;
 
     before(async () => {
-      response = await chai
+      responseDel = await chai
         .request(app)
-        .delete('/questions/4');
+        .delete('/questions/2');
+    });
+
+    before(async () => {
+      responseFind = await chai
+        .request(app)
+        .get('/questions');
     });
 
     it("Deveria retorna http status 204", () => {
-      expect(response).to.be.status(204);
+      expect(responseDel).to.be.status(204);
+    });
+
+    it("Deveria diminuir a lista de perguntas cadastradas", () => {
+      expect(responseFind.body).to.be.length(3);
+    });
+
+    it('Deveria rotornar os items que não foram removidos', () => {
+      expect(responseFind.body[0].id).to.be.equal(1);
+      expect(responseFind.body[1].id).to.be.equal(3);
+      expect(responseFind.body[2].id).to.be.equal(4);
     });
   });
 });

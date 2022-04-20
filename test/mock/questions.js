@@ -40,9 +40,9 @@ const update = () => {
 }
 
 const deleteById = () => {
-  const id = 4;
+  const id = 2;
   const newQuestions = questions.filter((value) => value.id !== id);
-  return newQuestions;
+  questions = newQuestions;
 };
 
 module.exports = {
