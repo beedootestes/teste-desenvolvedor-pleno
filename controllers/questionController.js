@@ -29,7 +29,7 @@ Questions.post('/', rescue(async (req, res) => {
   return res.status(201).json(newQuestion);
 }));
 
-Questions.put('/:id', async (req, res) => {
+Questions.put('/:id', rescue(async (req, res) => {
   const { id } = req.params;
   const { question } = req.body;
 
@@ -40,7 +40,7 @@ Questions.put('/:id', async (req, res) => {
   const updatedQuestion = await questionService.updateQuestion({ id, question });
 
   return res.status(200).json(updatedQuestion);
-});
+}));
 
 
 module.exports = Questions;
