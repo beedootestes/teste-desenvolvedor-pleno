@@ -1,6 +1,7 @@
 const connection = require('./connection');
 
 const tableQuestions = 'beedoo.questions';
+const tableAnswers = 'beedoo.answers';
 
 const getAll = async () => {
   const [all] = await connection.execute(`SELECT question FROM ${tableQuestions}`);
@@ -10,8 +11,10 @@ const getAll = async () => {
 
 const getAllQuestionsWithAnswers = async () => {
   const [all] = await connection.execute(
-    `SELECT q.question AS question,
-    a.answerOptions AS answers
+    `SELECT q.question AS question, 
+    q.id AS questionId,
+    a.answerOptions AS answers, 
+    a.answerId AS answersId
     FROM questions AS q
     INNER JOIN answers AS a
     ON q.answerId = a.answerId;`
@@ -20,12 +23,16 @@ const getAllQuestionsWithAnswers = async () => {
   return all;
 };
 
-// const createQuestion = async (question) => {
-//   const question = question.map(async ({
-//     answerId, question
-//   }) => {
-//     await connection.execute(`INSERT INTO ${tableQuestions} (question, answerId) VALUES(?, ?)`, [])
-//   });
-// };
+const createQuestion = async (question) => {
+  const [insertAnswer] = await connection.execute(`INSERT INTO ${tableAnswers} (answerOptions) VALUES (DEFAULT)`);
 
-module.exports = { getAll, getAllQuestionsWithAnswers };
+  const [newQuestion] = await connection.execute(`INSERT INTO ${tableQuestions} (question, answerId) VALUES (?, ?)`, [question, --insertAnswer.insertId]);
+
+  return {
+    id: newQuestion.insertId,
+    question,
+    answerId: insertAnswer.insertId
+  };
+};
+
+module.exports = { getAll, getAllQuestionsWithAnswers, createQuestion };

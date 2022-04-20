@@ -4,4 +4,6 @@ const getAll = async () => questionModel.getAll();
 
 const getAllQuestionsWithAnswers = async () => questionModel.getAllQuestionsWithAnswers();
 
-module.exports = { getAll, getAllQuestionsWithAnswers };
+const createQuestion = async ({ question }) => questionModel.createQuestion(question);
+
+module.exports = { getAll, getAllQuestionsWithAnswers, createQuestion };
