@@ -126,3 +126,48 @@ describe("Rota 'GET /questions/:id'", () => {
     });
   });
 });
+
+describe("Rota 'PUT /questions/:id", () => {
+  before(() => {
+    sinon
+      .stub(Questions, 'update')
+      .callsFake(question.update);
+  });
+
+  after(() => {
+    Questions.update.restore();
+  });
+
+  describe("Quando a pergunta é atualizada com sucesso", () => {
+    let response;
+
+    const payload = {
+      question: 'A que temperatura a água ferve?',
+    };
+
+    before(async () => {
+      response = await chai
+        .request(app)
+        .put('/questions/1')
+        .send(payload);
+    });
+
+    it("Deveria retorna http status 201", () => {
+      expect(response).to.be.status(201);
+    });
+
+    it("Deveria retornar um objeto", () => {
+      expect(response.body).to.be.have.a('object');
+    });
+
+    it("Deveria retornar um objeto com as propriedades 'id' e 'question'", () => {
+      expect(response.body).to.be.have.a.property('id');
+      expect(response.body).to.be.have.a.property('question');
+    });
+
+    it("Deveria retornar um objeto com a pergunta atualizada", () => {
+      expect(response.body.id).to.be.equal(1);
+      expect(response.body.question).to.be.equal(payload.question);
+    });
+  });
+});
