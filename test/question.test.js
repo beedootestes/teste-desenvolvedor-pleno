@@ -3,6 +3,7 @@ const sinon = require('sinon');
 const chaiHttp = require('chai-http');
 const app = require('../src/api/app');
 const { Questions } = require('../src/models');
+const question = require('./mock/questions');
 
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -11,10 +12,7 @@ describe("Rota 'POST /questions'", () => {
   before(async () => {
     sinon
       .stub(Questions, 'create')
-      .resolves({
-        id: 1,
-        question: 'Quem foi a primeira pessoa a viajar no Espaço?',
-      });
+      .callsFake(question.create);
   });
 
   after(() => {
@@ -25,7 +23,7 @@ describe("Rota 'POST /questions'", () => {
     let response;
 
     const payload = {
-      question: 'Quem foi a primeira pessoa a viajar no Espaço?'
+      question: 'Quais são as fases da Lua?'
     };
 
     before(async () => {
@@ -51,24 +49,10 @@ describe("Rota 'POST /questions'", () => {
 });
 
 describe("Rota 'GET /questions'", () => {
-  const questions = [
-    {
-      id: 1,
-      question: 'Quem foi a primeira pessoa a viajar no Espaço?',
-    },
-    {
-      id: 2,
-      question: 'Qual a montanha mais alta do mundo?',
-    },
-    {
-      id: 3,
-      question: 'Que país tem o formato de uma bota?',
-    }
-  ];
   before(async () => {
     sinon
       .stub(Questions, 'findAll')
-      .resolves(questions);
+      .callsFake(question.getAll);
   });
 
   after(() => {
@@ -93,7 +77,7 @@ describe("Rota 'GET /questions'", () => {
     });
 
     it('Deveria retornar um array de objetos com as perguntas cadastradas', () => {
-      expect(response.body).to.be.length(3);
+      expect(response.body).to.be.length(4);
     });
 
     it("Deveria retornar um array de objetos com as propriedades 'id' e 'question'", () => {
@@ -104,14 +88,10 @@ describe("Rota 'GET /questions'", () => {
 });
 
 describe("Rota 'GET /questions/:id'", () => {
-  const question = {
-      id: 1,
-      question: 'Quem foi a primeira pessoa a viajar no Espaço?',
-    };
   before(async () => {
     sinon
       .stub(Questions, 'findByPk')
-      .resolves(question);
+      .callsFake(question.getById);
   });
 
   after(() => {
@@ -124,20 +104,25 @@ describe("Rota 'GET /questions/:id'", () => {
     before(async () => {
       response = await chai
         .request(app)
-        .get('/questions/1');
+        .get('/questions/2');
     });
 
     it("Deveria retorna http status 200", async () => {
       expect(response).to.have.status(200);
     });
 
-    it('Deveria retornar um objeto', () => {
+    it("Deveria retornar um objeto", () => {
       expect(response.body).to.be.have.a('object');
     });
 
     it("Deveria retornar um objeto com as propriedades 'id' e 'question'", () => {
       expect(response.body).to.be.have.a.property('id');
       expect(response.body).to.be.have.a.property('question');
+    });
+
+    it('Deveria retornar um objeto com a pergunta correta', () => {
+      expect(response.body.id).to.be.equal(2);
+      expect(response.body.question).to.be.equal('Qual a montanha mais alta do mundo?');
     });
   });
 });
