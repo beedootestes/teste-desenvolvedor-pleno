@@ -41,8 +41,8 @@ const update = () => {
 
 const deleteById = () => {
   const id = 2;
-  const newQuestions = questions.filter((value) => value.id !== id);
-  questions = newQuestions;
+  const questionIndex = questions.findIndex((value) => value.id === id);
+  questions.splice(questionIndex, 1);
 };
 
 module.exports = {
