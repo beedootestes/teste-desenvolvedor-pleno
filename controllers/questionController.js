@@ -22,6 +22,15 @@ Questions.get('/QandA', rescue(async (_req, res) => {
   return res.status(200).json(getQuestionsAndAnswers);
 }));
 
+Questions.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  const questionById = await questionService.getQuestionById(id);
+
+  if(!questionById) return res.status(404).json({ message: 'No question found' });
+
+  return res.status(200).json(questionById);
+});
+
 Questions.post('/', rescue(async (req, res) => {
   const { question } = req.body;
   const newQuestion = await questionService.createQuestion({ question });
