@@ -8,4 +8,16 @@ const getAll = async () => {
   return all;
 };
 
-module.exports = { getAll };
+const getAllQuestionWithAnswers = async () => {
+  const [all] = await connection.execute(
+    `SELECT q.question AS question,
+    a.answerOptions AS answers
+    FROM questions AS q
+    INNER JOIN answers AS a
+    ON q.answerId = a.answerId;`
+  );
+
+  return all;
+};
+
+module.exports = { getAll, getAllQuestionWithAnswers };
