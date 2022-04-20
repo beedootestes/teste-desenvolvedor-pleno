@@ -16,4 +16,12 @@ const updateQuestion = async ({id, question}) => {
   return updatedQuestion;
 }
 
-module.exports = { getAll, getAllQuestionsWithAnswers, createQuestion, getQuestionById, updateQuestion };
+const removeQuestion = async (id) => {
+    await questionModel.removeQuestion(id);
+  
+    const questionsRemained = await questionModel.getAll();
+  
+    return questionsRemained;
+  }
+
+module.exports = { getAll, getAllQuestionsWithAnswers, createQuestion, getQuestionById, updateQuestion, removeQuestion };

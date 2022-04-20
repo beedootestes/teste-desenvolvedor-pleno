@@ -42,5 +42,18 @@ Questions.put('/:id', rescue(async (req, res) => {
   return res.status(200).json(updatedQuestion);
 }));
 
+Questions.delete('/:id', async(req, res) => {
+  const { id } = req.params;
+
+  const question = await questionService.getQuestionById(id);
+
+  if (!question) return res.status(404).json({ message: 'Question not found' });
+
+  await questionService.removeQuestion(id);
+  const remainedQuestions = await questionService.getAllQuestionsWithAnswers();
+
+  return res.status(200).json(remainedQuestions);
+});
+
 
 module.exports = Questions;

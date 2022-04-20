@@ -50,4 +50,12 @@ const updateQuestion = async (id, question) => {
   };
 };
 
-module.exports = { getAll, getAllQuestionsWithAnswers, createQuestion, getQuestionById, updateQuestion };
+const removeQuestion = async (id) => {
+  const question = await getQuestionById(id);
+
+  await connection.execute(`DELETE FROM ${tableQuestions} WHERE id=?`, [id]);
+
+  return question;
+};
+
+module.exports = { getAll, getAllQuestionsWithAnswers, createQuestion, getQuestionById, updateQuestion,removeQuestion };
