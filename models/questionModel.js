@@ -26,7 +26,7 @@ const getAllQuestionsWithAnswers = async () => {
 const createQuestion = async (question) => {
   const [insertAnswer] = await connection.execute(`INSERT INTO ${tableAnswers} (answerOptions) VALUES (DEFAULT)`);
 
-  const [newQuestion] = await connection.execute(`INSERT INTO ${tableQuestions} (question, answerId) VALUES (?, ?)`, [question, --insertAnswer.insertId]);
+  const [newQuestion] = await connection.execute(`INSERT INTO ${tableQuestions} (question, answerId) VALUES (?, ?)`, [question, insertAnswer.insertId]);
 
   return {
     id: newQuestion.insertId,
