@@ -22,6 +22,4 @@ const updateAnswer = async(answerId, answerOptions) => {
   };
 };
 
-// Deletar uma opção de RESPOSTA de uma PERGUNTA.
-
 module.exports = { getAll, updateAnswer, getAnswerById };

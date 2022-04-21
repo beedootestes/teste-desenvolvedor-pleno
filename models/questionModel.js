@@ -13,7 +13,7 @@ const getAllQuestionsWithAnswers = async () => {
   const [all] = await connection.execute(
     `SELECT q.question AS question, 
     q.id AS questionId,
-    a.answerOptions AS answers, 
+    a.answerOptions AS answerOptions,
     a.answerId AS answersId
     FROM questions AS q
     INNER JOIN answers AS a
