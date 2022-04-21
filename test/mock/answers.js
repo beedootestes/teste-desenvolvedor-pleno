@@ -55,7 +55,14 @@ const getAll = () => {
   return allAnswers;
 };
 
+const getById = () => {
+  const id = 3;
+  const answerId = answers.find((value) => value.id === id);
+  return answerId;
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };

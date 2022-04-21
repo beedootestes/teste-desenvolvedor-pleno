@@ -85,3 +85,45 @@ describe("Rota 'GET /answers'", () => {
     });
   });
 });
+
+describe("Rota 'GET /answers/:id'", () => {
+  before(async () => {
+    sinon
+      .stub(Answers, 'findByPk')
+      .callsFake(answers.getById);
+  });
+
+  after(() => {
+    Answers.findByPk.restore();
+  });
+
+  describe("Quando a requisição é feita com sucesso", () => {
+    let response;
+
+    before(async () => {
+      response = await chai
+        .request(app)
+        .get('/answers/3');
+    });
+
+    it("Deveria retorna http status 200", async () => {
+      expect(response).to.have.status(200);
+    });
+
+    it("Deveria retornar um objeto", () => {
+      expect(response.body).to.be.have.a('object');
+    });
+
+    it("Deveria retornar um objeto com as propriedades 'id', 'answer' e 'questionId'", () => {
+      expect(response.body).to.be.have.a.property('id');
+      expect(response.body).to.be.have.a.property('answer');
+      expect(response.body).to.be.have.a.property('questionId');
+    });
+
+    it('Deveria retornar um objeto com a resposta correta', () => {
+      expect(response.body.id).to.be.equal(3);
+      expect(response.body.answer).to.be.equal('Monte Everest');
+      expect(response.body.questionId).to.be.equal(2);
+    });
+  });
+});
