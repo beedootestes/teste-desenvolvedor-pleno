@@ -3,10 +3,10 @@ CREATE DATABASE IF NOT EXISTS beedoo;
 
 CREATE TABLE beedoo.answers (
   answerId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  answerOptions VARCHAR(255) DEFAULT 'option 1, option 2, option 3'
+  answerOptions VARCHAR(255) DEFAULT 'option 1 / option 2 / option 3 / option 4'
 );
 
-INSERT INTO beedoo.answers (answerOptions) VALUES ('option 1, option 2, option 3');
+INSERT INTO beedoo.answers (answerOptions) VALUES (DEFAULT);
 
 CREATE TABLE beedoo.questions (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
