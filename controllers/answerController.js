@@ -1,6 +1,7 @@
 const express = require('express');
 const rescue = require('express-rescue');
 const Answers = express.Router();
+
 const answerService = require('../services/answerService');
 
 Answers.get('/', rescue(async (_req, res) => {

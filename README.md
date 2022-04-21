@@ -1,52 +1,128 @@
-## Sobre o Beedoo
+# API de Perguntas e Respostas
 
-Construímos uma plataforma para tornar a comunicação e a capacitação de equipes de atendimento mais ágil, produtiva e eficiente. Acreditamos que quando você combina um propósito poderoso com grandes pessoas que são as melhores no que fazem, você obtém uma cultura diferente de qualquer outra. Para um novo mundo de trabalho, o Beedoo oferece uma nova maneira de aprender com conceitos de Social e Micro Learning, Gamification , Gestão analítica, base de conhecimento cognitiva e inteligência artificial.
+API desenvolvidada para teste de Dev Back-end na empresa Beedoo
 
-## Sobre um Abeedoozido
+# Baixando o projeto
 
-Espera-se que como parte de nosso time, você siga as melhores práticas de tecnologia, 
-tais como documentação, organização e versionamento de código e análises.
-Estamos à procura de alguém motivado para ter suas idéias e criações nas mãos dos usuários, que compartilhe nossa empolgação para evoluir positivamente o propósito do Beedoo.
+Faça um fork do repositório: `https://github.com/beedootestes/teste-desenvolvedor-pleno`
 
-## Responsabilidade da função
-Você atuará na criação de novas features e manutenção do sistema,
-além de elaborar e manter consultas grandes e complexas para geração de relatórios,
-criar serviços e integrações com APIs, lidar com diferentes padrões de arquitetura para organização de código em linguagens de script e funcional.
-Também vai ajudar na construção do projeto, de fazer bom planejamento do projeto e delegar responsabilidades e conhecimentos para outros membros do time.
+Entre na pasta do projeto:
 
-## Local
+```
+cd teste-desenvolvedor-pleno
+```
 
-Possuimos duas naves onde você pode estar quando quiser. Uma Nave fica localizada na **zona norte de São Paulo**, e outra na cidade de **São José dos Campos**, interior do estado de São Paulo. Porém não se preocupe, nosso time de desenvolvimento atua **100% remotamente**, e **você** pode estar **em qualquer lugar do Brasil**, até mesmo em **outros países**, ou na **beira da praia**.
+Mude para a branch 
+``marianagarcia``
 
-## Contratação e Benefícios
+Instale as dependências: 
+```
+npm i -D nodemon body-parser express express-rescue dotenv mysql2
+```
+## Configurando variáveis de ambiente:
+Você irá encontar um arquivo chamado `.env.example` configurado da seguinte forma:
 
-- Contratação PJ
-- Cartão de benefícios flexíveis.
-- 30 dias de recesso remunerado.
-- Feriados remurenados.
-- Licença maternidade/paternidade extendida.
-- Ciclo de reconhecimento e desenvolvimento.
+```
+MYSQL_USER=
+MYSQL_HOSTNAME=
+MYSQL_PASSWORD=
+MYSQL_DATABASE=
+PORT=
+```
+Preencha as informações seguindo o modelo:
 
-## Diferênciais
-
-- Cultura de feedback
-- Equipe 100% unida, a gente ta junto na mesma nave.
-- O CTO as vezes paga o lanche da sexta feira.
-- Emendas em feriados nacionais.
-
-## Requisitos
-- Autogestão
-- GIT
-- NodeJS
-- Testes Funcionais automatizados
-- MySQL
-- Modelagem de dados relacionais
-- Rest APIs
-- Scrum/Kanban
-- Code Review
+```
+MYSQL_USER=user //usuario de BD
+MYSQL_HOSTNAME=hostname //nome do host
+MYSQL_PASSWORD=sua_senha_do_database
+MYSQL_DATABASE=beedoo //NÃO ALTERAR ESSE CAMPO
+PORT=8080 //porta onde aplicação irá rodar
+```
+# Rodando a aplicação
+- Utilize a query no arquivo beedoo.sql para criar o banco de dados utilizado na aplicação;
+- Após criar o banco de dados, utilize o comando ``npm run dev`` no terminal para iniciar o servidor
 
 
-## Como se candidatar
+### Para acessar todas as perguntas:
+```
+Fazer uma requisição GET para
+localhost:3000/questions
+```
+### Para acessar todas as perguntas com opções de resposta:
+```
+Fazer uma requisição GET para
+localhost:3000/questions/QandA
+```
 
-Para se candidatar, basta acessar a url e realizar o teste para a vaga:
-[https://github.com/beedootestes/teste-desenvolvedor-pleno](teste.md)
+### Para criar uma pergunta
+
+```
+Fazer uma requisição POST para 
+localhost:3000/questions
+```
+Inserir no corpo da requisição a nova pergunta:
+```
+{
+  "question": "criando uma nova pergunta"
+}
+```
+
+### Para atualizar uma pergunta:
+```
+Fazer uma requisição PUT para:
+localhost:3000/questions/id
+```
+Sendo "id", o id da questão a ser atualizada.
+
+Escrever no corpo da requisição o campo a ser atualizado:
+```
+{
+  "question": "atualizando a pergunta"
+}
+```
+
+### Para buscar uma pergunta através do id com suas opções de resposta:
+
+```
+Fazer uma requisição GET para
+localhost:3000/questions/id
+```
+Sendo "id", o id da pergunta a ser buscada.
+
+Exemplo:
+```
+localhost:3000/questions/1
+
+// corpo da requisição
+
+{
+  "question": "Qual o maior mamífero terrestre?"
+}
+
+// resultado:
+{
+  "id": "1",
+  "question": "Qual o maior mamífero terrestre?"
+}
+```
+
+### Excluindo uma pergunta:
+
+```
+Fazer uma requisição DELETE para 
+localhost:3000/questions/id
+```
+Sendo o "id", o id da questão a ser excluída.
+
+### Para acessar todas as respostas:
+```
+Fazer uma requisição GET para
+localhost:3000/answers
+```
+### Para atualizar as opções de resposta:
+
+```
+Fazer uma requisição PUT para 
+localhost:3000/answers/id
+```
+Sendo "id", o id da resposta a ser atualizada.
