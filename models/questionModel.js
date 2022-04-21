@@ -36,7 +36,16 @@ const createQuestion = async (question) => {
 };
 
 const getQuestionById = async (id) => {
-  const [question] = await connection.execute(`SELECT * FROM ${tableQuestions} WHERE id=?`,[ parseInt(id, 10)]);
+  const [question] = await connection.execute(
+    `SELECT q.question AS question, 
+    q.id AS questionId,
+    a.answerOptions AS answerOptions
+    FROM questions AS q
+    INNER JOIN answers AS a
+    ON q.answerId = a.answerId;`
+    );
+
+  // const [question] = await connection.execute(`SELECT * FROM ${tableQuestions} WHERE id=?`,[ parseInt(id, 10)]);
 
   return question[0];
 };
