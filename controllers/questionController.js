@@ -5,8 +5,7 @@ const rescue = require('express-rescue');
 const Questions = express.Router();
 
 const questionService = require('../services/questionService');
-app.use(express.json()) 
-app.use(express.urlencoded({ extended: true }));
+const { validateQuestion } = require('../middlewares/validateQuestion');
 
 Questions.get('/', rescue(async (_req, res) => {
   const allQuestions = await questionService.getAll();
@@ -31,7 +30,7 @@ Questions.get('/:id', async (req, res) => {
   return res.status(200).json(questionById);
 });
 
-Questions.post('/', rescue(async (req, res) => {
+Questions.post('/', validateQuestion, rescue(async (req, res) => {
   const { question } = req.body;
   const newQuestion = await questionService.createQuestion({ question });
 
