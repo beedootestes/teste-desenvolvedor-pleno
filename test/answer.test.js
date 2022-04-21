@@ -127,3 +127,51 @@ describe("Rota 'GET /answers/:id'", () => {
     });
   });
 });
+
+describe("Rota 'PUT /answers/:id", () => {
+  before(() => {
+    sinon
+      .stub(Answers, 'update')
+      .callsFake(answers.update);
+  });
+
+  after(() => {
+    Answers.update.restore();
+  });
+
+  describe("Quando a pergunta é atualizada com sucesso", () => {
+    let response;
+
+    const payload = {
+      answer: 'Neil Armstrong Jr',
+      questionId: 1,
+    };
+
+    before(async () => {
+      response = await chai
+        .request(app)
+        .put('/answers/2')
+        .send(payload);
+    });
+
+    it("Deveria retorna http status 201", () => {
+      expect(response).to.be.status(201);
+    });
+
+    it("Deveria retornar um objeto", () => {
+      expect(response.body).to.be.have.a('object');
+    });
+
+    it("Deveria retornar um objeto com as propriedades 'id', 'answer' e 'questionId'", () => {
+      expect(response.body).to.be.have.a.property('id');
+      expect(response.body).to.be.have.a.property('answer');
+      expect(response.body).to.be.have.a.property('questionId');
+    });
+
+    it("Deveria retornar um objeto com a resposta atualizada", () => {
+      expect(response.body.id).to.be.equal('2');
+      expect(response.body.answer).to.be.equal(payload.answer);
+      expect(response.body.questionId).to.be.equal(payload.questionId);
+    });
+  });
+});

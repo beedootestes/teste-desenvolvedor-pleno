@@ -61,8 +61,18 @@ const getById = () => {
   return answerId;
 };
 
+const update = () => {
+  const id = 2;
+  const answer = { answer: 'Neil Armstrong Jr', questionId: 1 };
+  const answerUpdate = answers.filter((value) => value.id !== id);
+  answers = answerUpdate;
+  answers.push({ id, ...answer });
+  return { id, ...answer };
+}
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };
