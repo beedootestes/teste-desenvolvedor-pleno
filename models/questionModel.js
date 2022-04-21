@@ -45,8 +45,6 @@ const getQuestionById = async (id) => {
     ON q.answerId = a.answerId;`
     );
 
-  // const [question] = await connection.execute(`SELECT * FROM ${tableQuestions} WHERE id=?`,[ parseInt(id, 10)]);
-
   return question[0];
 };
 
