@@ -56,13 +56,16 @@ const getAll = () => {
 };
 
 const getById = () => {
-  const id = 3;
+  const id = 4;
   const answerId = answers.find((value) => value.id === id);
+  if (!answerId) {
+    return false;
+  }
   return answerId;
 };
 
 const update = () => {
-  const id = 2;
+  const id = 4;
   const answer = { answer: 'Neil Armstrong Jr', questionId: 1 };
   const answerUpdate = answers.filter((value) => value.id !== id);
   answers = answerUpdate;
@@ -70,9 +73,16 @@ const update = () => {
   return { id, ...answer };
 }
 
+const deleteById = () => {
+  const id = 4;
+  const answerIndex = answers.findIndex((value) => value.id === id);
+  answers.splice(answerIndex, 1);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  deleteById,
 };

@@ -121,9 +121,9 @@ describe("Rota 'GET /answers/:id'", () => {
     });
 
     it('Deveria retornar um objeto com a resposta correta', () => {
-      expect(response.body.id).to.be.equal(3);
-      expect(response.body.answer).to.be.equal('Monte Everest');
-      expect(response.body.questionId).to.be.equal(2);
+      expect(response.body.id).to.be.equal(4);
+      expect(response.body.answer).to.be.equal('Brasil');
+      expect(response.body.questionId).to.be.equal(3);
     });
   });
 });
@@ -172,6 +172,54 @@ describe("Rota 'PUT /answers/:id", () => {
       expect(response.body.id).to.be.equal('2');
       expect(response.body.answer).to.be.equal(payload.answer);
       expect(response.body.questionId).to.be.equal(payload.questionId);
+    });
+  });
+});
+
+describe("Rota 'DELETE /answers/:id", () => {
+  before(() => {
+    sinon
+      .stub(Answers, 'destroy')
+      .callsFake(answers.deleteById);
+  });
+
+  before(() => {
+    sinon
+      .stub(Answers, 'findByPk')
+      .callsFake(answers.getById);
+  });
+
+  after(() => {
+    Answers.destroy.restore();
+  });
+
+  after(() => {
+    Answers.findByPk.restore();
+  });
+
+  describe("Quando a pergunta é atualizada com sucesso", () => {
+    let responseDel;
+    let responseFind;
+
+    before(async () => {
+      responseDel = await chai
+        .request(app)
+        .delete('/answers/4');
+    });
+
+    before(async () => {
+      responseFind = await chai
+        .request(app)
+        .get('/answers/4');
+    });
+
+    it("Deveria retorna http status 204", () => {
+      expect(responseDel).to.be.status(204);
+    });
+
+    it("Deveria retornar 'undefined' ao buscar pela resposta removida", () => {
+      console.log(responseFind.body);
+      expect(responseFind.body).to.be.false;
     });
   });
 });
