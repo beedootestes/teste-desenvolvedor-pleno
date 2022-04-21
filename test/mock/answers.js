@@ -1,3 +1,5 @@
+const questions= require('./questions');
+
 let answers = [
   {
     id: 1,
@@ -40,6 +42,20 @@ const create = () => {
   return answers.find((value) => value.id === (lastId + 1));
 };
 
+const getAll = () => {
+  const allQuestions = questions.getAll();
+  const allAnswers = allQuestions.map(({ id, question }) => {
+    const result = answers.filter((value) => value.questionId === id);
+    return {
+      id,
+      question,
+      answers: [...result],
+    }
+  });
+  return allAnswers;
+};
+
 module.exports = {
   create,
+  getAll,
 };

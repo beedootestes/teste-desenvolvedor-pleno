@@ -49,3 +49,39 @@ describe("Rota 'POST /answers'", () => {
     });
   });
 });
+
+describe("Rota 'GET /answers'", () => {
+  before( async () => {
+    sinon
+      .stub(Answers, 'findAll')
+      .callsFake(answers.getAll);
+  });
+
+  after(() => {
+    Answers.findAll.restore();
+  });
+
+  describe("Quando a resposta é criada com sucesso", () => {
+    let response;
+
+    before( async () => {
+      response = await chai
+        .request(app)
+        .get('/answers');
+    });
+
+    it("Deveria retorna http status 200", () => {
+      expect(response).to.have.status(200);
+    });
+
+    it("Deveria retornar um array", () => {
+      expect(response.body).to.be.have.a('array');
+    });
+
+    it("Deveria retornar um objeto com as propriedades 'id', 'question', 'Answer'", () => {
+      expect(response.body[0]).to.be.have.a.property('id');
+      expect(response.body[0]).to.be.have.a.property('question');
+      expect(response.body[0]).to.be.have.a.property('Answer');
+    });
+  });
+});
