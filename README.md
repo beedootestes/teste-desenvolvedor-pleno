@@ -198,6 +198,10 @@ Dessa forma os containers serão parados e em seguida removidos.
 
 - [Padrões de commits](https://github.com/iuricode/padroes-de-commits)
 
-- [Markdown](https://pt.wikipedia.org/wiki/Markdown);
+- [Markdown](https://pt.wikipedia.org/wiki/Markdown)
 
-- [Markdown github cheat sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet);
+- [Markdown github cheat sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+
+- [Joi - Validação](https://joi.dev/api/?v=17.6.0)
+
+- [Joi - strict](https://joi.dev/api/?v=17.6.0#anystrictisstrict)
