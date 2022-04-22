@@ -4,8 +4,16 @@ const questionValidate = require('../middlewares/questionsValidate');
 
 question.get('/:id', questionsController.getById);
 question.delete('/:id', questionsController.deleteById);
-question.put('/:id', questionValidate, questionsController.update);
-question.post('/', questionValidate, questionsController.create);
+question.put(
+  '/:id',
+  questionValidate.questionValid,
+  questionsController.update,
+);
+question.post(
+  '/',
+  questionValidate.questionValid,
+  questionsController.create,
+);
 question.get('/', questionsController.getAll);
 
 module.exports = question;
