@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Answer.associate = (models) => {
     Answer.belongsTo(models.Questions, {
-      foreignKey: 'id', as: 'question',
+      foreignKey: 'id', as: 'Questions',
     });
   };
 

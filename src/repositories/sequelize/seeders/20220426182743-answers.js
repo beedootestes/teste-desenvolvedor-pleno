@@ -6,19 +6,19 @@ module.exports = {
     [
       {
         answer: 'Tem entre 2 a 4 litros. São retirados 450 mililitros',
-        questionId: 1
+        questionId: 4
       },
       {
-        answer: 'Tem entre 4 a 6 litros. São retirados 450 mililitros?',
-        questionId: 1
+        answer: 'Tem entre 4 a 6 litros. São retirados 450 mililitros',
+        questionId: 4
       },
       {
         answer: 'Descartes',
-        questionId: 2
+        questionId: 14
       },
       {
         answer: 'Platão',
-        questionId: 2
+        questionId: 14
       }
     ], { timestamps: false });
   },
