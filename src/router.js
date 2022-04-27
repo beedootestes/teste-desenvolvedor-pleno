@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { createAnswerController } = require("./useCases/createAnswer/createAnswerController");
+const { deleteAnswerController } = require("./useCases/deleteAnswer/deleteAnswerController");
 
 const { createQuestionController } = require("./useCases/createQuestion/createQuestionController");
 const { deleteQuestionController } = require("./useCases/deleteQuestion/deleteQuestionController");
@@ -16,5 +17,6 @@ router.put('/questions/:id', updateQuestionController);
 router.delete('/questions/:id', deleteQuestionController);
 
 router.post('/answers', createAnswerController);
+router.delete('/answers/:id', deleteAnswerController);
 
 module.exports = { router };
