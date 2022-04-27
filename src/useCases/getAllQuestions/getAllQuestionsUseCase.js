@@ -1,4 +1,4 @@
-const { mysqlGetAllQuestions } = require("../../repositories/implementationsQuestions/mysqlGetAllQuestions");
+const { mysqlGetAllQuestions } = require("../../repositories/implementationsQuestions/mysqlGetAll");
 
 const getAllQuestionsUseCase = async () => {
   const getAllQuestions = await mysqlGetAllQuestions();
