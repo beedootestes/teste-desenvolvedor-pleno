@@ -5,7 +5,7 @@ const Router = express.Router();
 Router.post('/', async (req, res) => {
   try {
     const { question } = req.body;
-    await db.insertQuestion({ question });
+    await db.insertQuestion(question);
 
     return res.status(201).json(question);
   } catch (error) {

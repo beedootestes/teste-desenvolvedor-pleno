@@ -1,12 +1,14 @@
 const express = require('express');
 const questionController = require('./controllers/questionsController');
+const answerController = require('./controllers/answersController');
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
-app.use('/question', questionController)
+app.use('/question', questionController);
+app.use('/answer', answerController);
 
 app.listen(3000, ()=> {
   console.log("Aplicação rodando na porta 3000")
