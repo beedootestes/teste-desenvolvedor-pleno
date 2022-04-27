@@ -10,7 +10,7 @@ const createQuestionUseCase = async (question) => {
   const ifExistsQuestion = await existsQuestion(question);
 
   if (ifExistsQuestion) {
-    throw new Error('Question already exists, please insert other.')
+    throw('Question already exists, please insert other.');
   }
 
   const createQuestion = await mysqlCreateQuestion(question);
