@@ -3,7 +3,6 @@ const { createQuestionUseCase } = require("./createQuestionUseCase");
 const createQuestionController = async (req, res) => {
   try {
     const { question } = req.body;
-    console.log(question);
     const questionCreated = await createQuestionUseCase(question);
     return res.status(201).json(questionCreated);
   } catch (error) {
