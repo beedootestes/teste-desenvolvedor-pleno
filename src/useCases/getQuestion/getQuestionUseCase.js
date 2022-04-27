@@ -3,7 +3,7 @@ const { mysqlGetQuestion } = require("../../repositories/implementationsQuestion
 const getQuestionUseCase = async (id) => {
   const getQuestion = await mysqlGetQuestion(id);
 
-  if (!getQuestion) throw('This question does not exists.')
+  if (!getQuestion) throw('This question does not exists.');
 
   return getQuestion;
 }

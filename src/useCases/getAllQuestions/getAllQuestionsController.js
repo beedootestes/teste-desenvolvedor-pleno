@@ -5,7 +5,8 @@ const getAllQuestionsController = async (req, res) => {
     const getAllQuestions = await getAllQuestionsUseCase();
     return res.status(200).json(getAllQuestions);
   } catch (error) {
-    return res.status(400).json({ messsage: error.messsage || 'Internal Error.' })
+    if (error) return res.status(400).json({ messsage: error });
+    return res.status(500).json({ message: 'Internal Error.' });
   }
 }
 
