@@ -1,6 +1,7 @@
 const express = require('express');
 const questionController = require('./controllers/questionsController');
 const answerController = require('./controllers/answersController');
+const questionsAnswersController = require('./controllers/questionsAndAnswersController')
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/question', questionController);
 app.use('/answer', answerController);
+app.use('/allquestions', questionsAnswersController);
 
 app.listen(3000, ()=> {
   console.log("Aplicação rodando na porta 3000")
