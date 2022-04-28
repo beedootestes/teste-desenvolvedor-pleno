@@ -3,6 +3,7 @@
 #Como usar
 
 - Faça um clone do projeto. 
+- Crie um arquivo .env e defina as varáveis de ambiente MYSQL_USER e MYSQL_PASSWORD com seu usuário e senha do MySQL respectivamente.
 - Crie uma DATABASE chamada crud e as tabelas question e answers no MySQL com o seguinte código:
       CREATE DATABASE crud; 
       USE crud;
