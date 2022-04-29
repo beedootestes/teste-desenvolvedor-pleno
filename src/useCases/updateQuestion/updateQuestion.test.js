@@ -21,7 +21,7 @@ describe("Teste de Integração rota PUT/questions/:id", () => {
     sinon
       .stub(Questions, 'update')
       .onCall(0)
-      .resolves({ id: 2, question: "O que é a lua?" })
+      .resolves({ id: 1, question: "O que é a lua?" })
       .onCall(1)
       .resolves(null);
   });
