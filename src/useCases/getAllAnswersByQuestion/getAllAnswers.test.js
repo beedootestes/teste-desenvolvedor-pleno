@@ -44,7 +44,15 @@ describe("Teste de Integração rota GET/answers/:id", () => {
   });
 
   after(() => {
+    Questions.create.restore();
+  });
+
+  after(() => {
     Answers.create.restore();
+  });
+
+  after(() => {
+    Questions.findAll.restore();
   });
     
   describe("Deve ser capaz de retornar todas a answers de uma question", async () => {
