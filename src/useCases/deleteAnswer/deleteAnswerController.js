@@ -6,7 +6,7 @@ const deleteAnswerController = async (req, res) => {
     await deleteAnswerUseCase(id);
     return res.status(200).json({ message: 'Answer Deleted!' });
   } catch (error) {
-    if (error) return res.status(400).json({ messsage: error });
+    if (error) return res.status(400).json({ message: error });
     return res.status(500).json({ message: 'Internal Error.' });
   }
 }

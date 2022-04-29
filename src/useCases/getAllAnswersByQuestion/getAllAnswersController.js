@@ -6,7 +6,7 @@ const getAllAnswersController = async (req, res) => {
     const getAllAnswers = await getAllAnswersUseCase(id);
     return res.status(200).json(getAllAnswers);
   } catch (error) {
-    if (error) return res.status(400).json({ messsage: error });
+    if (error) return res.status(400).json({ message: error });
     return res.status(500).json({ message: 'Internal Error.' });
   }
 }

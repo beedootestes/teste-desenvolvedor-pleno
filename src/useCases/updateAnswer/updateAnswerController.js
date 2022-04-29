@@ -7,7 +7,7 @@ const updateAnswerController = async (req, res) => {
     const answerUpdated = await updateAnswerUseCase(id, answer);
     return res.status(200).json(answerUpdated);
   } catch (error) {
-    if (error) return res.status(400).json({ messsage: error });
+    if (error) return res.status(400).json({ message: error });
     return res.status(500).json({ message: 'Internal Error.' });
   }
 }

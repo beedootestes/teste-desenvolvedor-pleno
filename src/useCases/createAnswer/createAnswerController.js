@@ -6,7 +6,7 @@ const createAnswerController = async (req, res) => {
     await createAnswerUseCase([ answer, questionId ]);
     return res.status(201).json({ message: 'Answers Inserted!' });
   } catch (error) {
-    if (error) return res.status(400).json({ messsage: error });
+    if (error) return res.status(400).json({ message: error });
     return res.status(500).json({ message: 'Internal Error.' });
   }
 }
