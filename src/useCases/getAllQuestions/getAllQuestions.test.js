@@ -36,7 +36,7 @@ describe("Teste de Integração rota GET/questions", () => {
     Questions.create.restore();
   });
     
-  describe("Deve ser capaz de criar uma nova question", async () => {
+  describe("Deve ser capaz de buscar todas as questions", async () => {
 
     const questionData = {
       question: "O que é o sol?",

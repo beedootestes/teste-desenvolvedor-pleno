@@ -4,7 +4,7 @@ const { createQuestionController } = require("./useCases/createQuestion/createQu
 const { deleteQuestionController } = require("./useCases/deleteQuestion/deleteQuestionController");
 const { getAllQuestionsController } = require("./useCases/getAllQuestions/getAllQuestionsController");
 const { getQuestionController } = require("./useCases/getQuestion/getQuestionController");
-const { updateQuestionController } = require("./useCases/updateQuetion/updateQuestionController");
+const { updateQuestionController } = require("./useCases/updateQuestion/updateQuestionController");
 
 const { createAnswerController } = require("./useCases/createAnswer/createAnswerController");
 const { deleteAnswerController } = require("./useCases/deleteAnswer/deleteAnswerController");

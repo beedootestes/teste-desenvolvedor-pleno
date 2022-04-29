@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe("Teste de Integração rota GET/questions/:id", () => {
+describe("Teste de Integração rota PUT/questions/:id", () => {
 
   before(async () => {
     sinon
@@ -19,9 +19,9 @@ describe("Teste de Integração rota GET/questions/:id", () => {
       .resolves(null);
       
     sinon
-      .stub(Questions, 'findByPk')
+      .stub(Questions, 'update')
       .onCall(0)
-      .resolves({ id: 1, question: "O que é o sol?" })
+      .resolves({ id: 2, question: "O que é a lua?" })
       .onCall(1)
       .resolves(null);
   });
@@ -30,14 +30,14 @@ describe("Teste de Integração rota GET/questions/:id", () => {
     Questions.create.restore();
   });
     
-  describe("Deve ser capaz de buscar uma question", async () => {
+  describe("Deve ser capaz de editar uma question", async () => {
 
     const questionData = {
       question: "O que é o sol?"
     };
 
     let newQuestion;
-    let getQuestion;
+    let updateQuestion;
 
     before(async () => {
       newQuestion = await chai
@@ -47,30 +47,32 @@ describe("Teste de Integração rota GET/questions/:id", () => {
     });
 
     before(async () => {
-      getQuestion = await chai
-        .request(app).get('/questions/1');
+      updateQuestion = await chai
+        .request(app)
+        .put('/questions/1')
+        .send({ question: "O que é a lua?" });
     });
 
     it("Deve retornar status 200", () => {
-      expect(getQuestion.status).to.be.equals(200);
+      expect(updateQuestion.status).to.be.equals(200);
     });
 
-    it("Deve retornar o 'id' passado", () => {
-      expect(getQuestion.body.id).to.be.equals(1);
+    it("Deve retornar o mesmo 'id' da question antes de editar", () => {
+      expect(updateQuestion.body.id).to.be.equals('1');
     });
 
-    it("Deve retornar a 'question' passada", () => {
-      expect(getQuestion.body.question).to.be.equals('O que é o sol?');
+    it("Deve retornar a nova 'question' passada", () => {
+      expect(updateQuestion.body.question).to.be.equals('O que é a lua?');
     });
 
     it("Se nao existe essa question retornar um erro 400", async () => {
       newQuestion = await chai
         .request(app).post('/questions').send({});
 
-        getQuestion = await chai
+        updateQuestion = await chai
           .request(app).get('/questions/2');
           
-      expect(getQuestion.status).to.be.equals(400);
+      expect(updateQuestion.status).to.be.equals(400);
     });
 
   });
