@@ -47,11 +47,11 @@ describe("Teste de Integração rota DELETE/answers/:id", () => {
     });
 
     it("Deve retornar status 200", () => {
-      expect(deleteQuestion.status).to.be.equals(200);
+      expect(deleteAnswer.status).to.be.equals(200);
     });
 
     it("Deve retornar a mensagem 'Answer Deleted!'", () => {
-      expect(deleteQuestion.body.message).to.be.equals('Answer Deleted!');
+      expect(deleteAnswer.body.message).to.be.equals('Answer Deleted!');
     });
 
   });
