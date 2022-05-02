@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  backend:
+    build: ./
+    container_name: backend-beedoo
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/usr/app
+    depends_on:
+      - db
+  db:
+    container_name: mysql-db
+    image: mysql:8.0.27
+    ports:
+      - 3002:3306
+    environment:
+      - .env
