@@ -10,6 +10,7 @@
     "drop": "npx sequelize-cli db:drop",
     "seedQuestions": "npx sequelize-cli db:seed --seed 20220426182644-questions.js",
     "seedAnswers": "npx sequelize-cli db:seed --seed 20220426182743-answers.js",
+    "docker": "docker-compose --env-file .env up backend",
     "test": "mocha ./src/**/**.test.js --exit"
   },
   "repository": {

@@ -69,11 +69,9 @@ $ Via Docker ou Heroku
 $ npm install
 
 # Execute aplicação:
-$ docker-compose up
+$ npm run docker
 
-# Execute aplicação:
-$ localhost:3001 será a rota de boas vindas.
-
+```
 
 - Para consumir a API no navegador mesmo digite o endereço abaixo:
   - https://localhost:3001 para a página inicial da API.
@@ -89,7 +87,7 @@ $ localhost:3001 será a rota de boas vindas.
   - POST https://localhost:3001/answers para criar repostas: [{ "answer": "...", "questionId": "Id_da_pergunta"}, {...}].
   - PUT https://localhost:3001/answers/id para editar uma resposta: { "answer": "..."}.
   - DELETE https://localhost:3001/answers/id para excluir uma resposta conforme id.
-```
+
 ## :clipboard: Como utilizar via Heroku (núvem):
 - Para consumir a API no navegador mesmo digite o endereço abaixo:
   - https://teste-desenvolvedor-pleno.herokuapp.com/ para a página inicial da API.
