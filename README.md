@@ -1,52 +1,91 @@
-## Sobre o Beedoo
+# Desafio API Perguntas e Respostas BeeDoo
 
-Construímos uma plataforma para tornar a comunicação e a capacitação de equipes de atendimento mais ágil, produtiva e eficiente. Acreditamos que quando você combina um propósito poderoso com grandes pessoas que são as melhores no que fazem, você obtém uma cultura diferente de qualquer outra. Para um novo mundo de trabalho, o Beedoo oferece uma nova maneira de aprender com conceitos de Social e Micro Learning, Gamification , Gestão analítica, base de conhecimento cognitiva e inteligência artificial.
+## Proposta
+Criar uma API em NodeJS no padrão RestFULL que realizasse as seguintes funções listadas abaixo:
 
-## Sobre um Abeedoozido
+```
+    [X] Adicionar uma nova PERGUNTA.
+    [X] Listar todas as PERGUNTAS.
+    [X] Alterar uma PERGUNTA.
+    [X] Deletar uma PERGUNTA.
+    [X] Adicionar opções de resposta a uma PERGUNTA. (sem limites)
+    [X] Listar todas as opções de RESPOSTAS de uma PERGUNTA.
+    [X] Alterar uma opção de RESPOSTA de uma PERGUNTA.
+    [X] Deletar uma opção de RESPOSTA de uma PERGUNTA.
+```
+Para completar o desafio foram utilizadas as seguintes tecnologias:
+Banco de Dados: MySQL
+Framework: { 
+    Sequelize,
+    Express
+}
 
-Espera-se que como parte de nosso time, você siga as melhores práticas de tecnologia, 
-tais como documentação, organização e versionamento de código e análises.
-Estamos à procura de alguém motivado para ter suas idéias e criações nas mãos dos usuários, que compartilhe nossa empolgação para evoluir positivamente o propósito do Beedoo.
+## Como usar
+Para iniciar o projeto, faça um clone deste repositório, inicialize o projeto utilizando `npm i` ou `(npm install)`
+Altere o nome do arquivo `.env.example` para `.env` e caso necessário faça as devidas alterações de acesso nas variaveis de ambiente
 
-## Responsabilidade da função
-Você atuará na criação de novas features e manutenção do sistema,
-além de elaborar e manter consultas grandes e complexas para geração de relatórios,
-criar serviços e integrações com APIs, lidar com diferentes padrões de arquitetura para organização de código em linguagens de script e funcional.
-Também vai ajudar na construção do projeto, de fazer bom planejamento do projeto e delegar responsabilidades e conhecimentos para outros membros do time.
+Para popular o banco de dados com perguntas e respostas utilize os comandos abaixo na ordem que são mostrados:
 
-## Local
+`npx sequelize-cli db:create`
+`npx sequelize-cli db:migrate`
+`npx sequelize-cli db:seed:all`
 
-Possuimos duas naves onde você pode estar quando quiser. Uma Nave fica localizada na **zona norte de São Paulo**, e outra na cidade de **São José dos Campos**, interior do estado de São Paulo. Porém não se preocupe, nosso time de desenvolvimento atua **100% remotamente**, e **você** pode estar **em qualquer lugar do Brasil**, até mesmo em **outros países**, ou na **beira da praia**.
+**juntamente** com a pasta do projeto será disponibilizado o arquivo `Insomnia_2022-05-03.json` que contem todas as requests feitas através do api client insomnia
 
-## Contratação e Benefícios
+## Models
 
-- Contratação PJ
-- Cartão de benefícios flexíveis.
-- 30 dias de recesso remunerado.
-- Feriados remurenados.
-- Licença maternidade/paternidade extendida.
-- Ciclo de reconhecimento e desenvolvimento.
+Perguntas [ { 
+    id: integer, not null, auto increment, primary key,
+    pergunta: string, not null
+} , . . .]
 
-## Diferênciais
+Respostas[ { 
+    id: integer, not null, auto increment, primary key,
+    resposta: string, not null,
+    resposta_valida: boolean,  not null,
+    pergunta_id: integer, not null
+} , . . .]
 
-- Cultura de feedback
-- Equipe 100% unida, a gente ta junto na mesma nave.
-- O CTO as vezes paga o lanche da sexta feira.
-- Emendas em feriados nacionais.
+## Rotas
 
-## Requisitos
-- Autogestão
-- GIT
-- NodeJS
-- Testes Funcionais automatizados
-- MySQL
-- Modelagem de dados relacionais
-- Rest APIs
-- Scrum/Kanban
-- Code Review
+Para este projeto, foram elaborados 2 rotas:
+Ambas as rotas utilizam os principais verbos HTTP: GET / POST / PUT / DELETE
 
+```
+- /perguntas
+    `/` exibe todos as perguntas cadastradas
+    `/add` cadastra uma nova pergunta
+    `/edit/:id` altera uma pergunta ao informar o `id: number` ao parametro da URL
+    `/del/:id` deleta uma pergunta ao informar o `id: number` ao parametro da URL, uma pergunta ao ser deletada, apaga todas as suas respectivas respostas
 
-## Como se candidatar
+    exemplo: `localhost:4444/pergunta/add` 
+```
+```
+- /respostas
+    `/ ` Exibe todas as perguntas cadastradas no banco de dados
 
-Para se candidatar, basta acessar a url e realizar o teste para a vaga:
-[https://github.com/beedootestes/teste-desenvolvedor-pleno](teste.md)
+    exemplo: `localhost:4444/resposta` 
+
+    `/?pergunta` onde pergunta é um parametro de `query` que realiza a busca de todas respostas associadas a uma determinada pergunta através do campo `pergunta_id`
+
+    exemplo: `localhost:4444/resposta?pergunta=1` 
+
+    `/add/:id` realiza N cadastros de respostas associadas a uma pergunta, onde `id: number` está diretamente vinculada ao campo `pergunta_id` no ato de sua criação no banco de dados
+
+    exemplo: `localhost:4444/resposta/add/1`
+
+    /edit?pergunta=`id`&resposta=`id` realiza atualização de uma resposta X  `pergunta_id` correspondente a uma pergunta Y, caso o i da pergunta não seja enviado a consulta não é realizada retornando um erro, caso a pergunta seja informada mas não haja respostas associadas a pergunta um erro será retornado ao usuário
+
+    exemplo: `localhost:4444/resposta/edit?pergunta=1&resposta=6`
+
+    /del?pergunta=`id`&resposta=`id` realiza remoçao de uma resposta X  `pergunta_id` correspondente a uma pergunta Y, caso o id da perguntanão seja enviado a consulta não é realizada retornando um erro, caso a pergunta seja informada mas não haja respostas associadas a pergunta um erro será retornado ao usuário
+
+    exemplo: `localhost:4444/resposta/del?pergunta=1&resposta=4`
+```
+
+## Dúvidas
+Qualquer dúvida/problema referente ao projeto, sinta-se livre para abrir uma issue no projeto que eu responderei o mais breve possível.
+
+## To-Do
+[ ] Utilizar docker para comunicação da aplicação nodejs e mysql
+[ ] Implementação de testes
