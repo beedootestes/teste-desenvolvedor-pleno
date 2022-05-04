@@ -2,15 +2,30 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+    await queryInterface.bulkInsert('perguntas', 
+    [
+      {
+        pergunta: 'Quem Descobriu a América',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        pergunta: 'Quem Veio Primeiro, a Galinha ou o Ovo',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        pergunta: 'Qual a Raiz Quadrada de 81',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        pergunta: 'Quem atirou o pau no gato?',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+    ], {});
+
   },
 
   async down (queryInterface, Sequelize) {
